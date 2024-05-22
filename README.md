@@ -1,6 +1,6 @@
 # Ensembl Python general-purpose utils
 
-[![GitHub license](https://img.shields.io/github/license/Ensembl/ensembl-utils)](https://github.com/Ensembl/ensembl-utils/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/Ensembl/ensembl-utils/blob/main/LICENSE)
 
 Centralise generic Python utils used by other project within Ensembl design to facilitate frequent tasks such as input file path checks, archive files IO manipulation or logging setup, among others.
 
