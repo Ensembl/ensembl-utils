@@ -116,3 +116,35 @@ explicit_package_bases = true
 ignore_missing_imports = true
 show_error_codes = true
 warn_unused_configs = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+    "--tb=native",
+]
+testpaths = ["tests"]
+norecursedirs = ["docs", "*.egg_info"]
+
+[tool.coverage.run]
+branch = true
+source = [
+    "ensembl.utils",
+]
+
+[tool.coverage.report]
+exclude_also = [
+    # Do not complain about missing debug-only code
+    "def __repr__",
+    "if self\\.debug",
+    "if settings\\.DEBUG",
+    # Do not complain if tests do not hit defensive assertion code
+    "raise AssertionError",
+    "raise NotImplementedError",
+    # Do not complain if non-runnable code is not run
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "def main",
+    "def .*_cli",
+    # Do not complain about abstract methods, they are not run
+    "@(abc\\.)?abstractmethod",
+]
