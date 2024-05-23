@@ -39,7 +39,7 @@ def _unpack_gz_files(src_file: StrPath, dst_dir: StrPath) -> None:
 
     """
     # Remove '.gz' extension to create the destination file name
-    dst_file = Path(dst_dir) / str(src_file)[:-3]
+    dst_file = Path(dst_dir) / Path(src_file).stem
     with gzip.open(src_file, "rb") as f_in:
         with dst_file.open("wb") as f_out:
             shutil.copyfileobj(f_in, f_out)
