@@ -15,7 +15,6 @@
 """Unit testing of `ensembl.utils.rloader` module."""
 
 import configparser
-from contextlib import nullcontext as does_not_raise
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, ContextManager
@@ -30,11 +29,12 @@ from ensembl.utils.rloader import RemoteFileLoader
 
 @dataclass
 class MockResponse:
+    """Mocks `Response` object returned by `requests.get()` function."""
     text: str
     status_code: int = 200
 
 
-def mock_requests_get(file_path: Path, *args, **kwargs) -> str:
+def mock_requests_get(file_path: Path, *args, **kwargs) -> MockResponse:
     """TODO"""
     with file_path.open("r") as in_file:
         content = in_file.read()
@@ -45,7 +45,7 @@ class TestRemoteFileLoader:
     """Tests `RemoteFileLoader` class."""
 
     @pytest.mark.parametrize(
-        "format, output",
+        "file_format, output",
         [
             param("yaml", {"lang": "python", "os": ["linux", "windows"]}, id="YAML file"),
             param("json", {"lang": "python", "os": ["linux", "windows"]}, id="JSON file"),
@@ -54,19 +54,19 @@ class TestRemoteFileLoader:
         ],
     )
     @patch("requests.get")
-    def test_r_open(self, mock_get: Mock, data_dir: Path, format: str, output: Any) -> None:
+    def test_r_open(self, mock_get: Mock, data_dir: Path, file_format: str, output: Any) -> None:
         """Tests `RemoteFileLoader.r_open()` method for different file formats.
 
         Args:
             mock_get: TODO
             data_dir: TODO
-            format: TODO
+            file_format: TODO
             output: TODO
 
         """
         mock_get.side_effect = mock_requests_get
-        loader = RemoteFileLoader(format)
-        content = loader.r_open(data_dir / f"sample.{format}")
+        loader = RemoteFileLoader(file_format)
+        content = loader.r_open(data_dir / f"sample.{file_format}")
         assert content == output
 
     @patch("requests.get")
