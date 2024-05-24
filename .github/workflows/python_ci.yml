@@ -91,5 +91,6 @@ jobs:
       - name: Add coverage reports
         uses: xportation/junit-coverage-report@main
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           junit-path: ./reports/unit/test-results-${{ matrix.python-version }}.xml
           coverage-path: ./reports/coverage/coverage.xml
