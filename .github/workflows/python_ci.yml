@@ -52,24 +52,24 @@ jobs:
           pip install -e .[cicd]
 
       - name: Run pylint
-        if: ${{ steps.build.conclusion == 'success' }}
+        if: steps.build.outcome == 'success'
         run: |
           pylint --rcfile pyproject.toml src/ensembl
           pylint --rcfile pyproject.toml tests
 
       - name: Run mypy
-        if: ${{ steps.build.conclusion == 'success' }}
+        if: steps.build.outcome == 'success'
         run: |
           mypy --config-file pyproject.toml src/ensembl
           mypy --config-file pyproject.toml tests
 
       - name: Run black
-        if: ${{ steps.build.conclusion == 'success' }}
+        if: steps.build.outcome == 'success'
         run: |
           black --config pyproject.toml --check .
 
       - name: Run pytest with coverage
-        if: ${{ steps.build.conclusion == 'success' }}
+        if: steps.build.outcome == 'success'
         run: |
           coverage run -m pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml
           coverage xml -o coverage.xml
