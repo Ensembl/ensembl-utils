@@ -30,6 +30,7 @@ from ensembl.utils.rloader import RemoteFileLoader
 @dataclass
 class MockResponse:
     """Mocks `Response` object returned by `requests.get()` function."""
+
     text: str
     status_code: int = 200
 

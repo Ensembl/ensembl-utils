@@ -23,9 +23,7 @@ on:
     branches:
       - main
 
-permissions:
-  checks: write
-  contents: write
+permissions: write-all
 
 defaults:
   run:
