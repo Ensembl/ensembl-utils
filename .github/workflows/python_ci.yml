@@ -32,42 +32,52 @@ defaults:
     working-directory: ./
 
 jobs:
-  build_review_and_test:
+  pylint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.9"]
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        id: build
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e .[cicd]
-
+      - uses: ./.github/actions/python-build
       - name: Run pylint
-        continue-on-error: true
         run: |
           pylint --rcfile pyproject.toml src/ensembl
           pylint --rcfile pyproject.toml tests
 
+  mypy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+
+    steps:
+      - uses: ./.github/actions/python-build
       - name: Run mypy
-        continue-on-error: true
         run: |
           mypy --config-file pyproject.toml src/ensembl
           mypy --config-file pyproject.toml tests
 
+  black:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+
+    steps:
+      - uses: ./.github/actions/python-build
       - name: Run black
-        continue-on-error: true
         run: |
           black --config pyproject.toml --check .
+
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+
+    steps:
+      - uses: ./.github/actions/python-build
 
       - name: Run pytest with coverage
         run: |
