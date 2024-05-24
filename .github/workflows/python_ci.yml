@@ -34,7 +34,6 @@ jobs:
   build_review_and_test:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         python-version: ["3.9"]
 
@@ -47,28 +46,30 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
+        id: build
         run: |
           python -m pip install --upgrade pip
           pip install -e .[cicd]
 
-      - name: pylint
-        continue-on-error: true
+      - name: Run pylint
+        if: ${{ steps.build.conclusion == 'success' }}
         run: |
           pylint --rcfile pyproject.toml src/ensembl
           pylint --rcfile pyproject.toml tests
 
-      - name: mypy
-        continue-on-error: true
+      - name: Run mypy
+        if: ${{ steps.build.conclusion == 'success' }}
         run: |
-          mypy --config-file pyproject.toml mevolib
+          mypy --config-file pyproject.toml src/ensembl
           mypy --config-file pyproject.toml tests
 
-      - name: black
-        continue-on-error: true
+      - name: Run black
+        if: ${{ steps.build.conclusion == 'success' }}
         run: |
           black --config pyproject.toml --check .
 
-      - name: Unit tests with coverage
+      - name: Run pytest with coverage
+        if: ${{ steps.build.conclusion == 'success' }}
         run: |
           coverage run -m pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml
           coverage xml -o coverage.xml
