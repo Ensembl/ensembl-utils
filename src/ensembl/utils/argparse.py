@@ -69,7 +69,7 @@ class ArgumentParser(argparse.ArgumentParser):
             self.error(f"'{src_path}' not readable")
         return src_path
 
-    def _validate_dst_path(self, dst_path: StrPath, exists_ok: bool) -> Path:
+    def _validate_dst_path(self, dst_path: StrPath, exists_ok: bool = False) -> Path:
         """Returns the path if it is writable, raises an error through the parser otherwise.
 
         Args:
@@ -85,9 +85,12 @@ class ArgumentParser(argparse.ArgumentParser):
                 self.error(f"'{dst_path}' already exists")
             else:
                 self.error(f"'{dst_path}' is not writable")
+        # Check if the first parent directory that exists is writable
         for parent_path in dst_path.parents:
-            if parent_path.exists() and not os.access(parent_path, os.W_OK):
-                self.error(f"'{dst_path}' is not writable")
+            if parent_path.exists():
+                if not os.access(parent_path, os.W_OK):
+                    self.error(f"'{dst_path}' is not writable")
+                break
         return dst_path
 
     def add_argument(self, *args, **kwargs) -> None:  # type: ignore[override]
