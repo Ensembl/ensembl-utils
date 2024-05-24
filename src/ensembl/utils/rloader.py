@@ -24,7 +24,7 @@ from typing import Optional, Any
 
 import dotenv
 import requests
-import requests.exceptions as exc
+import requests.exceptions
 import yaml
 
 
@@ -35,16 +35,16 @@ class RemoteFileLoader:
     """Loads remote files, allowing specific format parsing options.
 
     Args:
-        parser: Parser to use for this object. Default, `None` (no format-specific parsing done).
+        parser: Parser to use for this object. Default: `None` (no format-specific parsing done).
 
     Attributes:
-        available_formats (Set[str]): File formats with ad-hoc parsers available.
-        parser (str): Parser selected for this object.
+        available_formats: File formats with ad-hoc parsers available.
+        parser: Parser selected for this object.
 
     """
 
-    available_formats = {"yaml", "ini", "env", "json"}
-    parser = None
+    available_formats: set[str] = {"yaml", "ini", "env", "json"}
+    parser: Optional[str] = None
 
     def __init__(self, parser: Optional[str] = None) -> None:
         if parser in self.available_formats:
@@ -65,7 +65,7 @@ class RemoteFileLoader:
             return dotenv.dotenv_values(stream=StringIO(content))
         if self.parser == "json":
             return json.loads(content)
-        # only return content, no parsing
+        # Only return content, no parsing
         return content
 
     def r_open(self, url: str) -> Any:
@@ -75,18 +75,18 @@ class RemoteFileLoader:
             url: URL of the remote file to fetch.
 
         Raises:
-            requests.exception.HTTPError: if loading or requesting the given URL returned an error.
-            requests.exception.Timeout: if a timeout was raised whilst requesting the given URL.
+            requests.exception.HTTPError: If loading or requesting the given URL returned an error.
+            requests.exception.Timeout: If a timeout was raised whilst requesting the given URL.
 
         """
         try:
             r = requests.get(url, timeout=120)
             if r.status_code == 200:
                 return self.__parse(r.text)
-            raise exc.HTTPError(response=r)
-        except exc.HTTPError as ex:
+            raise requests.exceptions.HTTPError(response=r)
+        except requests.exceptions.HTTPError as ex:
             logger.exception(f"Error with request to {url}: {ex}")
             raise ex
-        except exc.Timeout as ex:
+        except requests.exceptions.Timeout as ex:
             logger.exception(f"Request timed out {url}: {ex}")
             raise ex

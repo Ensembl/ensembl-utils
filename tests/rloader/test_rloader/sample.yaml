@@ -1,0 +1,4 @@
+lang: python
+os:
+  - linux
+  - windows
