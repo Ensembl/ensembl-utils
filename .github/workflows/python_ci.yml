@@ -24,6 +24,7 @@ on:
       - main
 
 permissions:
+  checks: write
   contents: write
 
 defaults:
@@ -70,19 +71,13 @@ jobs:
 
       - name: Run pytest with coverage
         run: |
-          coverage run -m pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml
-          coverage xml -o coverage.xml
-          genbadge coverage -i coverage.xml -o coverage/coverage-badge.svg
-          coverage report
+          coverage run -m pytest --junitxml=./reports/test-results-${{ matrix.python-version }}.xml
+          coverage xml -o ./reports/coverage/coverage.xml
+          genbadge coverage -i ./reports/coverage/coverage.xml -o ./reports/coverage/coverage-badge.svg
+          coverage report -m
 
-      - name: Upload unit tests results
-        uses: actions/upload-artifact@v3
+      - name: Add covreage reports
+        uses: xportation/junit-coverage-report@main
         with:
-          name: pytest-results-${{ matrix.python-version }}
-          path: junit/test-results-${{ matrix.python-version }}.xml
-
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
-        with:
-          name: code-coverage-report
-          path: coverage.xml
+          junit-path: ./reports/unit/test-results-${{ matrix.python-version }}.xml
+          coverage-path: ./reports/coverage/coverage.xml
