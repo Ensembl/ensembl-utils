@@ -14,6 +14,7 @@
 # limitations under the License.
 
 name: python-build
+description: "Common steps to build the Python environment"
 
 runs:
   using: "composite"
@@ -22,6 +23,7 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
+      shell: bash
 
     - name: Install dependencies
       run: |
