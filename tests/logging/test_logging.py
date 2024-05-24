@@ -31,7 +31,7 @@ from ensembl.utils.logging import LogLevel, init_logging, init_logging_with_args
         param(logging.ERROR, "app.log", id="Add log file"),
     ],
 )
-def test_init_logging(tmp_path: Path, log_level: int, log_file: str) -> None:
+def test_init_logging(tmp_path: Path, log_level: LogLevel, log_file: str) -> None:
     """Tests `init_logging()` function.
 
     Args:

@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Unit testing of `ensembl.utils.argparse` module."""
-# pylint: disable=no-self-use
 
 from contextlib import nullcontext as does_not_raise
 from pathlib import Path
