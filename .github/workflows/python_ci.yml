@@ -39,7 +39,7 @@ jobs:
         python-version: ["3.9"]
 
     steps:
-      - uses: ./.github/actions/python-build
+      - uses: ./.github/actions/python_build
       - name: Run pylint
         run: |
           pylint --rcfile pyproject.toml src/ensembl
@@ -52,7 +52,7 @@ jobs:
         python-version: ["3.9"]
 
     steps:
-      - uses: ./.github/actions/python-build
+      - uses: ./.github/actions/python_build
       - name: Run mypy
         run: |
           mypy --config-file pyproject.toml src/ensembl
@@ -65,7 +65,7 @@ jobs:
         python-version: ["3.9"]
 
     steps:
-      - uses: ./.github/actions/python-build
+      - uses: ./.github/actions/python_build
       - name: Run black
         run: |
           black --config pyproject.toml --check .
@@ -77,7 +77,7 @@ jobs:
         python-version: ["3.9"]
 
     steps:
-      - uses: ./.github/actions/python-build
+      - uses: ./.github/actions/python_build
 
       - name: Run pytest with coverage
         run: |
