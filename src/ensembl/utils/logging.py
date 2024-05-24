@@ -56,7 +56,7 @@ def init_logging(
 
     Args:
         log_level: Minimum logging level for the standard error.
-        log_file: Logging file where to write debug (and above) logging messages.
+        log_file: Logging file where to write logging messages besides the standard error.
         log_file_level: Minimum logging level for the logging file.
         msg_format: A format string for the logged output as a whole. More information:
             https://docs.python.org/3/library/logging.html#logrecord-attributes
