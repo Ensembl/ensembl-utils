@@ -39,6 +39,7 @@ jobs:
         python-version: ["3.9"]
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
       - name: Run pylint
         run: |
@@ -52,6 +53,7 @@ jobs:
         python-version: ["3.9"]
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
       - name: Run mypy
         run: |
@@ -65,6 +67,7 @@ jobs:
         python-version: ["3.9"]
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
       - name: Run black
         run: |
@@ -77,15 +80,14 @@ jobs:
         python-version: ["3.9"]
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
-
       - name: Run pytest with coverage
         run: |
           coverage run -m pytest --junitxml=./reports/test-results-${{ matrix.python-version }}.xml
           coverage xml -o ./reports/coverage/coverage.xml
           genbadge coverage -i ./reports/coverage/coverage.xml -o ./reports/coverage/coverage-badge.svg
           coverage report -m
-
       - name: Add covreage reports
         uses: xportation/junit-coverage-report@main
         with:
