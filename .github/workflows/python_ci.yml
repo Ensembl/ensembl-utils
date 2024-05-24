@@ -88,7 +88,7 @@ jobs:
           coverage xml -o ./reports/coverage/coverage.xml
           genbadge coverage -i ./reports/coverage/coverage.xml -o ./reports/coverage/coverage-badge.svg
           coverage report -m
-      - name: Add covreage reports
+      - name: Add coverage reports
         uses: xportation/junit-coverage-report@main
         with:
           junit-path: ./reports/unit/test-results-${{ matrix.python-version }}.xml
