@@ -44,6 +44,52 @@ def _args_dict_to_cmd_list(args_dict: dict[str, Any]) -> list[str]:
 class TestArgumentParser:
     """Tests `ArgumentParser` class."""
 
+    def test_validate_unreadable_src_path(self, tmp_path: Path) -> None:
+        """Tests `ArgumentParser._validate_src_path()` method for an unreadable file.
+
+        Args:
+            tmp_path: Fixture that provides a temporary directory path unique to the test invocation.
+
+        """
+        # Create file and make it unreadable
+        src_path = tmp_path / "forbidden.txt"
+        with src_path.open("w") as in_file:
+            in_file.write("you shall not read this")
+        src_path.chmod(0o222)
+        # Attempt to validate source path
+        parser = ArgumentParser()
+        with raises(SystemExit):
+            parser._validate_src_path(src_path)  # pylint: disable=protected-access
+
+    @pytest.mark.parametrize(
+        "is_dir",
+        [
+            param(True, id="Destination path is a file"),
+            param(False, id="Destination path is a directory"),
+        ],
+    )
+    def test_validate_unwritable_dst_path(self, tmp_path: Path, is_dir: bool) -> None:
+        """Tests `ArgumentParser._validate_dst_path()` method for an unwritable path.
+
+        Args:
+            tmp_path: Fixture that provides a temporary directory path unique to the test invocation.
+            is_dir: Make the unwritable destination path a directory (`True`) or file (`False`).
+
+        """
+        # Create a file or directory and make it unreadable
+        if is_dir:
+            dst_path = tmp_path / "read-only" / "read-only.txt"
+            dst_path.parent.mkdir(mode=0o555)
+        else:
+            dst_path = tmp_path / "read-only.txt"
+            with dst_path.open("w") as in_file:
+                in_file.write("you shall not edit this")
+            dst_path.chmod(0o444)
+        # Attempt to validate source path
+        parser = ArgumentParser()
+        with raises(SystemExit):
+            parser._validate_dst_path(dst_path)  # pylint: disable=protected-access
+
     @pytest.mark.dependency(name="add_argument")
     @pytest.mark.parametrize(
         "required",
@@ -67,23 +113,6 @@ class TestArgumentParser:
             pattern = re.compile(r" +--foo FOO +text \(default: None\)")
         assert pattern.search(parser.format_help()) is not None
 
-    def test_validate_unreadable_src_path(self, tmp_path: Path) -> None:
-        """Tests `ArgumentParser._validate_src_path()` method for an unreadable file.
-
-        Args:
-            tmp_path: Fixture that provides a temporary directory path unique to the test invocation.
-
-        """
-        # Create file and make it unreadable
-        src_path = tmp_path / "forbidden.txt"
-        with src_path.open("w") as in_file:
-            in_file.write("you shall not read this")
-        src_path.chmod(0o222)
-        # Attempt to validate source path
-        parser = ArgumentParser()
-        with raises(SystemExit):
-            parser._validate_src_path(src_path)  # pylint: disable=protected-access
-
     @pytest.mark.dependency(depends=["add_argument"])
     @pytest.mark.parametrize(
         "src_path, expectation",
@@ -91,7 +120,6 @@ class TestArgumentParser:
             param("", does_not_raise(), id="Optional input file"),
             param("sample.txt", does_not_raise(), id="Input file exists"),
             param("invalid.txt", raises(SystemExit), id="Input file does not exist"),
-            # param("forbidden.txt", raises(SystemExit), id="Input file is not readable"),
         ],
     )
     def test_add_argument_src_path(self, data_dir: Path, src_path: str, expectation: ContextManager) -> None:
@@ -120,8 +148,6 @@ class TestArgumentParser:
             param("", False, raises(SystemExit), id="Dir exists and writable, exists_ok = False"),
             param("output", True, does_not_raise(), id="Dir does not exist but parent is writable"),
             param("dir1/dir2", True, does_not_raise(), id="Dir does not exist but grandparent is writable"),
-            param("dst_dir", True, raises(SystemExit), id="Dir exists but not writable"),
-            param("dst_dir/new.txt", True, raises(SystemExit), id="Parent dir exists but not writable"),
         ],
     )
     def test_add_argument_dst_path(
