@@ -36,7 +36,7 @@ class MockResponse:
 
 
 def mock_requests_get(file_path: Path, *args, **kwargs) -> MockResponse:  # pylint: disable=unused-argument
-    """TODO"""
+    """Mocks `requests.get()` function, bypassing the required internet connection."""
     with file_path.open("r") as in_file:
         content = in_file.read()
     return MockResponse(text=content)
@@ -59,10 +59,10 @@ class TestRemoteFileLoader:
         """Tests `RemoteFileLoader.r_open()` method for different file formats.
 
         Args:
-            mock_get: TODO
-            data_dir: TODO
-            file_format: TODO
-            output: TODO
+            mock_get: Fixture to mock the `requests.get()` function.
+            data_dir: Fixture that provides the path to the test data folder matching the test's name.
+            file_format: File format to select an ad-hoc parser.
+            output: Expected returned output.
 
         """
         mock_get.side_effect = mock_requests_get
@@ -75,8 +75,8 @@ class TestRemoteFileLoader:
         """Tests `RemoteFileLoader.r_open()` method for INI files.
 
         Args:
-            mock_get: TODO
-            data_dir: TODO
+            mock_get: Fixture to mock the `requests.get()` function.
+            data_dir: Fixture that provides the path to the test data folder matching the test's name.
 
         """
         mock_get.side_effect = mock_requests_get
@@ -91,7 +91,7 @@ class TestRemoteFileLoader:
         """Tests `RemoteFileLoader.r_open()` method when the status code returned is not 200.
 
         Args:
-            mock_get: TODO
+            mock_get: Fixture to mock the `requests.get()` function.
 
         """
         mock_get.return_value = MockResponse(text="", status_code=404)
@@ -111,7 +111,7 @@ class TestRemoteFileLoader:
         """Tests `RemoteFileLoader.r_open()` method when an exception is raised by the URL request.
 
         Args:
-            mock_get: TODO
+            mock_get: Fixture to mock the `requests.get()` function.
             exception: Exception raised.
 
         """
