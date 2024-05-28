@@ -17,7 +17,7 @@
 import configparser
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, ContextManager
+from typing import Any
 from unittest.mock import Mock, patch
 
 import pytest
@@ -107,12 +107,12 @@ class TestRemoteFileLoader:
         ],
     )
     @patch("requests.get")
-    def test_r_open_exceptions(self, mock_get: Mock, exception: ContextManager) -> None:
+    def test_r_open_exceptions(self, mock_get: Mock, exception: Any) -> None:
         """Tests `RemoteFileLoader.r_open()` method when an exception is raised by the URL request.
 
         Args:
             mock_get: Fixture to mock the `requests.get()` function.
-            exception: Exception raised.
+            exception: Expected exception raised.
 
         """
         mock_get.side_effect = exception
