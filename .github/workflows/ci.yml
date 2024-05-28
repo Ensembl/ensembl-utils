@@ -74,6 +74,7 @@ jobs:
           coverage run -m pytest --junitxml=./reports/test-results-${{ env.PYTHON_VERSION }}.xml
           coverage html -d ./reports/htmlcov
           coverage xml -o ./reports/coverage.xml
+          genbadge coverage -i ./reports/coverage.xml -o ./reports/htmlcov/coverage-badge.svg
           coverage report -m
 
       - name: Add coverage reports
@@ -82,17 +83,6 @@ jobs:
         with:
           pytest-xml-coverage-path: ./reports/coverage.xml
           junitxml-path: ./reports/test-results-${{ env.PYTHON_VERSION }}.xml
-
-      - name: Create coverage badge
-        if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.GIST_SECRET }}
-          gistID: 019787fcdec96f05d6c53367bbf2b949
-          filename: ensembl-utils_badge.json
-          label: Coverage
-          message: ${{ steps.coverage_report.outputs.coverage }}
-          color: ${{ steps.coverage_report.outputs.color }}
 
       - name: Deploy documentation to GitHub Pages
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
