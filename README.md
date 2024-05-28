@@ -1,6 +1,6 @@
 # Ensembl Python general-purpose utils
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/Ensembl/ensembl-utils/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/Ensembl/ensembl-utils/blob/main/LICENSE)
 [![Coverage](https://ensembl.github.io/ensembl-utils/coverage/coverage-badge.svg)](https://ensembl.github.io/ensembl-utils/coverage)
 [![CI](https://github.com/Ensembl/ensembl-utils/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Ensembl/ensembl-utils/actions/workflows/ci.yml)
 
