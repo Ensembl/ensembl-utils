@@ -20,6 +20,7 @@ on:
     branches:
       - main
     paths:
+      - '.github/actions/**'
       - '.github/workflows/docs.yml'
       - 'docs/**'
       - 'src/ensembl/**'
