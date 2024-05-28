@@ -16,9 +16,7 @@ name: Docs
 run-name: ${{ github.actor }} triggered mkdocs generation
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - main
     paths:
@@ -32,7 +30,6 @@ permissions:
     
 jobs:
   mkdocs:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -48,7 +45,6 @@ jobs:
           
       - name: Deploy documentation to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
-        if: ${{ github.event_name == 'pull_request' && github.ref == 'refs/heads/main' }}
         with:
           publish_branch: mkdocs
           github_token: ${{ secrets.GITHUB_TOKEN }}
