@@ -17,8 +17,6 @@ name: "CI"
 
 on:
   push:
-    branches:
-      - main
     paths:
       - '.github/actions/**'
       - '.github/workflows/ci.yml'
@@ -27,8 +25,6 @@ on:
       - 'pyproject.toml'
 
   pull_request:
-    branches:
-      - main
     paths:
       - '.github/actions/**'
       - '.github/workflows/ci.yml'
@@ -90,7 +86,7 @@ jobs:
 
       - name: Run pytest with coverage
         run: |
-          coverage run -m pytest --junitxml=./reports/test-results-${{ PYTHON_VERSION }}.xml
+          coverage run -m pytest --junitxml=./reports/test-results-${{ env.PYTHON_VERSION }}.xml
           coverage xml -o ./reports/coverage.xml
           coverage report -m
 
@@ -99,9 +95,10 @@ jobs:
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-xml-coverage-path: ./reports/coverage.xml
-          junitxml-path: ./reports/test-results-${{ PYTHON_VERSION }}.xml
+          junitxml-path: ./reports/test-results-${{ env.PYTHON_VERSION }}.xml
 
       - name: Create coverage badge
+        if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
@@ -110,4 +107,3 @@ jobs:
           label: Coverage
           message: ${{ steps.coverage_report.outputs.coverage }}
           color: ${{ steps.coverage_report.outputs.color }}
-        if: ${{ github.event_name == 'push' }}

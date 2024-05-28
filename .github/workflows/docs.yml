@@ -13,7 +13,6 @@
 # limitations under the License.
 
 name: Docs
-run-name: ${{ github.actor }} triggered mkdocs generation
 
 on:
   push:
