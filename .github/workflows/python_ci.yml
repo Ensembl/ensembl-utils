@@ -23,9 +23,7 @@ on:
     branches:
       - main
 
-permissions:
-  checks: write
-  contents: write
+permissions: write-all
 
 defaults:
   run:
@@ -41,6 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
+
       - name: Run pylint
         run: |
           pylint --rcfile pyproject.toml src/ensembl
@@ -55,6 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
+
       - name: Run mypy
         run: |
           mypy --config-file pyproject.toml src/ensembl
@@ -69,6 +69,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
+
       - name: Run black
         run: |
           black --config pyproject.toml --check .
@@ -82,14 +83,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
+
       - name: Run pytest with coverage
         run: |
           coverage run -m pytest --junitxml=./reports/test-results-${{ matrix.python-version }}.xml
-          coverage xml -o ./reports/coverage/coverage.xml
-          genbadge coverage -i ./reports/coverage/coverage.xml -o ./reports/coverage/coverage-badge.svg
+          coverage xml -o ./reports/coverage.xml
           coverage report -m
-      - name: Add covreage reports
-        uses: xportation/junit-coverage-report@main
+
+      - name: Add coverage reports
+        id: coverage_report
+        uses: MishaKav/pytest-coverage-comment@main
         with:
-          junit-path: ./reports/unit/test-results-${{ matrix.python-version }}.xml
-          coverage-path: ./reports/coverage/coverage.xml
+          pytest-xml-coverage-path: ./reports/coverage.xml
+          junitxml-path: ./reports/test-results-${{ matrix.python-version }}.xml
+
+      - name: Create coverage badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 0c3fa1e9db6f5dcbe69b6b4a3f4a0501
+          filename: ensembl-utils_badge.json
+          label: Coverage
+          message: ${{ steps.coverage_report.outputs.coverage }}
+          color: ${{ steps.coverage_report.outputs.color }}
+        if: ${{ github.event_name == 'push' }}

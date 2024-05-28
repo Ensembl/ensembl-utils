@@ -49,7 +49,6 @@ dependencies = [
 cicd = [
     "black",
     "coverage",
-    "genbadge[coverage]",
     "mypy",
     "pylint",
     "pytest",
