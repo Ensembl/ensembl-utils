@@ -34,7 +34,7 @@ def _unpack_gz_files(src_file: StrPath, dst_dir: StrPath) -> None:
     """Unpacks `src_file` to `dst_dir`.
 
     Args:
-        src_path: File path to unpack (with ".gz" extension).
+        src_file: File path to unpack (with ".gz" extension).
         dst_dir: Directory path to unpack the file into.
 
     """
