@@ -42,12 +42,12 @@ defaults:
   run:
     working-directory: ./
 
+env:
+  PYTHON_VERSION: "3.9"
+
 jobs:
   pylint:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.9"]
 
     steps:
       - uses: actions/checkout@v4
@@ -60,9 +60,6 @@ jobs:
 
   mypy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.9"]
 
     steps:
       - uses: actions/checkout@v4
@@ -75,9 +72,6 @@ jobs:
 
   black:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.9"]
 
     steps:
       - uses: actions/checkout@v4
@@ -89,9 +83,6 @@ jobs:
 
   pytest:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.9"]
 
     steps:
       - uses: actions/checkout@v4
@@ -99,7 +90,7 @@ jobs:
 
       - name: Run pytest with coverage
         run: |
-          coverage run -m pytest --junitxml=./reports/test-results-${{ matrix.python-version }}.xml
+          coverage run -m pytest --junitxml=./reports/test-results-${{ PYTHON_VERSION }}.xml
           coverage xml -o ./reports/coverage.xml
           coverage report -m
 
@@ -108,7 +99,7 @@ jobs:
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-xml-coverage-path: ./reports/coverage.xml
-          junitxml-path: ./reports/test-results-${{ matrix.python-version }}.xml
+          junitxml-path: ./reports/test-results-${{ PYTHON_VERSION }}.xml
 
       - name: Create coverage badge
         uses: schneegans/dynamic-badges-action@v1.6.0
