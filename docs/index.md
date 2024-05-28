@@ -1,7 +1,5 @@
 # [Ensembl Python general-purpose utils](https://github.com/Ensembl/ensembl-utils)
 
-*Ensembl Python general-purpose utils Documentation*
-
 Centralise generic Python utils used by other project within Ensembl design to facilitate frequent tasks such as input file path checks, archive files IO manipulation or logging setup, among others.
 
 ## Contents

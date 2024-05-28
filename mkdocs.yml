@@ -26,10 +26,16 @@ theme:
   palette:
     scheme: ensembl
   features:
+      - content.tooltips
       - navigation.expand
+      - navigation.indexes
+      - navigation.sections
       - navigation.tabs
       - navigation.tabs.sticky
       - navigation.top
+      - search.highlight
+      - search.suggest
+      - toc.follow
 extra_css:
   - stylesheets/extra.css
 
@@ -62,6 +68,10 @@ plugins:
     html_report_dir: reports/htmlcov
 
 nav:
-  - Home: index.md
-  - Install: install.md
-  - Code Reference: reference/
+  - Home:
+    - Overview: index.md
+    - Install: install.md
+  - Development:
+    - Code of Conduct: code_of_conduct.md
+    - Coverage report: coverage.md
+  - Code reference: reference/
