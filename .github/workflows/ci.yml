@@ -62,7 +62,7 @@ jobs:
         run: |
           black --config pyproject.toml --check .
 
-  pytest:
+  pytest_and_docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -72,7 +72,7 @@ jobs:
       - name: Run pytest with coverage
         run: |
           coverage run -m pytest --junitxml=./reports/test-results-${{ env.PYTHON_VERSION }}.xml
-          coverage html -d ./htmlcov
+          coverage html -d ./reports/htmlcov
           coverage xml -o ./reports/coverage.xml
           coverage report -m
 
@@ -98,6 +98,7 @@ jobs:
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
         run: |
           mkdocs build
+          tree ./site
 
       - name: Deploy documentation to GitHub Pages
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
