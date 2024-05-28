@@ -87,6 +87,7 @@ jobs:
       - name: Run pytest with coverage
         run: |
           coverage run -m pytest --junitxml=./reports/test-results-${{ env.PYTHON_VERSION }}.xml
+          coverage html -d ./reports/htmlcov
           coverage xml -o ./reports/coverage.xml
           coverage report -m
 
@@ -107,3 +108,13 @@ jobs:
           label: Coverage
           message: ${{ steps.coverage_report.outputs.coverage }}
           color: ${{ steps.coverage_report.outputs.color }}
+
+      - name: Deploy coverage report to GitHub pages
+        if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_branch: mkdocs
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports/htmlcov
+          destination_dir: ./site/coverage
+          force_orphan: true
