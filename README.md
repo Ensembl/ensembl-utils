@@ -12,7 +12,7 @@ For more information, please consult this repository's [GitHub pages](https://en
 
 ### Basic installation
 
-This library is publicly available in [pypi.org](https://pypi.org) so it can be easily installed with your favourite Python dependency and packaging management, e.g.
+This library is publicly available in [PyPI](https://pypi.org/project/ensembl-utils/) so it can be easily installed with your favourite Python dependency and packaging management, e.g.
 ```bash
 pip install ensembl-utils
 ```
