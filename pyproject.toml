@@ -80,9 +80,9 @@ docs = [
 ]
 
 [project.urls]
-homepage = "https://www.ensembl.org"
-documentation = "https://ensembl.github.io/ensembl-utils/"
-repository = "https://github.com/Ensembl/ensembl-utils"
+Homepage = "https://www.ensembl.org"
+Documentation = "https://ensembl.github.io/ensembl-utils/"
+Repository = "https://github.com/Ensembl/ensembl-utils"
 
 [project.scripts]
 extract_file = "ensembl.utils.archive:extract_file_cli"
