@@ -81,6 +81,7 @@ docs = [
 
 [project.urls]
 homepage = "https://www.ensembl.org"
+documentation = "https://ensembl.github.io/ensembl-utils/"
 repository = "https://github.com/Ensembl/ensembl-utils"
 
 [project.scripts]
