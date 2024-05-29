@@ -4,7 +4,7 @@ This Python library only requires Python 3.9+ to work.
 
 ## Basic installation
 
-This library is publicly available in [pypi.org](https://pypi.org) so it can be easily installed with your favourite Python dependency and packaging management, e.g.
+This library is publicly available in [PyPI](https://pypi.org/project/ensembl-utils/) so it can be easily installed with your favourite Python dependency and packaging management tool, e.g.
 ```bash
 pip install ensembl-utils
 ```
