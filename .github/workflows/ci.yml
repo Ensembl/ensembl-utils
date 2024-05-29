@@ -72,13 +72,11 @@ jobs:
       - name: Run pytest with coverage
         run: |
           coverage run -m pytest --junitxml=./reports/test-results-${{ env.PYTHON_VERSION }}.xml
-          coverage html -d ./reports/htmlcov
           coverage xml -o ./reports/coverage.xml
-          genbadge coverage -i ./reports/coverage.xml -o ./reports/htmlcov/coverage-badge.svg
           coverage report -m
 
       - name: Add coverage reports
-        id: coverage_report
+        if: ${{ github.event_name == 'pull_request' }}
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-xml-coverage-path: ./reports/coverage.xml
@@ -87,4 +85,6 @@ jobs:
       - name: Deploy documentation to GitHub Pages
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
         run: |
+          coverage html -d ./reports/htmlcov
+          genbadge coverage -i ./reports/coverage.xml -o ./reports/htmlcov/coverage-badge.svg
           mkdocs gh-deploy --force
