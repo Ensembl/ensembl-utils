@@ -17,7 +17,7 @@ python -m venv <VIRTUAL_ENVIRONMENT_NAME>
 source <VIRTUAL_ENVIRONMENT_NAME>/bin/activate
 git clone https://github.com/Ensembl/ensembl-utils.git
 cd ensembl-utils
-pip install -e .[cicd,doc]
+pip install -e .[cicd,docs]
 ```
 
-Note that the documentation (`doc` tag) is generated using _mkdocs_. For full information visit [mkdocs.org](https://www.mkdocs.org).
+Note that the documentation (`docs` tag) is generated using _mkdocs_. For full information visit [mkdocs.org](https://www.mkdocs.org).

@@ -25,5 +25,5 @@ python -m venv <VIRTUAL_ENVIRONMENT_NAME>
 source <VIRTUAL_ENVIRONMENT_NAME>/bin/activate
 git clone https://github.com/Ensembl/ensembl-utils.git
 cd ensembl-utils
-pip install -e .[cicd,dev,doc]
+pip install -e .[cicd,docs]
 ```
