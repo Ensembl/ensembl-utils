@@ -39,6 +39,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/python_build
+        with:
+            tags: "[build]"
 
       - name: Build package
         run: |

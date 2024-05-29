@@ -15,6 +15,11 @@
 
 name: python-build
 description: "Common steps to build the Python environment"
+inputs:
+  tags:
+    description: "Optional dependencies (via available tags) to install, e.g. [cicd]"
+    required: true
+    default: ""
 
 runs:
   using: "composite"
@@ -27,5 +32,5 @@ runs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -e .[cicd,docs]
+        pip install -e .${{ inputs.tags }}
       shell: bash
