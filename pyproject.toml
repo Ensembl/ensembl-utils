@@ -17,7 +17,9 @@
 name = "ensembl-utils"
 description = "Ensembl Python general-purpose utils"
 requires-python = ">= 3.9"
-version = "1.0"
+dynamic = [
+    "version",
+]
 readme = "README.md"
 authors = [
     {name = "Ensembl", email = "dev@ensembl.org"},
@@ -46,6 +48,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+build = [
+    "build",
+    "setuptools",
+    "setuptools-scm",
+    "wheel",
+]
 cicd = [
     "black",
     "coverage",
@@ -92,7 +100,7 @@ build-backend = "setuptools.build_meta"
 requires = [
     "setuptools",
     "setuptools-scm",
-    "wheel"
+    "wheel",
 ]
 
 [tool.black]
