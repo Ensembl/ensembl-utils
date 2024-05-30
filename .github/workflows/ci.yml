@@ -22,8 +22,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions: write-all
-
 defaults:
   run:
     working-directory: ./
@@ -49,6 +47,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
           tags: "[cicd]"
@@ -63,6 +62,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
           tags: "[cicd]"
@@ -77,6 +77,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
           tags: "[cicd]"
@@ -88,9 +89,14 @@ jobs:
   pytest_and_mkdocs:
     name: Run pytest with coverage and mkdocs
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      checks: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
           tags: "[cicd,docs]"
