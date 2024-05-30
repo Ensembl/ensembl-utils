@@ -86,8 +86,8 @@ jobs:
         run: |
           black --config pyproject.toml --check .
 
-  pytest_and_mkdocs:
-    name: Run pytest with coverage and mkdocs
+  pytest:
+    name: Run pytest and generate coverage reports
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -99,7 +99,7 @@ jobs:
 
       - uses: ./.github/actions/python_build
         with:
-          tags: "[cicd,docs]"
+          tags: "[cicd]"
 
       - name: Run pytest with coverage
         run: |
@@ -113,10 +113,3 @@ jobs:
         with:
           pytest-xml-coverage-path: ./reports/coverage.xml
           junitxml-path: ./reports/test-results-${{ env.PYTHON_VERSION }}.xml
-
-      - name: Deploy documentation to GitHub Pages
-        if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-        run: |
-          coverage html -d ./reports/htmlcov
-          genbadge coverage -i ./reports/coverage.xml -o ./reports/htmlcov/coverage-badge.svg
-          mkdocs gh-deploy --force
