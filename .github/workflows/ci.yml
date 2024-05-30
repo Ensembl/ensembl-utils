@@ -32,6 +32,18 @@ env:
   PYTHON_VERSION: "3.9"
 
 jobs:
+  license_check:
+    name: Check missing license headers
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check license header
+        uses: apache/skywalking-eyes/header@v0.6.0
+        with:
+          config: .licenserc.yml
+
   pylint:
     runs-on: ubuntu-latest
 
@@ -73,7 +85,8 @@ jobs:
         run: |
           black --config pyproject.toml --check .
 
-  pytest_and_docs:
+  pytest_and_mkdocs:
+    name: Run pytest with coverage and mkdocs
     runs-on: ubuntu-latest
 
     steps:
