@@ -22,8 +22,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions: write-all
-
 defaults:
   run:
     working-directory: ./
@@ -32,11 +30,24 @@ env:
   PYTHON_VERSION: "3.9"
 
 jobs:
+  license_check:
+    name: Check missing license headers
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check license header
+        uses: apache/skywalking-eyes/header@v0.6.0
+        with:
+          config: .licenserc.yml
+
   pylint:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
           tags: "[cicd]"
@@ -51,6 +62,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
           tags: "[cicd]"
@@ -65,6 +77,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
           tags: "[cicd]"
@@ -73,14 +86,20 @@ jobs:
         run: |
           black --config pyproject.toml --check .
 
-  pytest_and_docs:
+  pytest:
+    name: Run pytest and generate coverage reports
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      checks: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/python_build
         with:
-          tags: "[cicd,docs]"
+          tags: "[cicd]"
 
       - name: Run pytest with coverage
         run: |
@@ -94,10 +113,3 @@ jobs:
         with:
           pytest-xml-coverage-path: ./reports/coverage.xml
           junitxml-path: ./reports/test-results-${{ env.PYTHON_VERSION }}.xml
-
-      - name: Deploy documentation to GitHub Pages
-        if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-        run: |
-          coverage html -d ./reports/htmlcov
-          genbadge coverage -i ./reports/coverage.xml -o ./reports/htmlcov/coverage-badge.svg
-          mkdocs gh-deploy --force
