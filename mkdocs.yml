@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-site_name: "Ensembl Python general-purpose utils"
-site_url: "https://ensembl.github.io/ensembl-utils"
-repo_url: "https://github.com/Ensembl/ensembl-utils"
-repo_name: "Ensembl/ensembl-utils"
-copyright: "Copyright &copy; [2016-<script>document.write(new Date().getFullYear())</script>] EMBL-European Bioinformatics Institute"
+site_name: Ensembl Python general-purpose utils
+site_url: https://ensembl.github.io/ensembl-utils
+site_description: Generic Python utils used by other project within Ensembl
+repo_url: https://github.com/Ensembl/ensembl-utils
+repo_name: Ensembl/ensembl-utils
+copyright: Copyright &copy; [2016-<script>document.write(new Date().getFullYear())</script>] <a href="https://www.ebi.ac.uk">EMBL-European Bioinformatics Institute</a>
 
 theme:
   name: "material"
@@ -25,6 +26,9 @@ theme:
     repo: fontawesome/brands/github
   palette:
     scheme: ensembl
+  font:
+    text: Lato
+    code: IBM Plex Mono
   features:
       - content.tooltips
       - navigation.expand
