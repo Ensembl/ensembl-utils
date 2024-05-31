@@ -38,6 +38,7 @@ jobs:
 
       - uses: ./.github/actions/python_build
         with:
+          python-version: ${{ env.PYTHON_VERSION }}
           tags: "[cicd,docs]"
 
       - name: Generate coverage report
@@ -65,7 +66,8 @@ jobs:
 
       - uses: ./.github/actions/python_build
         with:
-            tags: "[build]"
+          python-version: ${{ env.PYTHON_VERSION }}
+          tags: "[build]"
 
       - name: Build package
         run: |
