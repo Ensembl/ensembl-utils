@@ -76,7 +76,6 @@ jobs:
           black --config pyproject.toml --check .
 
   pytest:
-    name: Run pytest and generate coverage reports
     runs-on: ubuntu-latest
     permissions:
       contents: write
