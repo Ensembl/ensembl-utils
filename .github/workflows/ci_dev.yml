@@ -13,29 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: "CI"
+name: "CI (dev)"
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: Python version
+        required: true
+        type: string
 
 jobs:
-  license_check:
-    name: Check missing license headers
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Check license header
-        uses: apache/skywalking-eyes/header@v0.6.0
-        with:
-          config: .licenserc.yml
-
   python_ci:
     name: Python CI
     uses: ./.github/workflows/python_ci.yml
     with:
-      python-version: "3.9"
+      python-version: ${{ inputs.python-version }}
