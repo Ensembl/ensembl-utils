@@ -42,14 +42,14 @@ jobs:
           config: .licenserc.yml
 
   python_ci_prod:
-    name: Python Continuous Integration tests (prod)
+    name: Python CI (prod)
     if: ${{ github.event_name != 'workflow_dispatch' }}
     uses: ./.github/workflows/python_ci.yml
     with:
       python-version: "3.9"
 
   python_ci_dev:
-    name: Python Continuous Integration tests (dev)
+    name: Python CI (dev)
     if: ${{ github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/python_ci.yml
     with:
