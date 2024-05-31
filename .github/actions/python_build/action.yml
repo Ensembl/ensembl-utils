@@ -16,6 +16,10 @@
 name: python-build
 description: "Common steps to build the Python environment"
 inputs:
+  python-version:
+    description: "Python version"
+    required: true
+    default: "3.9"
   tags:
     description: "Optional dependencies (via available tags) to install, e.g. [cicd]"
     required: true
@@ -24,10 +28,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up Python ${{ env.PYTHON_VERSION }}
+    - name: Set up Python ${{ inputs.python-version }}
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ env.PYTHON_VERSION }}
+        python-version: ${{ inputs.python-version }}
 
     - name: Install dependencies
       run: |

@@ -21,17 +21,16 @@ on:
       - main
   pull_request:
   workflow_dispatch:
-
-defaults:
-  run:
-    working-directory: ./
-
-env:
-  PYTHON_VERSION: "3.9"
+    inputs:
+      python-version:
+        description: Python version
+        required: true
+        type: string
 
 jobs:
   license_check:
     name: Check missing license headers
+    if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -42,74 +41,16 @@ jobs:
         with:
           config: .licenserc.yml
 
-  pylint:
-    runs-on: ubuntu-latest
+  python_ci_prod:
+    name: Python Continuous Integration tests (prod)
+    if: ${{ github.event_name != 'workflow_dispatch' }}
+    uses: ./.github/workflows/python_ci.yml
+    with:
+      python-version: "3.9"
 
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/actions/python_build
-        with:
-          tags: "[cicd]"
-
-      - name: Run pylint
-        run: |
-          pylint --rcfile pyproject.toml src/ensembl
-          pylint --rcfile pyproject.toml tests
-
-  mypy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/actions/python_build
-        with:
-          tags: "[cicd]"
-
-      - name: Run mypy
-        run: |
-          mypy --config-file pyproject.toml src/ensembl
-          mypy --config-file pyproject.toml tests
-
-  black:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/actions/python_build
-        with:
-          tags: "[cicd]"
-
-      - name: Run black
-        run: |
-          black --config pyproject.toml --check .
-
-  pytest:
-    name: Run pytest and generate coverage reports
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      checks: write
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/actions/python_build
-        with:
-          tags: "[cicd]"
-
-      - name: Run pytest with coverage
-        run: |
-          coverage run -m pytest --junitxml=./reports/test-results-${{ env.PYTHON_VERSION }}.xml
-          coverage xml -o ./reports/coverage.xml
-          coverage report -m
-
-      - name: Add coverage reports
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-xml-coverage-path: ./reports/coverage.xml
-          junitxml-path: ./reports/test-results-${{ env.PYTHON_VERSION }}.xml
+  python_ci_dev:
+    name: Python Continuous Integration tests (dev)
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/python_ci.yml
+    with:
+      python-version: ${{ inputs.python-version }}
