@@ -16,7 +16,7 @@
 [project]
 name = "ensembl-utils"
 description = "Ensembl Python general-purpose utils"
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 dynamic = [
     "version",
 ]
@@ -39,7 +39,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
