@@ -14,6 +14,8 @@
 # limitations under the License.
 """Allow to seamlessly load / read the content of a remote file as if it was located locally."""
 
+from __future__ import annotations
+
 __all__ = ["RemoteFileLoader"]
 
 import configparser
