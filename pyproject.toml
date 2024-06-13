@@ -86,7 +86,8 @@ docs = [
 [project.urls]
 Homepage = "https://www.ensembl.org"
 Documentation = "https://ensembl.github.io/ensembl-utils/"
-Repository = "https://github.com/Ensembl/ensembl-utils"
+Repository = "https://github.com/Ensembl/ensembl-utils.git"
+Issues = "https://github.com/Ensembl/ensembl-utils/issues"
 
 [project.scripts]
 extract_file = "ensembl.utils.archive:extract_file_cli"
