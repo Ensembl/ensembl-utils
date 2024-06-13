@@ -21,7 +21,7 @@ __all__ = [
 ]
 
 import os
-from typing import Union
+from typing import TypeVar
 
 
-StrPath = Union[str, os.PathLike]
+StrPath = TypeVar("StrPath", str, os.PathLike)
