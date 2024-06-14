@@ -12,6 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Local directory-specific plugin imports, and hook and fixture implementations."""
+"""Database module."""
 
-pytest_plugins = ("ensembl.utils.plugin",)
+from __future__ import annotations
+
+from .dbconnection import *
+from .unittestdb import *

@@ -33,6 +33,7 @@ keywords = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
+    "Framework :: Pytest",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
@@ -45,6 +46,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+    "pytest >= 8.2.0",
     "python-dotenv >= 0.19.2",
     "pyyaml ~= 6.0",
     "requests >= 2.22.0",
@@ -64,7 +66,6 @@ cicd = [
     "genbadge[coverage]",
     "mypy",
     "pylint",
-    "pytest",
     "pytest-dependency",
     "requests-mock >= 1.8.0",
     "types-pyyaml",
