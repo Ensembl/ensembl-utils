@@ -92,7 +92,9 @@ jobs:
 
       - name: Run pytest with coverage
         run: |
-          coverage run -m pytest --junitxml=./reports/test_results.xml
+          coverage run -m pytest --junitxml=./reports/test_results_part1.xml
+          coverage run -a -m pytest tests/plugin/test_plugin.py::test_db_factory --keep-data --junitxml=./reports/test_results_part2.xml
+          junitparser merge --glob ./reports/test_results_part*.xml ./reports/test_results.xml
           coverage xml -o ./reports/coverage.xml
           coverage report -m
 
