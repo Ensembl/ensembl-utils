@@ -80,7 +80,6 @@ class TestUnitTestDB:
 
         """
         with expectation:
-            print(src)
             server_url = request.config.getoption("server")
             src_path = src if src.is_absolute() else data_dir / src
             db_key = name if name else src.name
