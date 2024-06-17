@@ -138,28 +138,16 @@ class TestDBConnection:
             num_conn = self.dbc._engine.pool.checkedin()  # pylint: disable=protected-access
             assert num_conn == 0, "A new pool should have 0 checked-in connections"
 
+    @pytest.mark.dependency(name="test_exec", depends=["test_init"], scope="class")
     @pytest.mark.parametrize(
         "query, nrows, expectation",
         [
-            param(
-                "SELECT * FROM gibberish",
-                6,
-                does_not_raise(),
-                marks=pytest.mark.dependency(name="test_exec1", depends=["test_init"], scope="class"),
-                id="Valid string query",
-            ),
-            param(
-                text("SELECT * FROM gibberish"),
-                6,
-                does_not_raise(),
-                marks=pytest.mark.dependency(depends=["test_init"], scope="class"),
-                id="Valid text query",
-            ),
+            param("SELECT * FROM gibberish", 6, does_not_raise(), id="Valid string query"),
+            param(text("SELECT * FROM gibberish"), 6, does_not_raise(), id="Valid text query"),
             param(
                 "SELECT * FROM my_table",
                 0,
                 raises(SQLAlchemyError, match=r"(my_table.* doesn't exist|no such table: my_table)"),
-                marks=pytest.mark.dependency(name="test_exec2", depends=["test_init"], scope="class"),
                 id="Querying an unexistent table",
             ),
         ],
@@ -177,7 +165,7 @@ class TestDBConnection:
             result = self.dbc.execute(query)
             assert len(result.fetchall()) == nrows, "Unexpected number of rows returned"
 
-    @pytest.mark.dependency(depends=["test_init", "test_connect", "test_exec1", "test_exec2"], scope="class")
+    @pytest.mark.dependency(depends=["test_init", "test_connect", "test_exec"], scope="class")
     @pytest.mark.parametrize(
         "identifier, rows_to_add, before, after",
         [

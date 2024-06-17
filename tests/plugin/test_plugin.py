@@ -33,6 +33,7 @@ from ensembl.utils.database import URL
 @dataclass
 class MockTestDB:
     """Mocks `UnitTestDB` class by just storing the three arguments provided."""
+
     server_url: URL
     dump_dir: StrPath
     name: str

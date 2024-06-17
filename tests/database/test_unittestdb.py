@@ -20,7 +20,7 @@ from typing import ContextManager, Optional
 
 import pytest
 from pytest import FixtureRequest, param, raises
-from sqlalchemy.exc import OperationalError
+from sqlalchemy_utils.functions import database_exists
 
 from ensembl.utils.database import UnitTestDB
 
@@ -35,30 +35,14 @@ class TestUnitTestDB:
 
     dbs: dict[str, UnitTestDB] = {}
 
+    @pytest.mark.dependency(name="test_init", scope="class")
     @pytest.mark.parametrize(
         "src, name, expectation",
         [
+            param(Path("mock_db"), None, does_not_raise(), id="Default test database creation"),
+            param(Path("mock_db"), "renamed_db", does_not_raise(), id="Rename test database"),
+            param(Path("mock_db"), None, does_not_raise(), id="Re-create mock db with absolute path"),
             param(Path("mock_dir"), None, raises(FileNotFoundError), id="Wrong dump folder"),
-            param(
-                Path("mock_db"),
-                None,
-                does_not_raise(),
-                marks=pytest.mark.dependency(name="init", scope="class"),
-                id="Default test database creation",
-            ),
-            param(
-                Path("mock_db"),
-                None,
-                does_not_raise(),
-                id="Re-create mock db with absolute path",
-            ),
-            param(
-                Path("mock_db"),
-                "renamed_db",
-                does_not_raise(),
-                marks=pytest.mark.dependency(name="init_renamed", scope="class"),
-                id="Rename test database",
-            ),
         ],
     )
     def test_init(
@@ -91,11 +75,12 @@ class TestUnitTestDB:
             result = self.dbs[db_key].dbc.execute("SELECT * FROM gibberish")
             assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
+    @pytest.mark.dependency(depends=["test_init"], scope="class")
     @pytest.mark.parametrize(
         "db_key",
         [
-            param("mock_db", marks=pytest.mark.dependency(depends=["init"], scope="class")),
-            param("renamed_db", marks=pytest.mark.dependency(depends=["init_renamed"], scope="class")),
+            param("mock_db"),
+            param("renamed_db"),
         ],
     )
     def test_drop(self, db_key: str) -> None:
@@ -105,10 +90,7 @@ class TestUnitTestDB:
             db_key: Key assigned to the UnitTestDB created in `TestUnitTestDB.test_init()`.
 
         """
+        db_url = self.dbs[db_key].dbc.url
+        assert database_exists(db_url)
         self.dbs[db_key].drop()
-        if self.dbs[db_key].dbc.dialect == "sqlite":
-            # For SQLite databases, just check if the database file still exists
-            assert not Path(self.dbs[db_key].dbc.db_name).exists(), "The database file has not been deleted"
-        else:
-            with raises(OperationalError, match=r"Unknown database"):
-                self.dbs[db_key].dbc.execute("SELECT * FROM gibberish")
+        assert not database_exists(db_url)
