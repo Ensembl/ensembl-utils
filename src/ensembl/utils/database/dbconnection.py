@@ -74,7 +74,7 @@ class DBConnection:
     @property
     def url(self) -> str:
         """Returns the database URL."""
-        return str(self._engine.url)
+        return self._engine.url.render_as_string(hide_password=False)
 
     @property
     def db_name(self) -> str:

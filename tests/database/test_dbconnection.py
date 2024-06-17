@@ -75,10 +75,8 @@ class TestDBConnection:
     @pytest.mark.dependency(depends=["test_init", "test_dialect", "test_db_name"], scope="class")
     def test_url(self) -> None:
         """Tests `DBConnection.url` property."""
-        expected_url = str(make_url(self.server).set(database=self.dbc.db_name))
-        if self.dbc.dialect == "mysql":
-            expected_url += "?local_infile=1"
-        assert self.dbc.url == expected_url
+        expected_url = make_url(self.server).set(database=self.dbc.db_name)
+        assert self.dbc.url == expected_url.render_as_string(hide_password=False)
 
     @pytest.mark.dependency(depends=["test_init"], scope="class")
     def test_host(self) -> None:
@@ -119,7 +117,7 @@ class TestDBConnection:
         """Tests `DBConnection.connect()` method."""
         connection = self.dbc.connect()
         assert connection, "Connection object should not be empty"
-        result = connection.execute("SELECT * FROM gibberish")
+        result = connection.execute(text("SELECT * FROM gibberish"))
         assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
         connection.close()
 
@@ -128,7 +126,7 @@ class TestDBConnection:
         """Tests `DBConnection.begin()` method."""
         with self.dbc.begin() as connection:
             assert connection, "Connection object should not be empty"
-            result = connection.execute("SELECT * FROM gibberish")
+            result = connection.execute(text("SELECT * FROM gibberish"))
             assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
     @pytest.mark.dependency(depends=["test_init"], scope="class")

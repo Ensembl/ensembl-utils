@@ -76,20 +76,21 @@ class UnitTestDB:
         else:
             db_url = db_url.set(database=db_name)
         # Enable "local_infile" variable for MySQL databases to allow importing data from files
+        connect_args = {}
         if db_url.get_dialect().name == "mysql":
-            db_url = make_url(f"{db_url}?local_infile=1")
+            connect_args["local_infile"] = 1
         # Create the database, dropping it beforehand if it already exists
         if database_exists(db_url):
             drop_database(db_url)
         create_database(db_url)
         # Establish the connection to the database, load the schema and import the data
         try:
-            self.dbc = DBConnection(db_url)
+            self.dbc = DBConnection(db_url, connect_args=connect_args)
             with self.dbc.begin() as conn:
                 # Set InnoDB engine as default and disable foreign key checks for MySQL databases
                 if self.dbc.dialect == "mysql":
-                    conn.execute("SET default_storage_engine=InnoDB;")
-                    conn.execute("SET FOREIGN_KEY_CHECKS=0;")
+                    conn.execute(text("SET default_storage_engine=InnoDB"))
+                    conn.execute(text("SET FOREIGN_KEY_CHECKS=0"))
                 # Load the schema
                 with open(dump_dir_path / "table.sql", "r") as schema:
                     for query in "".join(schema.readlines()).split(";"):
@@ -101,10 +102,10 @@ class UnitTestDB:
                     self._load_data(conn, table, tsv_file)
                 # Re-enable foreign key checks for MySQL databases
                 if self.dbc.dialect == "mysql":
-                    conn.execute("SET FOREIGN_KEY_CHECKS=1;")
+                    conn.execute(text("SET FOREIGN_KEY_CHECKS=1"))
         except:
             # Make sure the database is deleted before raising the exception
-            self.drop()
+            drop_database(db_url)
             raise
         # Update the loaded metadata information of the database
         self.dbc.load_metadata()
@@ -116,6 +117,7 @@ class UnitTestDB:
     def drop(self) -> None:
         """Drops the database."""
         drop_database(self.dbc.url)
+        # Ensure the connection pool is properly closed and disposed
         self.dbc.dispose()
 
     def _load_data(self, conn: sqlalchemy.engine.Connection, table: str, src: StrPath) -> None:
