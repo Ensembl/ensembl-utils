@@ -42,6 +42,7 @@ from typing import TypeVar
 
 import sqlalchemy
 from sqlalchemy import create_engine, event, text
+from sqlalchemy.orm import sessionmaker
 
 
 Query = TypeVar("Query", str, sqlalchemy.sql.expression.ClauseElement)
@@ -57,7 +58,7 @@ class DBConnection:
     """
 
     def __init__(self, url: URL, **kwargs) -> None:
-        self._engine = create_engine(url, **kwargs)
+        self._engine = create_engine(url, future=True, **kwargs)
         self.load_metadata()
 
     def __repr__(self) -> str:
@@ -67,8 +68,8 @@ class DBConnection:
     def load_metadata(self) -> None:
         """Loads the metadata information of the database."""
         # Note: Just reflect() is not enough as it would not delete tables that no longer exist
-        self._metadata = sqlalchemy.MetaData(bind=self._engine)
-        self._metadata.reflect()
+        self._metadata = sqlalchemy.MetaData()
+        self._metadata.reflect(bind=self._engine)
 
     @property
     def url(self) -> str:
@@ -142,15 +143,33 @@ class DBConnection:
             statement = text(statement)
         return self.connect().execute(statement, *multiparams, **params)
 
+    def _enable_sqlite_savepoints(self, engine: sqlalchemy.engine.Engine) -> None:
+        """Enables SQLite SAVEPOINTS to allow session rollbacks."""
+
+        @event.listens_for(engine, "connect")
+        def do_connect(dbapi_connection, connection_record):  # pylint: disable=unused-argument
+            """Disables emitting the BEGIN statement entirely, as well as COMMIT before any DDL."""
+            dbapi_connection.isolation_level = None
+
+        @event.listens_for(engine, "begin")
+        def do_begin(conn):
+            """Emits a customour own BEGIN."""
+            conn.exec_driver_sql("BEGIN")
+
     @contextlib.contextmanager
     def session_scope(self) -> sqlalchemy.orm.session.Session:
         """Provides a transactional scope around a series of operations with rollback in case of failure.
 
-        Bear in mind SQLite and MySQL's storage engine MyISAM do not support rollback transactions,
-        so all the modifications performed to the database will persist.
+        Bear in mind MySQL's storage engine MyISAM does not support rollback transactions, so all
+        the modifications performed to the database will persist.
 
         """
-        session = sqlalchemy.orm.session.Session(bind=self._engine, autoflush=False)
+        # Create a dedicated engine for this session
+        engine = create_engine(self._engine.url)
+        if self.dialect == "sqlite":
+            self._enable_sqlite_savepoints(engine)
+        Session = sessionmaker(future=True)
+        session = Session(bind=engine, autoflush=False)
         try:
             yield session
             session.commit()
@@ -166,24 +185,34 @@ class DBConnection:
     def test_session_scope(self) -> sqlalchemy.orm.session.Session:
         """Provides a transactional scope around a series of operations that will be rolled back at the end.
 
-        Bear in mind SQLite and MySQL's storage engine MyISAM do not support rollback transactions,
-        so all the modifications performed to the database will persist.
+        Bear in mind MySQL's storage engine MyISAM does not support rollback transactions, so all
+        the modifications performed to the database will persist.
 
         """
+        # Create a dedicated engine for this session
+        engine = create_engine(self._engine.url)
+        if self.dialect == "sqlite":
+            self._enable_sqlite_savepoints(engine)
         # Connect to the database
-        connection = self.connect()
+        connection = engine.connect()
         # Begin a non-ORM transaction
         transaction = connection.begin()
         # Bind an individual session to the connection
-        session = sqlalchemy.orm.session.Session(bind=connection)
-        # If the database supports SAVEPOINT, starting a savepoint will allow to also use rollback
-        connection.begin_nested()
+        Session = sessionmaker(future=True)
+        try:
+            # Running on SQLAlchemy 2.0+
+            session = Session(bind=connection, join_transaction_mode="create_savepoint")
+        except TypeError:
+            # Running on SQLAlchemy 1.4
+            session = Session(bind=connection)
+            # If the database supports SAVEPOINT, starting a savepoint will allow to also use rollback
+            connection.begin_nested()
 
-        # Define a new transaction event
-        @event.listens_for(session, "after_transaction_end")
-        def end_savepoint(session, transaction):  # pylint: disable=unused-argument
-            if not connection.in_nested_transaction():
-                connection.begin_nested()
+            # Define a new transaction event
+            @event.listens_for(session, "after_transaction_end")
+            def end_savepoint(session, transaction):  # pylint: disable=unused-argument
+                if not connection.in_nested_transaction():
+                    connection.begin_nested()
 
         try:
             yield session

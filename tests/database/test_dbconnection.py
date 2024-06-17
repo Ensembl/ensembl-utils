@@ -209,7 +209,7 @@ class TestDBConnection:
         assert len(results.fetchall()) == before
         # Session requires mapped classes to interact with the database
         Base = automap_base()
-        Base.prepare(self.dbc.connect(), reflect=True)
+        Base.prepare(autoload_with=self.dbc.connect())
         Gibberish = Base.classes.gibberish
         # Ignore IntegrityError raised when committing the new tags as some parametrizations will force it
         try:
@@ -221,33 +221,28 @@ class TestDBConnection:
         results = self.dbc.execute(query)
         assert len(results.fetchall()) == after
 
-    @pytest.mark.dependency(depends=["test_init", "test_connect", "test_exec1", "test_exec2"], scope="class")
+    @pytest.mark.dependency(depends=["test_init", "test_connect", "test_exec"], scope="class")
     def test_test_session_scope(self) -> None:
         """Tests `DBConnection.test_session_scope()` method."""
         # Session requires mapped classes to interact with the database
         Base = automap_base()
-        Base.prepare(self.dbc.connect(), reflect=True)
+        Base.prepare(autoload_with=self.dbc.connect())
         Gibberish = Base.classes.gibberish
         # Check that the tags added during the context manager are removed afterwards
         identifier = 8
         with self.dbc.test_session_scope() as session:
             results = session.query(Gibberish).filter_by(id=identifier)
             assert not results.all(), f"ID {identifier} should not have any entries"
-            rows = [
-                Gibberish(id=identifier, grp="grp7", value=15),
-                Gibberish(id=identifier, grp="grp8", value=25),
-            ]
-            session.add_all(rows)
+            session.add(Gibberish(id=identifier, grp="grp7", value=15))
+            session.add(Gibberish(id=identifier, grp="grp8", value=25))
             session.commit()
             results = session.query(Gibberish).filter_by(id=identifier)
             assert len(results.all()) == 2, f"ID {identifier} should have two rows"
         results = self.dbc.execute(f"SELECT * FROM gibberish WHERE id = {identifier}")
-        if self.dbc.dialect == "sqlite" or (
+        if (
             self.dbc.dialect == "mysql"
             and self.dbc.tables["gibberish"].dialect_options["mysql"]["engine"] == "MyISAM"
         ):
-            assert (
-                len(results.all()) == 2
-            ), f"SQLite/MyISAM: 2 rows have been permanently added to ID {identifier}"
+            assert len(results.all()) == 2, f"SQLite/MyISAM: 2 rows permanently added to ID {identifier}"
         else:
             assert not results.fetchall(), f"No entries should have been permanently added to ID {identifier}"
