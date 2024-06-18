@@ -50,7 +50,7 @@ dependencies = [
     "python-dotenv >= 0.19.2",
     "pyyaml ~= 6.0",
     "requests >= 2.22.0",
-    "sqlalchemy >= 1.4.0",
+    "sqlalchemy >= 1.4.45",
     "sqlalchemy_utils >= 0.41.2",
 ]
 
