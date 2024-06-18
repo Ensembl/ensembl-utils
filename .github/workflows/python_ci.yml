@@ -95,8 +95,9 @@ jobs:
           sqlalchemy-version: ${{ inputs.sqlalchemy-version }}
           tags: "[cicd]"
 
-      - name: Start MySQL server
+      - name: Set up everything to use the MySQL server
         run: |
+          pip install mysqlclient
           sudo systemctl start mysql.service
         shell: bash
 
