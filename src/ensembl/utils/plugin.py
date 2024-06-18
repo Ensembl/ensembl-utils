@@ -51,9 +51,9 @@ def pytest_addoption(parser: Parser) -> None:
         help="Server URL where to create the test database(s)",
     )
     group.addoption(
-        "--keep-data",
+        "--keep-dbs",
         action="store_true",
-        dest="keep_data",
+        dest="keep_dbs",
         required=False,
         help="Do not remove the test databases (default: False)",
     )
@@ -141,7 +141,7 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
 
     yield _db_factory
     # Drop all unit test databases unless the user has requested to keep them
-    if not request.config.getoption("keep_data"):
+    if not request.config.getoption("keep_dbs"):
         for test_db in created.values():
             test_db.drop()
 
