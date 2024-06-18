@@ -45,7 +45,7 @@ from sqlalchemy.engine import make_url
 from sqlalchemy_utils.functions import create_database, database_exists, drop_database
 
 from ensembl.utils import StrPath
-from ensembl.utils.database import DBConnection, URL
+from ensembl.utils.database import DBConnection, StrURL
 
 
 class UnitTestDB:
@@ -66,7 +66,7 @@ class UnitTestDB:
 
     """
 
-    def __init__(self, server_url: URL, dump_dir: StrPath, name: Optional[str] = None) -> None:
+    def __init__(self, server_url: StrURL, dump_dir: StrPath, name: Optional[str] = None) -> None:
         db_url = make_url(server_url)
         dump_dir_path = Path(dump_dir)
         db_name = os.environ["USER"] + "_" + (name if name else dump_dir_path.name)

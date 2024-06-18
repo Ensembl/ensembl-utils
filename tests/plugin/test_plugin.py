@@ -27,14 +27,14 @@ import pytest
 from pytest import FixtureRequest, param, raises
 
 from ensembl.utils import StrPath
-from ensembl.utils.database import URL
+from ensembl.utils.database import StrURL
 
 
 @dataclass
 class MockTestDB:
     """Mocks `UnitTestDB` class by just storing the three arguments provided."""
 
-    server_url: URL
+    server_url: StrURL
     dump_dir: StrPath
     name: str
 

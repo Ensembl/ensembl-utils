@@ -33,20 +33,20 @@ from __future__ import annotations
 
 __all__ = [
     "Query",
-    "URL",
+    "StrURL",
     "DBConnection",
 ]
 
-import contextlib
-from typing import TypeVar
+from contextlib import contextmanager
+from typing import ContextManager, Generator, Optional, TypeVar
 
 import sqlalchemy
 from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import sessionmaker
 
 
-Query = TypeVar("Query", str, sqlalchemy.sql.expression.ClauseElement)
-URL = TypeVar("URL", str, sqlalchemy.engine.url.URL)
+Query = TypeVar("Query", str, sqlalchemy.sql.expression.ClauseElement, sqlalchemy.sql.expression.TextClause)
+StrURL = TypeVar("StrURL", str, sqlalchemy.engine.URL)
 
 
 class DBConnection:
@@ -57,7 +57,7 @@ class DBConnection:
 
     """
 
-    def __init__(self, url: URL, **kwargs) -> None:
+    def __init__(self, url: StrURL, **kwargs) -> None:
         self._engine = create_engine(url, future=True, **kwargs)
         self.load_metadata()
 
@@ -77,17 +77,17 @@ class DBConnection:
         return self._engine.url.render_as_string(hide_password=False)
 
     @property
-    def db_name(self) -> str:
+    def db_name(self) -> Optional[str]:
         """Returns the database name."""
         return self._engine.url.database
 
     @property
-    def host(self) -> str:
+    def host(self) -> Optional[str]:
         """Returns the database host."""
         return self._engine.url.host
 
     @property
-    def port(self) -> int:
+    def port(self) -> Optional[int]:
         """Returns the port of the database host."""
         return self._engine.url.port
 
@@ -123,7 +123,7 @@ class DBConnection:
         """Returns a new database connection."""
         return self._engine.connect()
 
-    def begin(self, *args) -> sqlalchemy.engine.Connection:
+    def begin(self, *args) -> ContextManager[sqlalchemy.engine.Connection]:
         """Returns a context manager delivering a database connection with a transaction established."""
         return self._engine.begin(*args)
 
@@ -131,17 +131,24 @@ class DBConnection:
         """Disposes of the connection pool."""
         self._engine.dispose()
 
-    def execute(self, statement: Query, *multiparams, **params) -> sqlalchemy.engine.Result:
+    def execute(self, statement: Query, parameters=None, execution_options=None) -> sqlalchemy.engine.Result:
         """Executes the given SQL query and returns its result.
+
+        See `sqlalchemy.engine.Connection.execute()` method for more information about the
+        additional arguments.
 
         Args:
             statement: SQL query to execute.
-            *multiparams/**params: Bound parameter values to be used in the execution of the query.
+            parameters: Parameters which will be bound into the statement.
+            execution_options: Optional dictionary of execution options, which will be associated
+                with the statement execution.
 
         """
         if isinstance(statement, str):
-            statement = text(statement)
-        return self.connect().execute(statement, *multiparams, **params)
+            statement = text(statement)  # type: ignore[assignment]
+        return self.connect().execute(
+            statement=statement, parameters=parameters, execution_options=execution_options
+        )  # type: ignore[call-overload]
 
     def _enable_sqlite_savepoints(self, engine: sqlalchemy.engine.Engine) -> None:
         """Enables SQLite SAVEPOINTS to allow session rollbacks."""
@@ -156,8 +163,8 @@ class DBConnection:
             """Emits a customour own BEGIN."""
             conn.exec_driver_sql("BEGIN")
 
-    @contextlib.contextmanager
-    def session_scope(self) -> sqlalchemy.orm.session.Session:
+    @contextmanager
+    def session_scope(self) -> Generator[sqlalchemy.orm.session.Session, None, None]:
         """Provides a transactional scope around a series of operations with rollback in case of failure.
 
         Bear in mind MySQL's storage engine MyISAM does not support rollback transactions, so all
@@ -181,8 +188,8 @@ class DBConnection:
             # Whatever happens, make sure the session is closed
             session.close()
 
-    @contextlib.contextmanager
-    def test_session_scope(self) -> sqlalchemy.orm.session.Session:
+    @contextmanager
+    def test_session_scope(self) -> Generator[sqlalchemy.orm.session.Session, None, None]:
         """Provides a transactional scope around a series of operations that will be rolled back at the end.
 
         Bear in mind MySQL's storage engine MyISAM does not support rollback transactions, so all
