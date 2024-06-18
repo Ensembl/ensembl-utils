@@ -23,6 +23,10 @@ on:
         description: Python version
         required: true
         type: string
+      sqlalchemy-version:
+        description: SQLAlchemy version
+        required: true
+        type: string
 
 jobs:
   python_ci:
@@ -30,3 +34,4 @@ jobs:
     uses: ./.github/workflows/python_ci.yml
     with:
       python-version: ${{ inputs.python-version }}
+      sqlalchemy-version: ${{ inputs.sqlalchemy-version }}

@@ -22,6 +22,10 @@ on:
         description: Python version to run the CI checks on
         required: true
         type: string
+      sqlalchemy-version:
+        description: SQLAlchemy version to run the CI checks on
+        required: true
+        type: string
 
 defaults:
   run:
@@ -88,6 +92,7 @@ jobs:
       - uses: ./.github/actions/python_build
         with:
           python-version: ${{ inputs.python-version }}
+          sqlalchemy-version: ${{ inputs.sqlalchemy-version }}
           tags: "[cicd]"
 
       - name: Run pytest with coverage
