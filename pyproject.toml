@@ -65,7 +65,6 @@ cicd = [
     "black",
     "coverage",
     "genbadge[coverage]",
-    "junitparser",
     "mypy",
     "pylint",
     "pytest-dependency",

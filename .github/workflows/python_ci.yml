@@ -95,20 +95,9 @@ jobs:
           sqlalchemy-version: ${{ inputs.sqlalchemy-version }}
           tags: "[cicd]"
 
-      - name: Set up everything to use the MySQL server
-        run: |
-          pip install mysqlclient
-          sudo systemctl start mysql.service
-        shell: bash
-
       - name: Run pytest with coverage
         run: |
-          coverage run -m pytest --junitxml=./reports/test_results_part1.xml
-          coverage run -a -m pytest tests/plugin/test_plugin.py::test_db_factory --keep-data \
-              --junitxml=./reports/test_results_part2.xml
-          coverage run -a -m pytest tests/database/test_unittestdb.py \
-              --server=mysql://root:root@127.0.0.1:3306/ --junitxml=./reports/test_results_part3.xml
-          junitparser merge --glob ./reports/test_results_part*.xml ./reports/test_results.xml
+          coverage run -m pytest --junitxml=./reports/test_results.xml
           coverage xml -o ./reports/coverage.xml
           coverage report -m
 
