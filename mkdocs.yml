@@ -74,6 +74,7 @@ nav:
   - Home:
     - Overview: index.md
     - Install: install.md
+    - Usage: usage.md
   - Development:
     - Code of Conduct: code_of_conduct.md
     - Coverage report: coverage.md
