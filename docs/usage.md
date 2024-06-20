@@ -10,10 +10,6 @@ This library also provides some scripts that can help you via the command line:
 
 _Note:_ All of them include the `--help` option to provide further information about their purpose and how to use them.
 
-## Dependencies
-
-It is important to highlight that this repository has been developed to support [SQLAlchemy](https://www.sqlalchemy.org) version 1.4 (1.4.45 or later, to ensure "future-compatibility") as well as version 2.0+.
-
 ## `pytest` plugin
 
 This repository provides a [`pytest`](https://docs.pytest.org/) plugin with some useful functionalities to do unit testing. In particular, there is one fixture to access the test files in a folder with the same name as the test being run (`data_dir`) and a fixture to build and provide unit test databases (`test_dbs`).
@@ -28,3 +24,7 @@ To use these elements you need to enable the plugin once you have installed the 
     ```python
     pytest_plugins = ("ensembl.utils.plugin",)
     ```
+
+## Dependencies
+
+This repository has been developed to support [SQLAlchemy](https://www.sqlalchemy.org) version 1.4 (1.4.45 or later, to ensure "future-compatibility") as well as version 2.0+.
