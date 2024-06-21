@@ -19,9 +19,10 @@ header:
   paths-ignore:
     - '**/*.md'
     - 'tests/**/test_*/**/*'
-    - 'tests/database/test_dbconnection'
     - '.gitignore'
     - 'LICENSE'
     - 'NOTICE'
+    # symlinks
+    - 'tests/database/test_dbconnection'
 
   comment: on-failure
