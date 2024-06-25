@@ -14,14 +14,14 @@
 # limitations under the License.
 """Ensembl Python general-purpose utils library."""
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 __all__ = [
     "StrPath",
 ]
 
 import os
-from typing import Union
+from typing import TypeVar
 
 
-StrPath = Union[str, os.PathLike]
+StrPath = TypeVar("StrPath", str, os.PathLike)

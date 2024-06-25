@@ -14,18 +14,4 @@
 # limitations under the License.
 """Local directory-specific plugin imports, and hook and fixture implementations."""
 
-from pathlib import Path
-
-import pytest
-from pytest import FixtureRequest
-
-
-@pytest.fixture(name="data_dir", scope="module")
-def local_data_dir(request: FixtureRequest) -> Path:
-    """Returns the path to the test data folder matching the test's name.
-
-    Args:
-        request: Fixture providing information of the requesting test function.
-
-    """
-    return Path(request.module.__file__).with_suffix("")
+pytest_plugins = ("ensembl.utils.plugin",)

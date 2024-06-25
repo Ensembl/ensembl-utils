@@ -12,26 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Database module."""
 
-name: "CI (dev)"
-run-name: Run CI for Python ${{ inputs.python-version }} by @${{ github.actor }}
+from __future__ import annotations
 
-on:
-  workflow_dispatch:
-    inputs:
-      python-version:
-        description: Python version
-        required: true
-        type: string
-      sqlalchemy-version:
-        description: SQLAlchemy version
-        required: true
-        type: string
-
-jobs:
-  python_ci:
-    name: Python CI
-    uses: ./.github/workflows/python_ci.yml
-    with:
-      python-version: ${{ inputs.python-version }}
-      sqlalchemy-version: ${{ inputs.sqlalchemy-version }}
+from .dbconnection import *
+from .unittestdb import *

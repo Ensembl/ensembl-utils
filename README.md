@@ -16,3 +16,22 @@ This library is publicly available in [PyPI](https://pypi.org/project/ensembl-ut
 ```bash
 pip install ensembl-utils
 ```
+
+### Quick usage
+
+Besides the standard `import ensembl.utils`, this library also provides some useful command line scripts:
+- `extract_file` - to easily extract archive files in different formats
+
+Furthermore, `ensembl-utils` also has a [`pytest`](https://docs.pytest.org/) plugin with some useful functionalities to ease your unit testing. You can enable it by adding it explicitly when running pytest:
+```bash
+pytest -p ensembl.utils.plugin ...
+```
+
+Or adding the following line to your `conftest.py`:
+```python
+pytest_plugins = ("ensembl.utils.plugin",)
+```
+
+## Dependencies
+
+This repository has been developed to support [SQLAlchemy](https://www.sqlalchemy.org) version 1.4 (1.4.45 or later, to ensure "future-compatibility") as well as version 2.0+.

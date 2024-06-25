@@ -25,6 +25,8 @@ Examples:
 
 """
 
+from __future__ import annotations
+
 __all__ = [
     "LogLevel",
     "init_logging",

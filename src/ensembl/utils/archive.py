@@ -14,6 +14,8 @@
 # limitations under the License.
 """Utils for common IO operations over archive files, e.g. tar or gzip."""
 
+from __future__ import annotations
+
 __all__ = [
     "SUPPORTED_ARCHIVE_FORMATS",
     "open_gz_file",
