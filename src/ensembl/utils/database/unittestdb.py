@@ -45,7 +45,7 @@ from sqlalchemy.engine import make_url
 from sqlalchemy_utils.functions import create_database, database_exists, drop_database
 
 from ensembl.utils import StrPath
-from ensembl.utils.database import DBConnection, StrURL
+from ensembl.utils.database.dbconnection import DBConnection, StrURL
 
 
 class UnitTestDB:
