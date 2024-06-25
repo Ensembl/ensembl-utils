@@ -85,7 +85,7 @@ def local_data_dir(request: FixtureRequest) -> Path:
 
 @pytest.fixture(name="assert_files")
 def fixture_assert_files() -> Callable[[StrPath, StrPath], None]:
-    """Returns a function that asserts if two files are equal, or prints their differences."""
+    """Returns a function that asserts if two text files are equal, or prints their differences."""
 
     def _assert_files(result_path: StrPath, expected_path: StrPath) -> None:
         """Asserts if two files are equal, or prints their differences.
