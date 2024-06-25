@@ -54,12 +54,15 @@ class DBConnection:
 
     Args:
         url: URL to the database, e.g. `mysql://user:passwd@host:port/my_db`.
+        reflect: Reflect the database schema or not.
 
     """
 
-    def __init__(self, url: StrURL, **kwargs) -> None:
+    def __init__(self, url: StrURL, reflect: bool = True, **kwargs) -> None:
         self._engine = create_engine(url, future=True, **kwargs)
-        self.load_metadata()
+        self._metadata = None
+        if reflect:
+            self.load_metadata()
 
     def __repr__(self) -> str:
         """Returns a string representation of this object."""
@@ -99,7 +102,9 @@ class DBConnection:
     @property
     def tables(self) -> dict[str, sqlalchemy.schema.Table]:
         """Returns the database tables keyed to their name."""
-        return self._metadata.tables
+        if self._metadata:
+            return self._metadata.tables
+        return {}
 
     def get_primary_key_columns(self, table: str) -> list[str]:
         """Returns the primary key column names for the given table.
