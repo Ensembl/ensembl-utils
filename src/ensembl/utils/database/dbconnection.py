@@ -101,7 +101,7 @@ class DBConnection:
 
     @property
     def tables(self) -> dict[str, sqlalchemy.schema.Table]:
-        """Returns the database tables keyed to their name."""
+        """Returns the database tables keyed to their name, or an empty dict if no metadata was loaded."""
         if self._metadata:
             return self._metadata.tables
         return {}
