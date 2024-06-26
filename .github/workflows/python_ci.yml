@@ -103,6 +103,7 @@ jobs:
 
       - name: Add coverage reports
         if: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-xml-coverage-path: ./reports/coverage.xml
