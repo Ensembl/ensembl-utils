@@ -67,7 +67,7 @@ class UnitTestDB:
 
     """
 
-    def __init__(self, server_url: StrURL, dump_dir: StrPath | None = None, name: str | None = None, metadata: MetaData | None = None) -> None:
+    def __init__(self, server_url: StrURL, dump_dir: StrPath | None = None, name: str | None = None, metadata: MetaData | None = None, tmp_path: Path | None = None) -> None:
         db_url = make_url(server_url)
         if not name:
             name = Path(dump_dir).name if dump_dir else "testdb"
@@ -75,7 +75,8 @@ class UnitTestDB:
 
         # Add the database name to the URL
         if db_url.get_dialect().name == "sqlite":
-            db_url = db_url.set(database=f"{db_name}.db")
+            db_path = tmp_path / db_name if tmp_path else db_name
+            db_url = db_url.set(database=f"{db_path}.db")
         else:
             db_url = db_url.set(database=db_name)
 

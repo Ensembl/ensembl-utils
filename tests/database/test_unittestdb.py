@@ -56,6 +56,7 @@ class TestUnitTestDB:
         self,
         request: FixtureRequest,
         data_dir: Path,
+        tmp_path: Path,
         src: Path,
         name: Optional[str],
         expectation: ContextManager,
@@ -73,7 +74,7 @@ class TestUnitTestDB:
         with expectation:
             server_url = request.config.getoption("server")
             src_path = src if src.is_absolute() else data_dir / src
-            db = UnitTestDB(server_url, dump_dir=src_path, name=name)
+            db = UnitTestDB(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path)
             # Check that the database has been created correctly
             assert db, "UnitTestDB should not be empty"
             assert db.dbc, "UnitTestDB's database connection should not be empty"
