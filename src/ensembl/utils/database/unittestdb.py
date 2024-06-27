@@ -42,6 +42,7 @@ from typing import Optional
 import sqlalchemy
 from sqlalchemy import text
 from sqlalchemy.engine import make_url
+from sqlalchemy.schema import MetaData
 from sqlalchemy_utils.functions import create_database, database_exists, drop_database
 
 from ensembl.utils import StrPath
@@ -57,6 +58,7 @@ class UnitTestDB:
             file (without headers) per table following the convention `<table_name>.txt` (optional).
         name: Name to give to the new database. If not provided, the last directory name of `dump_dir`
             will be used instead. In either case, the new database name will be prefixed by the username.
+        metadata: Use this metadata to create the schema instead of using an SQL schema file.
 
     Attributes:
         dbc: Database connection handler.
@@ -66,7 +68,7 @@ class UnitTestDB:
 
     """
 
-    def __init__(self, server_url: StrURL, dump_dir: StrPath, name: Optional[str] = None) -> None:
+    def __init__(self, server_url: StrURL, dump_dir: StrPath, name: Optional[str] = None, metadata: None | MetaData = None) -> None:
         db_url = make_url(server_url)
         dump_dir_path = Path(dump_dir)
         db_name = os.environ["USER"] + "_" + (name if name else dump_dir_path.name)
@@ -85,17 +87,20 @@ class UnitTestDB:
         create_database(db_url)
         # Establish the connection to the database, load the schema and import the data
         try:
-            self.dbc = DBConnection(db_url, connect_args=connect_args)
+            self.dbc = DBConnection(db_url, connect_args=connect_args, reflect=False)
             with self.dbc.begin() as conn:
                 # Set InnoDB engine as default and disable foreign key checks for MySQL databases
                 if self.dbc.dialect == "mysql":
                     conn.execute(text("SET default_storage_engine=InnoDB"))
                     conn.execute(text("SET FOREIGN_KEY_CHECKS=0"))
                 # Load the schema
-                with open(dump_dir_path / "table.sql", "r") as schema:
-                    for query in "".join(schema.readlines()).split(";"):
-                        if query.strip():
-                            conn.execute(text(query))
+                if metadata:
+                    self.dbc.create_all_tables(metadata)
+                else:
+                    with open(dump_dir_path / "table.sql", "r") as schema:
+                        for query in "".join(schema.readlines()).split(";"):
+                            if query.strip():
+                                conn.execute(text(query))
                 # And import any available data for each table
                 for tsv_file in dump_dir_path.glob("*.txt"):
                     table = tsv_file.stem
