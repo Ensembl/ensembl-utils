@@ -27,7 +27,7 @@ from sqlalchemy.engine.url import make_url
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.schema import Table
-from sqlalchemy_utils import create_database, drop_database
+from sqlalchemy_utils import create_database, database_exists, drop_database
 
 from ensembl.utils.database import DBConnection, Query, UnitTestDB
 
@@ -287,7 +287,8 @@ def test_create_all_tables(request: FixtureRequest, tmp_path: Path) -> None:
     db_url = make_url(request.config.getoption("server"))
     db_name = f"{os.environ['USER']}_test_create_all_tables"
     db_url = db_url.set(database=db_name)
-    drop_database(db_url)
+    if database_exists(db_url):
+        drop_database(db_url)
     create_database(db_url)
 
     try:
@@ -306,7 +307,8 @@ def test_create_table(request: FixtureRequest, tmp_path: Path) -> None:
     db_url = make_url(request.config.getoption("server"))
     db_name = f"{os.environ['USER']}_test_create_table"
     db_url = db_url.set(database=db_name)
-    drop_database(db_url)
+    if database_exists(db_url):
+        drop_database(db_url)
     create_database(db_url)
 
     try:
