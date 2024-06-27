@@ -83,7 +83,7 @@ class TestUnitTestDB:
             assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
 
-    def test_drop(self, request: FixtureRequest) -> None:
+    def test_drop(self, request: FixtureRequest, tmp_path: Path) -> None:
         """Tests the `UnitTestDB.drop()` method.
 
         Args:
@@ -91,7 +91,7 @@ class TestUnitTestDB:
 
         """
         server_url = request.config.getoption("server")
-        db = UnitTestDB(server_url)
+        db = UnitTestDB(server_url, tmp_path=tmp_path)
         db_url = db.dbc.url
         assert database_exists(db_url)
         db.drop()
@@ -108,6 +108,7 @@ class TestUnitTestDB:
     def test_metadata(
         self,
         request: FixtureRequest,
+        tmp_path: Path,
         tables: list,
         metadata: Path,
     ) -> None:
@@ -122,7 +123,7 @@ class TestUnitTestDB:
 
         """
         server_url = request.config.getoption("server")
-        db = UnitTestDB(server_url, metadata=metadata)
+        db = UnitTestDB(server_url, metadata=metadata, tmp_path=tmp_path)
         assert db, "UnitTestDB should not be empty"
         assert db.dbc, "UnitTestDB's database connection should not be empty"
         assert set(db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"
