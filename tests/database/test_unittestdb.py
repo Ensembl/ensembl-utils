@@ -41,16 +41,8 @@ mock_metadata = MockBase.metadata
 
 
 class TestUnitTestDB:
-    """Tests `UnitTestDB` class.
+    """Tests `UnitTestDB` class."""
 
-    Attributes:
-        dbs: Dictionary of `UnitTestDB` objects with the database name as key.
-
-    """
-
-    dbs: dict[str, UnitTestDB] = {}
-
-    @pytest.mark.dependency(name="test_init", scope="class")
     @pytest.mark.parametrize(
         "src, name, expectation",
         [
@@ -81,33 +73,27 @@ class TestUnitTestDB:
         with expectation:
             server_url = request.config.getoption("server")
             src_path = src if src.is_absolute() else data_dir / src
-            db_key = name if name else src.name
-            self.dbs[db_key] = UnitTestDB(server_url, src_path, name)
+            db = UnitTestDB(server_url, dump_dir=src_path, name=name)
             # Check that the database has been created correctly
-            assert self.dbs[db_key], "UnitTestDB should not be empty"
-            assert self.dbs[db_key].dbc, "UnitTestDB's database connection should not be empty"
+            assert db, "UnitTestDB should not be empty"
+            assert db.dbc, "UnitTestDB's database connection should not be empty"
             # Check that the database has been loaded correctly from the dump files
-            result = self.dbs[db_key].dbc.execute("SELECT * FROM gibberish")
+            result = db.dbc.execute("SELECT * FROM gibberish")
             assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
-    @pytest.mark.dependency(depends=["test_init"], scope="class")
-    @pytest.mark.parametrize(
-        "db_key",
-        [
-            param("mock_db"),
-            param("renamed_db"),
-        ],
-    )
-    def test_drop(self, db_key: str) -> None:
+
+    def test_drop(self, request: FixtureRequest) -> None:
         """Tests the `UnitTestDB.drop()` method.
 
         Args:
             db_key: Key assigned to the UnitTestDB created in `TestUnitTestDB.test_init()`.
 
         """
-        db_url = self.dbs[db_key].dbc.url
+        server_url = request.config.getoption("server")
+        db = UnitTestDB(server_url)
+        db_url = db.dbc.url
         assert database_exists(db_url)
-        self.dbs[db_key].drop()
+        db.drop()
         assert not database_exists(db_url)
 
 
