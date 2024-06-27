@@ -263,7 +263,7 @@ def test_reflect(tmp_path: Path, data_dir: Path, reflect: bool, tables: set) -> 
 
     # Create a test db
     server_url = make_url(f"sqlite:///{tmp_path}")
-    test_db = UnitTestDB(server_url, data_dir / "mock_db")
+    test_db = UnitTestDB(server_url, dump_dir=data_dir / "mock_db")
     test_db_url = test_db.dbc.url
     con = DBConnection(test_db_url, reflect=reflect)
     assert set(con.tables.keys()) == tables
