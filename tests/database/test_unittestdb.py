@@ -22,9 +22,10 @@ import pytest
 from pytest import FixtureRequest, param, raises
 from sqlalchemy import VARCHAR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.schema import MetaData
 from sqlalchemy_utils.functions import database_exists
 
-from ensembl.utils.database import UnitTestDB
+from ensembl.utils.database import UnitTestDB, UnitTestDBGenerator
 
 
 class MockBase(DeclarativeBase):
@@ -43,12 +44,20 @@ mock_metadata = MockBase.metadata
 class TestUnitTestDB:
     """Tests `UnitTestDB` class."""
 
+    def test_drop(self, request: FixtureRequest, tmp_path: Path) -> None:
+        """Tests the `UnitTestDB.drop()` method."""
+        server_url = request.config.getoption("server")
+        db = UnitTestDB(server_url, tmp_path=tmp_path, name="test_drop")
+        db_url = db.dbc.url
+        assert database_exists(db_url)
+        db.drop()
+        assert not database_exists(db_url)
+
     @pytest.mark.parametrize(
         "src, name, expectation",
         [
             param(Path("mock_db"), None, does_not_raise(), id="Default test database creation"),
             param(Path("mock_db"), "renamed_db", does_not_raise(), id="Rename test database"),
-            param(Path("mock_db"), None, does_not_raise(), id="Re-create mock db with absolute path"),
             param(Path("mock_dir"), None, raises(FileNotFoundError), id="Wrong dump folder"),
         ],
     )
@@ -74,56 +83,40 @@ class TestUnitTestDB:
         with expectation:
             server_url = request.config.getoption("server")
             src_path = src if src.is_absolute() else data_dir / src
-            db = UnitTestDB(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path)
-            # Check that the database has been created correctly
-            assert db, "UnitTestDB should not be empty"
-            assert db.dbc, "UnitTestDB's database connection should not be empty"
-            # Check that the database has been loaded correctly from the dump files
-            result = db.dbc.execute("SELECT * FROM gibberish")
-            assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
+            with UnitTestDBGenerator(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path) as db:
+                # Check that the database has been created correctly
+                assert db, "UnitTestDB should not be empty"
+                assert db.dbc, "UnitTestDB's database connection should not be empty"
+                # Check that the database has been loaded correctly from the dump files
+                result = db.dbc.execute("SELECT * FROM gibberish")
+                assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
+        @pytest.mark.parametrize(
+            "metadata, tables",
+            [
+                param(None, [], id="Create database without schema"),
+                param(mock_metadata, ["mock_table"], id="Create database from mock_metadata"),
+            ],
+        )
+        def test_metadata(
+            self,
+            request: FixtureRequest,
+            tmp_path: Path,
+            tables: list,
+            metadata: MetaData,
+        ) -> None:
+            """Tests that the object `UnitTestDB` is initialised correctly.
 
-    def test_drop(self, request: FixtureRequest, tmp_path: Path) -> None:
-        """Tests the `UnitTestDB.drop()` method.
+            Args:
+                request: Fixture that provides information of the requesting test function.
+                data_dir: Fixture that provides the path to the test data folder matching the test's name.
+                src: Directory path with the database schema and one TSV data file per table.
+                name: Name to give to the new database.
+                expectation: Context manager for the expected exception.
 
-        Args:
-            db_key: Key assigned to the UnitTestDB created in `TestUnitTestDB.test_init()`.
-
-        """
-        server_url = request.config.getoption("server")
-        db = UnitTestDB(server_url, tmp_path=tmp_path)
-        db_url = db.dbc.url
-        assert database_exists(db_url)
-        db.drop()
-        assert not database_exists(db_url)
-
-
-    @pytest.mark.parametrize(
-        "metadata, tables",
-        [
-            param(None, [], id="Create database without schema"),
-            param(mock_metadata, ["mock_table"], id="Create database from mock_metadata"),
-        ],
-    )
-    def test_metadata(
-        self,
-        request: FixtureRequest,
-        tmp_path: Path,
-        tables: list,
-        metadata: Path,
-    ) -> None:
-        """Tests that the object `UnitTestDB` is initialised correctly.
-
-        Args:
-            request: Fixture that provides information of the requesting test function.
-            data_dir: Fixture that provides the path to the test data folder matching the test's name.
-            src: Directory path with the database schema and one TSV data file per table.
-            name: Name to give to the new database.
-            expectation: Context manager for the expected exception.
-
-        """
-        server_url = request.config.getoption("server")
-        db = UnitTestDB(server_url, metadata=metadata, tmp_path=tmp_path)
-        assert db, "UnitTestDB should not be empty"
-        assert db.dbc, "UnitTestDB's database connection should not be empty"
-        assert set(db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"
+            """
+            server_url = request.config.getoption("server")
+            with UnitTestDBGenerator(server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata") as db:
+                assert db, "UnitTestDB should not be empty"
+                assert db.dbc, "UnitTestDB's database connection should not be empty"
+                assert set(db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"

@@ -32,6 +32,7 @@ from __future__ import annotations
 
 __all__ = [
     "UnitTestDB",
+    "UnitTestDBGenerator",
 ]
 
 import os
@@ -151,3 +152,16 @@ class UnitTestDB:
             conn.execute(text(f"BULK INSERT {table} FROM '{src}'"))
         else:
             conn.execute(text(f"LOAD DATA LOCAL INFILE '{src}' INTO TABLE {table}"))
+
+
+class UnitTestDBGenerator:
+    def __init__(self, *args, **kwargs) -> None:
+        self.args = args
+        self.kwargs = kwargs
+
+    def __enter__(self):
+        self.test_db = UnitTestDB(*self.args, **self.kwargs)
+        return self.test_db
+    
+    def __exit__(self, *args):
+        self.test_db.drop()
