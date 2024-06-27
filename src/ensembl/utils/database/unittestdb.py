@@ -37,7 +37,6 @@ __all__ = [
 import os
 from pathlib import Path
 import subprocess
-from typing import Optional
 
 import sqlalchemy
 from sqlalchemy import text
@@ -68,23 +67,28 @@ class UnitTestDB:
 
     """
 
-    def __init__(self, server_url: StrURL, dump_dir: StrPath, name: Optional[str] = None, metadata: None | MetaData = None) -> None:
+    def __init__(self, server_url: StrURL, dump_dir: StrPath | None = None, name: str | None = None, metadata: MetaData | None = None) -> None:
         db_url = make_url(server_url)
-        dump_dir_path = Path(dump_dir)
-        db_name = os.environ["USER"] + "_" + (name if name else dump_dir_path.name)
+        if not name:
+            name = Path(dump_dir).name if dump_dir else "testdb"
+        db_name = os.environ["USER"] + "_" + name
+
         # Add the database name to the URL
         if db_url.get_dialect().name == "sqlite":
             db_url = db_url.set(database=f"{db_name}.db")
         else:
             db_url = db_url.set(database=db_name)
+
         # Enable "local_infile" variable for MySQL databases to allow importing data from files
         connect_args = {}
         if db_url.get_dialect().name == "mysql":
             connect_args["local_infile"] = 1
+
         # Create the database, dropping it beforehand if it already exists
         if database_exists(db_url):
             drop_database(db_url)
         create_database(db_url)
+
         # Establish the connection to the database, load the schema and import the data
         try:
             self.dbc = DBConnection(db_url, connect_args=connect_args, reflect=False)
@@ -93,18 +97,21 @@ class UnitTestDB:
                 if self.dbc.dialect == "mysql":
                     conn.execute(text("SET default_storage_engine=InnoDB"))
                     conn.execute(text("SET FOREIGN_KEY_CHECKS=0"))
+
                 # Load the schema
                 if metadata:
                     self.dbc.create_all_tables(metadata)
-                else:
+                elif dump_dir:
+                    dump_dir_path = Path(dump_dir)
                     with open(dump_dir_path / "table.sql", "r") as schema:
                         for query in "".join(schema.readlines()).split(";"):
                             if query.strip():
                                 conn.execute(text(query))
-                # And import any available data for each table
-                for tsv_file in dump_dir_path.glob("*.txt"):
-                    table = tsv_file.stem
-                    self._load_data(conn, table, tsv_file)
+                    # And import any available data for each table
+                    for tsv_file in dump_dir_path.glob("*.txt"):
+                        table = tsv_file.stem
+                        self._load_data(conn, table, tsv_file)
+
                 # Re-enable foreign key checks for MySQL databases
                 if self.dbc.dialect == "mysql":
                     conn.execute(text("SET FOREIGN_KEY_CHECKS=1"))
