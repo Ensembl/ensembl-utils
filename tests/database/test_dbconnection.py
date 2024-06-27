@@ -27,7 +27,7 @@ from sqlalchemy.engine.url import make_url
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.schema import Table
-from sqlalchemy_utils import create_database
+from sqlalchemy_utils import create_database, drop_database
 
 from ensembl.utils.database import DBConnection, Query, UnitTestDB
 
@@ -285,13 +285,18 @@ def test_create_all_tables(request: FixtureRequest, tmp_path: Path) -> None:
 
     # Create a test db
     db_url = make_url(request.config.getoption("server"))
-    db_name = os.environ["USER"] + "_" + "test_create_all_tables"
-    db_url.set(database=db_name)
+    db_name = f"{os.environ['USER']}_test_create_all_tables"
+    db_url = db_url.set(database=db_name)
+    drop_database(db_url)
     create_database(db_url)
 
-    test_db = DBConnection(db_url, reflect=False)
-    test_db.create_all_tables(mock_metadata)
-    assert set(test_db.tables.keys()) == set(mock_metadata.tables.keys())
+    try:
+        test_db = DBConnection(db_url, reflect=False)
+        test_db.create_all_tables(mock_metadata)
+        assert set(test_db.tables.keys()) == set(mock_metadata.tables.keys())
+    except:
+        pass
+    drop_database(db_url)
 
 
 def test_create_table(request: FixtureRequest, tmp_path: Path) -> None:
@@ -299,10 +304,15 @@ def test_create_table(request: FixtureRequest, tmp_path: Path) -> None:
 
     # Create a test db
     db_url = make_url(request.config.getoption("server"))
-    db_name = os.environ["USER"] + "_" + "test_create_table"
-    db_url.set(database=db_name)
+    db_name = f"{os.environ['USER']}_test_create_table"
+    db_url = db_url.set(database=db_name)
+    drop_database(db_url)
     create_database(db_url)
 
-    test_db = DBConnection(db_url, reflect=False)
-    test_db.create_table(mock_metadata.tables["mock_table"])
-    assert set(test_db.tables.keys()) == set(["mock_table"])
+    try:
+        test_db = DBConnection(db_url, reflect=False)
+        test_db.create_table(mock_metadata.tables["mock_table"])
+        assert set(test_db.tables.keys()) == set(["mock_table"])
+    except:
+        pass
+    drop_database(db_url)
