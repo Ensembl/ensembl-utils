@@ -21,12 +21,28 @@ from typing import ContextManager
 
 import pytest
 from pytest import FixtureRequest, param, raises
-from sqlalchemy import text
+from sqlalchemy import text, VARCHAR
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.engine.url import make_url
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.schema import Table
+from sqlalchemy_utils import create_database
 
 from ensembl.utils.database import DBConnection, Query, UnitTestDB
+
+
+class MockBase(DeclarativeBase):
+    pass
+
+
+class MockTable(MockBase):
+    __tablename__ = "mock_table"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    grp: Mapped[str] = mapped_column(VARCHAR(30))
+    value: Mapped[int]
+
+mock_metadata = MockBase.metadata
 
 
 @pytest.mark.parametrize("test_dbs", [[{"src": "mock_db"}]], indirect=True)
@@ -246,8 +262,30 @@ def test_reflect(tmp_path: Path, data_dir: Path, reflect: bool, tables: set) -> 
     """Tests the object `DBConnection` with and without reflection."""
 
     # Create a test db
-    db_url = make_url(f"sqlite://{tmp_path}")
-    test_db = UnitTestDB(db_url, data_dir / "mock_db")
+    server_url = make_url(f"sqlite:///{tmp_path}")
+    test_db = UnitTestDB(server_url, data_dir / "mock_db")
     test_db_url = test_db.dbc.url
     con = DBConnection(test_db_url, reflect=reflect)
     assert set(con.tables.keys()) == tables
+
+def test_create_all_tables(tmp_path: Path) -> None:
+    """Tests the method `DBConnection.create_all_tables()`."""
+
+    # Create a test db
+    db_url = make_url(f"sqlite:///{tmp_path}/test.db")
+    create_database(db_url)
+    test_db = DBConnection(db_url, reflect=False)
+    test_db.create_all_tables(mock_metadata)
+    assert set(test_db.tables.keys()) == set(mock_metadata.tables.keys())
+
+
+def test_create_table(tmp_path: Path) -> None:
+    """Tests the method `DBConnection.create_table()`."""
+
+    # Create a test db
+    db_url = make_url(f"sqlite:///{tmp_path}/test.db")
+    print(db_url)
+    create_database(db_url)
+    test_db = DBConnection(db_url, reflect=False)
+    test_db.create_table(mock_metadata.tables["mock_table"])
+    assert set(test_db.tables.keys()) == set(["mock_table"])
