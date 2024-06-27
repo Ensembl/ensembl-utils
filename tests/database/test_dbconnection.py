@@ -16,6 +16,7 @@
 
 from contextlib import nullcontext as does_not_raise
 import os
+from pathlib import Path
 from typing import ContextManager
 
 import pytest
@@ -232,3 +233,21 @@ class TestDBConnection:
             assert len(results.all()) == 2, f"SQLite/MyISAM: 2 rows permanently added to ID {identifier}"
         else:
             assert not results.fetchall(), f"No entries should have been permanently added to ID {identifier}"
+
+
+@pytest.mark.parametrize(
+    "reflect, tables",
+    [
+        param(True, set(["gibberish"]), id="With reflection"),
+        param(False, set(), id="No reflection"),
+    ],
+)
+def test_reflect(tmp_path: Path, data_dir: Path, reflect: bool, tables: set) -> None:
+    """Tests the object `DBConnection` with and without reflection."""
+
+    # Create a test db
+    db_url = make_url(f"sqlite://{tmp_path}")
+    test_db = UnitTestDB(db_url, data_dir / "mock_db")
+    test_db_url = test_db.dbc.url
+    con = DBConnection(test_db_url, reflect=reflect)
+    assert set(con.tables.keys()) == tables
