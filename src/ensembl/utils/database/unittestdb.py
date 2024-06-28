@@ -20,9 +20,14 @@ preexisting dumps (if supplied).
 Examples:
 
     >>> from ensembl.utils.database import UnitTestDB
+    >>> # For more safety use the context manager (automatically drops the database even if things go wrong):
+    >>> with UnitTestDB("mysql://user:passwd@mysql-server:4242/", "path/to/dumps", "my_db") as test_db:
+    >>>    dbc = test_db.dbc
+
+    >>> # If you know what you are doing you can also control when the testdb is dropped:
     >>> test_db = UnitTestDB("mysql://user:passwd@mysql-server:4242/", "path/to/dumps", "my_db")
     >>> # You can access the database via test_db.dbc, for instance:
-    >>> results = test_db.dbc.execute("SELECT * FROM my_table;")
+    >>> dbc = test_db.dbc
     >>> # At the end do not forget to drop the database
     >>> test_db.drop()
 
@@ -155,6 +160,7 @@ class UnitTestDB:
 
 
 class UnitTestDBContext:
+    """Context manager that returns a `UnitTestDB` when using `with`, and drops it afterwards."""
     def __init__(self, *args, **kwargs) -> None:
         self.args = args
         self.kwargs = kwargs
