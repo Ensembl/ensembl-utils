@@ -61,7 +61,7 @@ class DBConnection:
 
     def __init__(self, url: StrURL, reflect: bool = True, **kwargs) -> None:
         self._engine = create_engine(url, future=True, **kwargs)
-        self._metadata: sqlalchemy.Metadata = None
+        self._metadata: MetaData = None
         if reflect:
             self.load_metadata()
 
@@ -74,12 +74,12 @@ class DBConnection:
         # Note: Just reflect() is not enough as it would not delete tables that no longer exist
         self._metadata = sqlalchemy.MetaData()
         self._metadata.reflect(bind=self._engine)
-    
+
     def create_all_tables(self, metadata: MetaData) -> None:
         """Create the tables from the metadata and set the metadata."""
         self._metadata = metadata
         metadata.create_all(self._engine)
-    
+
     def create_table(self, table: Table) -> None:
         """Create a table in the database and update the metadata."""
         table.create(self._engine)

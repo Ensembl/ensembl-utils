@@ -73,7 +73,14 @@ class UnitTestDB:
 
     """
 
-    def __init__(self, server_url: StrURL, dump_dir: StrPath | None = None, name: str | None = None, metadata: MetaData | None = None, tmp_path: Path | None = None) -> None:
+    def __init__(
+        self,
+        server_url: StrURL,
+        dump_dir: StrPath | None = None,
+        name: str | None = None,
+        metadata: MetaData | None = None,
+        tmp_path: Path | None = None,
+    ) -> None:
         db_url = make_url(server_url)
         if not name:
             name = Path(dump_dir).name if dump_dir else "testdb"
@@ -161,13 +168,16 @@ class UnitTestDB:
 
 class UnitTestDBContext:
     """Context manager that returns a `UnitTestDB` when using `with`, and drops it afterwards."""
+
     def __init__(self, *args, **kwargs) -> None:
         self.args = args
         self.kwargs = kwargs
+        self.test_db: UnitTestDB | None = None
 
     def __enter__(self):
         self.test_db = UnitTestDB(*self.args, **self.kwargs)
         return self.test_db
-    
+
     def __exit__(self, *args):
-        self.test_db.drop()
+        if self.test_db:
+            self.test_db.drop()

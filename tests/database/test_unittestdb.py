@@ -38,6 +38,7 @@ class MockTable(MockBase):
     grp: Mapped[str] = mapped_column(VARCHAR(30))
     value: Mapped[int]
 
+
 mock_metadata = MockBase.metadata
 
 
@@ -93,32 +94,32 @@ class TestUnitTestDB:
                     result = session.execute(text("SELECT * FROM gibberish"))
                     assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
-        @pytest.mark.parametrize(
-            "metadata, tables",
-            [
-                param(None, [], id="Create database without schema"),
-                param(mock_metadata, ["mock_table"], id="Create database from mock_metadata"),
-            ],
-        )
-        def test_metadata(
-            self,
-            request: FixtureRequest,
-            tmp_path: Path,
-            tables: list,
-            metadata: MetaData,
-        ) -> None:
-            """Tests that the object `UnitTestDB` is initialised correctly.
+    @pytest.mark.parametrize(
+        "metadata, tables",
+        [
+            param(None, [], id="Create database without schema"),
+            param(mock_metadata, ["mock_table"], id="Create database from mock_metadata"),
+        ],
+    )
+    def test_metadata(
+        self,
+        request: FixtureRequest,
+        tmp_path: Path,
+        tables: list,
+        metadata: MetaData,
+    ) -> None:
+        """Tests that the object `UnitTestDB` is initialised correctly.
 
-            Args:
-                request: Fixture that provides information of the requesting test function.
-                data_dir: Fixture that provides the path to the test data folder matching the test's name.
-                src: Directory path with the database schema and one TSV data file per table.
-                name: Name to give to the new database.
-                expectation: Context manager for the expected exception.
+        Args:
+            request: Fixture that provides information of the requesting test function.
+            data_dir: Fixture that provides the path to the test data folder matching the test's name.
+            src: Directory path with the database schema and one TSV data file per table.
+            name: Name to give to the new database.
+            expectation: Context manager for the expected exception.
 
-            """
-            server_url = request.config.getoption("server")
-            with UnitTestDBContext(server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata") as db:
-                assert db, "UnitTestDB should not be empty"
-                assert db.dbc, "UnitTestDB's database connection should not be empty"
-                assert set(db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"
+        """
+        server_url = request.config.getoption("server")
+        with UnitTestDBContext(server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata") as db:
+            assert db, "UnitTestDB should not be empty"
+            assert db.dbc, "UnitTestDB's database connection should not be empty"
+            assert set(db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"

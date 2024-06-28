@@ -26,7 +26,6 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.engine.url import make_url
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.schema import Table
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
 from ensembl.utils.database import DBConnection, Query, UnitTestDB
@@ -41,6 +40,7 @@ class MockTable(MockBase):
     id: Mapped[int] = mapped_column(primary_key=True)
     grp: Mapped[str] = mapped_column(VARCHAR(30))
     value: Mapped[int]
+
 
 mock_metadata = MockBase.metadata
 
@@ -132,7 +132,7 @@ class TestDBConnection:
     @pytest.mark.dependency(name="test_connect", depends=["test_init"], scope="class")
     def test_connect(self) -> None:
         """Tests `DBConnection.connect()` method."""
-        
+
         connection = self.dbc.connect()
         assert connection, "Connection object should not be empty"
         result = connection.execute(text("SELECT * FROM gibberish"))
@@ -219,11 +219,11 @@ class TestDBConnection:
             Base.prepare(autoload_with=con)
             Gibberish = Base.classes.gibberish
 
-        # Ignore IntegrityError raised when committing the new tags as some parametrizations will force it
+            # Ignore IntegrityError raised when committing the new tags as some parametrizations will force it
             try:
                 with self.dbc.session_scope() as session:
-                        rows = [Gibberish(id=identifier, **x) for x in rows_to_add]
-                        session.add_all(rows)
+                    rows = [Gibberish(id=identifier, **x) for x in rows_to_add]
+                    session.add_all(rows)
             except IntegrityError:
                 pass
 
@@ -260,7 +260,9 @@ class TestDBConnection:
             ):
                 assert len(results.all()) == 2, f"SQLite/MyISAM: 2 rows permanently added to ID {identifier}"
             else:
-                assert not results.fetchall(), f"No entries should have been permanently added to ID {identifier} ({self.dbc.tables['gibberish'].dialect_options['mysql']['engine']})"
+                assert (
+                    not results.fetchall()
+                ), f"No entries should have been permanently added to ID {identifier}"
 
 
 @pytest.mark.parametrize(
@@ -270,7 +272,7 @@ class TestDBConnection:
         param(False, set(), id="No reflection"),
     ],
 )
-def test_reflect(request: FixtureRequest, tmp_path: Path, data_dir: Path, reflect: bool, tables: set) -> None:
+def test_reflect(request: FixtureRequest, data_dir: Path, reflect: bool, tables: set) -> None:
     """Tests the object `DBConnection` with and without reflection."""
 
     # Create a test db
@@ -280,7 +282,8 @@ def test_reflect(request: FixtureRequest, tmp_path: Path, data_dir: Path, reflec
     con = DBConnection(test_db_url, reflect=reflect)
     assert set(con.tables.keys()) == tables
 
-def test_create_all_tables(request: FixtureRequest, tmp_path: Path) -> None:
+
+def test_create_all_tables(request: FixtureRequest) -> None:
     """Tests the method `DBConnection.create_all_tables()`."""
 
     # Create a test db
@@ -300,7 +303,7 @@ def test_create_all_tables(request: FixtureRequest, tmp_path: Path) -> None:
     drop_database(db_url)
 
 
-def test_create_table(request: FixtureRequest, tmp_path: Path) -> None:
+def test_create_table(request: FixtureRequest) -> None:
     """Tests the method `DBConnection.create_table()`."""
 
     # Create a test db
