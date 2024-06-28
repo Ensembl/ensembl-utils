@@ -25,7 +25,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.schema import MetaData
 from sqlalchemy_utils.functions import database_exists
 
-from ensembl.utils.database import UnitTestDB, UnitTestDBGenerator
+from ensembl.utils.database import UnitTestDB, UnitTestDBContext
 
 
 class MockBase(DeclarativeBase):
@@ -83,7 +83,7 @@ class TestUnitTestDB:
         with expectation:
             server_url = request.config.getoption("server")
             src_path = src if src.is_absolute() else data_dir / src
-            with UnitTestDBGenerator(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path) as db:
+            with UnitTestDBContext(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path) as db:
                 # Check that the database has been created correctly
                 assert db, "UnitTestDB should not be empty"
                 assert db.dbc, "UnitTestDB's database connection should not be empty"
@@ -118,7 +118,7 @@ class TestUnitTestDB:
 
             """
             server_url = request.config.getoption("server")
-            with UnitTestDBGenerator(server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata") as db:
+            with UnitTestDBContext(server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata") as db:
                 assert db, "UnitTestDB should not be empty"
                 assert db.dbc, "UnitTestDB's database connection should not be empty"
                 assert set(db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"

@@ -32,7 +32,7 @@ from __future__ import annotations
 
 __all__ = [
     "UnitTestDB",
-    "UnitTestDBGenerator",
+    "UnitTestDBContext",
 ]
 
 import os
@@ -154,7 +154,7 @@ class UnitTestDB:
             conn.execute(text(f"LOAD DATA LOCAL INFILE '{src}' INTO TABLE {table}"))
 
 
-class UnitTestDBGenerator:
+class UnitTestDBContext:
     def __init__(self, *args, **kwargs) -> None:
         self.args = args
         self.kwargs = kwargs
