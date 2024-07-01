@@ -46,6 +46,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+    "mysqlclient",
     "pytest >= 8.2.0",
     "python-dotenv >= 0.19.2",
     "pyyaml ~= 6.0",
