@@ -61,7 +61,7 @@ class DBConnection:
 
     def __init__(self, url: StrURL, reflect: bool = True, **kwargs) -> None:
         self._engine = create_engine(url, future=True, **kwargs)
-        self._metadata: MetaData = None
+        self._metadata: MetaData | None = None
         if reflect:
             self.load_metadata()
 

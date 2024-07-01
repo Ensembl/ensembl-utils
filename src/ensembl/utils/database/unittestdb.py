@@ -106,35 +106,42 @@ class UnitTestDB:
         # Establish the connection to the database, load the schema and import the data
         try:
             self.dbc = DBConnection(db_url, connect_args=connect_args, reflect=False)
-            with self.dbc.begin() as conn:
-                # Set InnoDB engine as default and disable foreign key checks for MySQL databases
-                if self.dbc.dialect == "mysql":
-                    conn.execute(text("SET default_storage_engine=InnoDB"))
-                    conn.execute(text("SET FOREIGN_KEY_CHECKS=0"))
-
-                # Load the schema
-                if metadata:
-                    self.dbc.create_all_tables(metadata)
-                elif dump_dir:
-                    dump_dir_path = Path(dump_dir)
-                    with open(dump_dir_path / "table.sql", "r") as schema:
-                        for query in "".join(schema.readlines()).split(";"):
-                            if query.strip():
-                                conn.execute(text(query))
-                    # And import any available data for each table
-                    for tsv_file in dump_dir_path.glob("*.txt"):
-                        table = tsv_file.stem
-                        self._load_data(conn, table, tsv_file)
-
-                # Re-enable foreign key checks for MySQL databases
-                if self.dbc.dialect == "mysql":
-                    conn.execute(text("SET FOREIGN_KEY_CHECKS=1"))
+            self._load_schema_and_data(dump_dir, metadata)
         except:
             # Make sure the database is deleted before raising the exception
             drop_database(db_url)
             raise
         # Update the loaded metadata information of the database
         self.dbc.load_metadata()
+
+    def _load_schema_and_data(
+        self, dump_dir: StrPath | None = None, metadata: MetaData | None = None
+    ) -> None:
+        with self.dbc.begin() as conn:
+            # Set InnoDB engine as default and disable foreign key checks for MySQL databases
+            if self.dbc.dialect == "mysql":
+                conn.execute(text("SET default_storage_engine=InnoDB"))
+                conn.execute(text("SET FOREIGN_KEY_CHECKS=0"))
+
+            # Load the schema
+            if metadata:
+                self.dbc.create_all_tables(metadata)
+            elif dump_dir:
+                dump_dir_path = Path(dump_dir)
+                with open(dump_dir_path / "table.sql", "r") as schema:
+                    for query in "".join(schema.readlines()).split(";"):
+                        if query.strip():
+                            conn.execute(text(query))
+
+            # And import any available data for each table
+            if dump_dir:
+                for tsv_file in dump_dir_path.glob("*.txt"):
+                    table = tsv_file.stem
+                    self._load_data(conn, table, tsv_file)
+
+            # Re-enable foreign key checks for MySQL databases
+            if self.dbc.dialect == "mysql":
+                conn.execute(text("SET FOREIGN_KEY_CHECKS=1"))
 
     def __repr__(self) -> str:
         """Returns a string representation of this object."""
