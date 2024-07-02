@@ -132,7 +132,6 @@ class TestDBConnection:
     @pytest.mark.dependency(name="test_connect", depends=["test_init"], scope="class")
     def test_connect(self) -> None:
         """Tests `DBConnection.connect()` method."""
-
         connection = self.dbc.connect()
         assert connection, "Connection object should not be empty"
         result = connection.execute(text("SELECT * FROM gibberish"))

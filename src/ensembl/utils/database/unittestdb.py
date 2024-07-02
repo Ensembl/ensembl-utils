@@ -24,7 +24,7 @@ Examples:
     >>> with UnitTestDB("mysql://user:passwd@mysql-server:4242/", "path/to/dumps", "my_db") as test_db:
     >>>    dbc = test_db.dbc
 
-    >>> # If you know what you are doing you can also control when the testdb is dropped:
+    >>> # If you know what you are doing you can also control when the test_db is dropped:
     >>> test_db = UnitTestDB("mysql://user:passwd@mysql-server:4242/", "path/to/dumps", "my_db")
     >>> # You can access the database via test_db.dbc, for instance:
     >>> dbc = test_db.dbc
@@ -79,7 +79,7 @@ class UnitTestDB:
         dump_dir: StrPath | None = None,
         name: str | None = None,
         metadata: MetaData | None = None,
-        tmp_path: Path | None = None,
+        tmp_path: StrPath | None = None,
     ) -> None:
         db_url = make_url(server_url)
         if not name:
@@ -88,21 +88,18 @@ class UnitTestDB:
 
         # Add the database name to the URL
         if db_url.get_dialect().name == "sqlite":
-            db_path = tmp_path / db_name if tmp_path else db_name
+            db_path = Path(tmp_path) / db_name if tmp_path else db_name
             db_url = db_url.set(database=f"{db_path}.db")
         else:
             db_url = db_url.set(database=db_name)
-
         # Enable "local_infile" variable for MySQL databases to allow importing data from files
         connect_args = {}
         if db_url.get_dialect().name == "mysql":
             connect_args["local_infile"] = 1
-
         # Create the database, dropping it beforehand if it already exists
         if database_exists(db_url):
             drop_database(db_url)
         create_database(db_url)
-
         # Establish the connection to the database, load the schema and import the data
         try:
             self.dbc = DBConnection(db_url, connect_args=connect_args, reflect=False)

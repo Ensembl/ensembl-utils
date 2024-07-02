@@ -20,7 +20,7 @@ from typing import ContextManager, Optional
 
 import pytest
 from pytest import FixtureRequest, param, raises
-from sqlalchemy import VARCHAR, text
+from sqlalchemy import text, VARCHAR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.schema import MetaData
 from sqlalchemy_utils.functions import database_exists
@@ -89,7 +89,6 @@ class TestUnitTestDB:
                 assert db, "UnitTestDB should not be empty"
                 assert db.dbc, "UnitTestDB's database connection should not be empty"
                 # Check that the database has been loaded correctly from the dump files
-
                 with db.dbc.test_session_scope() as session:
                     result = session.execute(text("SELECT * FROM gibberish"))
                     assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
