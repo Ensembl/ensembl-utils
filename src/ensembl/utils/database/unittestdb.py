@@ -59,11 +59,12 @@ class UnitTestDB:
 
     Args:
         server_url: URL of the server hosting the database.
+        metadata: Use this metadata to create the schema instead of using an SQL schema file.
         dump_dir: Directory path with the database schema in `table.sql` (mandatory) and one TSV data
             file (without headers) per table following the convention `<table_name>.txt` (optional).
         name: Name to give to the new database. If not provided, the last directory name of `dump_dir`
             will be used instead. In either case, the new database name will be prefixed by the username.
-        metadata: Use this metadata to create the schema instead of using an SQL schema file.
+        tmp_path: Temp dir where the test db is created if using SQLite (otherwise use current dir).
 
     Attributes:
         dbc: Database connection handler.
