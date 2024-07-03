@@ -43,6 +43,7 @@ from typing import ContextManager, Generator, Optional, TypeVar
 import sqlalchemy
 from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.schema import MetaData, Table
 
 
 Query = TypeVar("Query", str, sqlalchemy.sql.expression.ClauseElement, sqlalchemy.sql.expression.TextClause)
@@ -60,7 +61,7 @@ class DBConnection:
 
     def __init__(self, url: StrURL, reflect: bool = True, **kwargs) -> None:
         self._engine = create_engine(url, future=True, **kwargs)
-        self._metadata: sqlalchemy.Metadata = None
+        self._metadata: MetaData | None = None
         if reflect:
             self.load_metadata()
 
@@ -73,6 +74,21 @@ class DBConnection:
         # Note: Just reflect() is not enough as it would not delete tables that no longer exist
         self._metadata = sqlalchemy.MetaData()
         self._metadata.reflect(bind=self._engine)
+
+    def create_all_tables(self, metadata: MetaData) -> None:
+        """Create the tables from the metadata and set the metadata.
+
+        This assumes the database is empty beforehand. If the tables already exist, they will be ignored.
+        If there are other tables, you may need to run `self.load_metadata()` to update the metadata schema.
+        """
+        self._metadata = metadata
+        metadata.create_all(self._engine)
+
+    def create_table(self, table: Table) -> None:
+        """Create a table in the database and update the metadata. Do nothing if the table already exists."""
+        table.create(self._engine)
+        # We need to update the metadata to register the new table
+        self.load_metadata()
 
     @property
     def url(self) -> str:

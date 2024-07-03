@@ -20,28 +20,47 @@ from typing import ContextManager, Optional
 
 import pytest
 from pytest import FixtureRequest, param, raises
+from sqlalchemy import text, VARCHAR
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.schema import MetaData
 from sqlalchemy_utils.functions import database_exists
 
 from ensembl.utils.database import UnitTestDB
 
 
+class MockBase(DeclarativeBase):
+    """Mock Base for testing."""
+
+
+class MockTable(MockBase):
+    """Mock Table for testing."""
+
+    __tablename__ = "mock_table"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    grp: Mapped[str] = mapped_column(VARCHAR(30))
+    value: Mapped[int]
+
+
+mock_metadata = MockBase.metadata
+
+
 class TestUnitTestDB:
-    """Tests `UnitTestDB` class.
+    """Tests `UnitTestDB` class."""
 
-    Attributes:
-        dbs: Dictionary of `UnitTestDB` objects with the database name as key.
+    def test_drop(self, request: FixtureRequest, tmp_path: Path) -> None:
+        """Tests the `UnitTestDB.drop()` method."""
+        server_url = request.config.getoption("server")
+        db = UnitTestDB(server_url, tmp_path=tmp_path, name="test_drop")
+        db_url = db.dbc.url
+        assert database_exists(db_url)
+        db.drop()
+        assert not database_exists(db_url)
 
-    """
-
-    dbs: dict[str, UnitTestDB] = {}
-
-    @pytest.mark.dependency(name="test_init", scope="class")
     @pytest.mark.parametrize(
         "src, name, expectation",
         [
             param(Path("mock_db"), None, does_not_raise(), id="Default test database creation"),
             param(Path("mock_db"), "renamed_db", does_not_raise(), id="Rename test database"),
-            param(Path("mock_db"), None, does_not_raise(), id="Re-create mock db with absolute path"),
             param(Path("mock_dir"), None, raises(FileNotFoundError), id="Wrong dump folder"),
         ],
     )
@@ -49,6 +68,7 @@ class TestUnitTestDB:
         self,
         request: FixtureRequest,
         data_dir: Path,
+        tmp_path: Path,
         src: Path,
         name: Optional[str],
         expectation: ContextManager,
@@ -66,31 +86,40 @@ class TestUnitTestDB:
         with expectation:
             server_url = request.config.getoption("server")
             src_path = src if src.is_absolute() else data_dir / src
-            db_key = name if name else src.name
-            self.dbs[db_key] = UnitTestDB(server_url, src_path, name)
-            # Check that the database has been created correctly
-            assert self.dbs[db_key], "UnitTestDB should not be empty"
-            assert self.dbs[db_key].dbc, "UnitTestDB's database connection should not be empty"
-            # Check that the database has been loaded correctly from the dump files
-            result = self.dbs[db_key].dbc.execute("SELECT * FROM gibberish")
-            assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
+            with UnitTestDB(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path) as test_db:
+                # Check that the database has been created correctly
+                assert test_db, "UnitTestDB should not be empty"
+                assert test_db.dbc, "UnitTestDB's database connection should not be empty"
+                # Check that the database has been loaded correctly from the dump files
+                with test_db.dbc.test_session_scope() as session:
+                    result = session.execute(text("SELECT * FROM gibberish"))
+                    assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
-    @pytest.mark.dependency(depends=["test_init"], scope="class")
     @pytest.mark.parametrize(
-        "db_key",
+        "metadata, tables",
         [
-            param("mock_db"),
-            param("renamed_db"),
+            param(None, [], id="Create database without schema"),
+            param(mock_metadata, ["mock_table"], id="Create database from mock_metadata"),
         ],
     )
-    def test_drop(self, db_key: str) -> None:
-        """Tests the `UnitTestDB.drop()` method.
+    def test_metadata(
+        self,
+        request: FixtureRequest,
+        tmp_path: Path,
+        tables: list,
+        metadata: MetaData,
+    ) -> None:
+        """Tests that the `UnitTestDB` can load the schema from metadata.
 
         Args:
-            db_key: Key assigned to the UnitTestDB created in `TestUnitTestDB.test_init()`.
+            request: Fixture that provides information of the requesting test function.
+            tmp_path: Temp testing folder where a test db will be stored (if file based).
+            tables: List of tables expected to be loaded in the database from the metadata.
+            metadata: SQLAlchemy Metadata representation of the tables to load.
 
         """
-        db_url = self.dbs[db_key].dbc.url
-        assert database_exists(db_url)
-        self.dbs[db_key].drop()
-        assert not database_exists(db_url)
+        server_url = request.config.getoption("server")
+        with UnitTestDB(server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata") as test_db:
+            assert test_db, "UnitTestDB should not be empty"
+            assert test_db.dbc, "UnitTestDB's database connection should not be empty"
+            assert set(test_db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"

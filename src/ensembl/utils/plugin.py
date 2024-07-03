@@ -137,7 +137,7 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
         if not src_path.is_absolute():
             src_path = data_dir / src_path
         db_key = name if name else src_path.name
-        return created.setdefault(db_key, UnitTestDB(server_url, src_path, name))
+        return created.setdefault(db_key, UnitTestDB(server_url, dump_dir=src_path, name=name))
 
     yield _db_factory
     # Drop all unit test databases unless the user has requested to keep them
@@ -170,5 +170,5 @@ def test_dbs(request: FixtureRequest, db_factory: Callable) -> dict[str, UnitTes
         src = Path(argument["src"])
         name = argument.get("name", None)
         key = name if name else src.name
-        databases[key] = db_factory(src, name)
+        databases[key] = db_factory(src=src, name=name)
     return databases
