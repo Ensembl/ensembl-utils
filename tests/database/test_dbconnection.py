@@ -299,9 +299,8 @@ def test_create_all_tables(request: FixtureRequest) -> None:
         test_db = DBConnection(db_url, reflect=False)
         test_db.create_all_tables(mock_metadata)
         assert set(test_db.tables.keys()) == set(mock_metadata.tables.keys())
-    except:
-        pass
-    drop_database(db_url)
+    finally:
+        drop_database(db_url)
 
 
 def test_create_table(request: FixtureRequest) -> None:
@@ -319,6 +318,5 @@ def test_create_table(request: FixtureRequest) -> None:
         test_db = DBConnection(db_url, reflect=False)
         test_db.create_table(mock_metadata.tables["mock_table"])
         assert set(test_db.tables.keys()) == set(["mock_table"])
-    except:
-        pass
-    drop_database(db_url)
+    finally:
+        drop_database(db_url)
