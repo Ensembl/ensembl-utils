@@ -152,25 +152,6 @@ class DBConnection:
         """Disposes of the connection pool."""
         self._engine.dispose()
 
-    def execute(self, statement: Query, parameters=None, execution_options=None) -> sqlalchemy.engine.Result:
-        """Executes the given SQL query and returns its result.
-
-        See `sqlalchemy.engine.Connection.execute()` method for more information about the
-        additional arguments.
-
-        Args:
-            statement: SQL query to execute.
-            parameters: Parameters which will be bound into the statement.
-            execution_options: Optional dictionary of execution options, which will be associated
-                with the statement execution.
-
-        """
-        if isinstance(statement, str):
-            statement = text(statement)  # type: ignore[assignment]
-        return self.connect().execute(
-            statement=statement, parameters=parameters, execution_options=execution_options
-        )  # type: ignore[call-overload]
-
     def _enable_sqlite_savepoints(self, engine: sqlalchemy.engine.Engine) -> None:
         """Enables SQLite SAVEPOINTS to allow session rollbacks."""
 
