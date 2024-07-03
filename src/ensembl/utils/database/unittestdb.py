@@ -37,7 +37,6 @@ from __future__ import annotations
 
 __all__ = [
     "UnitTestDB",
-    "UnitTestDBContext",
 ]
 
 import os
@@ -170,19 +169,8 @@ class UnitTestDB:
         else:
             conn.execute(text(f"LOAD DATA LOCAL INFILE '{src}' INTO TABLE {table}"))
 
-
-class UnitTestDBContext:
-    """Context manager that returns a `UnitTestDB` when using `with`, and drops it afterwards."""
-
-    def __init__(self, *args, **kwargs) -> None:
-        self.args = args
-        self.kwargs = kwargs
-        self.test_db: UnitTestDB | None = None
-
     def __enter__(self):
-        self.test_db = UnitTestDB(*self.args, **self.kwargs)
-        return self.test_db
+        return self
 
     def __exit__(self, *args):
-        if self.test_db:
-            self.test_db.drop()
+        self.drop()
