@@ -41,7 +41,7 @@ from contextlib import contextmanager
 from typing import ContextManager, Generator, Optional, TypeVar
 
 import sqlalchemy
-from sqlalchemy import create_engine, event, text
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.schema import MetaData, Table
 

@@ -14,21 +14,19 @@
 # limitations under the License.
 """Unit testing of `ensembl.utils.database.dbconnection` module."""
 
-from contextlib import nullcontext as does_not_raise
 import os
 from pathlib import Path
-from typing import ContextManager
 
 import pytest
-from pytest import FixtureRequest, param, raises
+from pytest import FixtureRequest, param
 from sqlalchemy import text, VARCHAR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.engine.url import make_url
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
-from ensembl.utils.database import DBConnection, Query, UnitTestDB
+from ensembl.utils.database import DBConnection, UnitTestDB
 
 
 class MockBase(DeclarativeBase):
