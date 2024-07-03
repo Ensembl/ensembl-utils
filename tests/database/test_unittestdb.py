@@ -84,12 +84,12 @@ class TestUnitTestDB:
         with expectation:
             server_url = request.config.getoption("server")
             src_path = src if src.is_absolute() else data_dir / src
-            with UnitTestDBContext(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path) as db:
+            with UnitTestDBContext(server_url, dump_dir=src_path, name=name, tmp_path=tmp_path) as test_db:
                 # Check that the database has been created correctly
-                assert db, "UnitTestDB should not be empty"
-                assert db.dbc, "UnitTestDB's database connection should not be empty"
+                assert test_db, "UnitTestDB should not be empty"
+                assert test_db.dbc, "UnitTestDB's database connection should not be empty"
                 # Check that the database has been loaded correctly from the dump files
-                with db.dbc.test_session_scope() as session:
+                with test_db.dbc.test_session_scope() as session:
                     result = session.execute(text("SELECT * FROM gibberish"))
                     assert len(result.fetchall()) == 6, "Unexpected number of rows found in 'gibberish' table"
 
@@ -118,7 +118,9 @@ class TestUnitTestDB:
 
         """
         server_url = request.config.getoption("server")
-        with UnitTestDBContext(server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata") as db:
-            assert db, "UnitTestDB should not be empty"
-            assert db.dbc, "UnitTestDB's database connection should not be empty"
-            assert set(db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"
+        with UnitTestDBContext(
+            server_url, metadata=metadata, tmp_path=tmp_path, name="test_metadata"
+        ) as test_db:
+            assert test_db, "UnitTestDB should not be empty"
+            assert test_db.dbc, "UnitTestDB's database connection should not be empty"
+            assert set(test_db.dbc.tables.keys()) == set(tables), "Loaded tables as expected"
