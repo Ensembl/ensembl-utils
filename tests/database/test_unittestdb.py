@@ -115,7 +115,7 @@ class TestUnitTestDB:
             request: Fixture that provides information of the requesting test function.
             tmp_path: Temp testing folder where a test db will be stored (if file based).
             tables: List of tables expected to be loaded in the database from the metadata.
-            metadata: SQLalchemy Metadata representation of the tables to load.
+            metadata: SQLAlchemy Metadata representation of the tables to load.
 
         """
         server_url = request.config.getoption("server")
