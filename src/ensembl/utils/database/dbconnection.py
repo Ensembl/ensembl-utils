@@ -78,14 +78,14 @@ class DBConnection:
     def create_all_tables(self, metadata: MetaData) -> None:
         """Create the tables from the metadata and set the metadata.
 
-        This assumes the database was empty beforehand. If the tables already existed they would be ignored.
-        If there were other tables, you might need to run `self.load_metadata()` to take those into account.
+        This assumes the database is empty beforehand. If the tables already exist, they will be ignored.
+        If there are other tables, you may need to run `self.load_metadata()` to update the metadata schema.
         """
         self._metadata = metadata
         metadata.create_all(self._engine)
 
     def create_table(self, table: Table) -> None:
-        """Create a table in the database and update the metadata. Do nothing if that table existed."""
+        """Create a table in the database and update the metadata. Do nothing if the table already exists."""
         table.create(self._engine)
         # We need to update the metadata to register the new table
         self.load_metadata()
