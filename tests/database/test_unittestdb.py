@@ -29,10 +29,12 @@ from ensembl.utils.database import UnitTestDB, UnitTestDBContext
 
 
 class MockBase(DeclarativeBase):
-    pass
+    """Mock Base for testing."""
 
 
 class MockTable(MockBase):
+    """Mock Table for testing."""
+
     __tablename__ = "mock_table"
     id: Mapped[int] = mapped_column(primary_key=True)
     grp: Mapped[str] = mapped_column(VARCHAR(30))
@@ -107,14 +109,13 @@ class TestUnitTestDB:
         tables: list,
         metadata: MetaData,
     ) -> None:
-        """Tests that the object `UnitTestDB` is initialised correctly.
+        """Tests that the `UnitTestDB` can load the schema from metadata.
 
         Args:
             request: Fixture that provides information of the requesting test function.
-            data_dir: Fixture that provides the path to the test data folder matching the test's name.
-            src: Directory path with the database schema and one TSV data file per table.
-            name: Name to give to the new database.
-            expectation: Context manager for the expected exception.
+            tmp_path: Temp testing folder where a test db will be stored (if file based).
+            tables: List of tables expected to be loaded in the database from the metadata.
+            metadata: SQLalchemy Metadata representation of the tables to load.
 
         """
         server_url = request.config.getoption("server")

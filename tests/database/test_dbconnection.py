@@ -32,10 +32,12 @@ from ensembl.utils.database import DBConnection, Query, UnitTestDB
 
 
 class MockBase(DeclarativeBase):
-    pass
+    """Mock Base for testing."""
 
 
 class MockTable(MockBase):
+    """Mock Table for testing."""
+
     __tablename__ = "mock_table"
     id: Mapped[int] = mapped_column(primary_key=True)
     grp: Mapped[str] = mapped_column(VARCHAR(30))
