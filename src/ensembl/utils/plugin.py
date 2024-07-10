@@ -129,7 +129,7 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
         """Returns a unit test database.
 
         Args:
-            src: Directory path where the test database schema and content files are located.
+            src: Directory path where the test database schema and content files are located, if any.
             name: Name to give to the new database. See `UnitTestDB` for more information.
 
         """
@@ -137,6 +137,8 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
         if not src_path.is_absolute():
             src_path = data_dir / src_path
         db_key = name if name else src_path.name
+        if not src_path.exists():
+            src_path = None
         return created.setdefault(db_key, UnitTestDB(server_url, dump_dir=src_path, name=name))
 
     yield _db_factory
