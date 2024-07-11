@@ -4,7 +4,7 @@
 [![Coverage](https://ensembl.github.io/ensembl-utils/coverage/coverage-badge.svg)](https://ensembl.github.io/ensembl-utils/coverage)
 [![CI](https://github.com/Ensembl/ensembl-utils/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Ensembl/ensembl-utils/actions/workflows/ci.yml)
 
-Centralise generic Python utils used by other project within Ensembl design to facilitate frequent tasks such as input file path checks, archive files IO manipulation or logging setup, among others.
+Centralise generic Python utils used by other projects within Ensembl design to facilitate frequent tasks such as input file path checks, archive files IO manipulation or logging setup, among others.
 
 For more information, please consult this repository's [GitHub pages](https://ensembl.github.io/ensembl-utils/).
 

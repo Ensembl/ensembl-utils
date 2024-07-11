@@ -14,7 +14,7 @@
 
 site_name: Ensembl Python general-purpose utils
 site_url: https://ensembl.github.io/ensembl-utils
-site_description: Generic Python utils used by other project within Ensembl
+site_description: Generic Python utils used by other projects within Ensembl
 repo_url: https://github.com/Ensembl/ensembl-utils
 repo_name: Ensembl/ensembl-utils
 copyright: Copyright &copy; [2016-<script>document.write(new Date().getFullYear())</script>] <a href="https://www.ebi.ac.uk">EMBL-European Bioinformatics Institute</a>
