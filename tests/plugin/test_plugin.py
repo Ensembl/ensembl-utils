@@ -21,13 +21,12 @@ from contextlib import nullcontext as does_not_raise
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, ContextManager
-from unittest.mock import patch
 
 import pytest
 from pytest import FixtureRequest, param, raises
 
 from ensembl.utils import StrPath
-from ensembl.utils.database import StrURL
+from ensembl.utils.database import StrURL, UnitTestDB
 
 
 @dataclass
@@ -80,14 +79,22 @@ def test_assert_files(
 
 
 @pytest.mark.parametrize(
-    "dump_dir, db_name",
+    "dump_dir, make_absolute, db_name, expected_tables",
     [
-        (Path("dump_dir"), "dump_dir"),
-        (Path("dump_dir").resolve(), "test_db"),
+        param(Path("dump_dir"), False, "relative_dump_db", ["gibberish"], id="Relative dump_dir"),
+        param(Path("dump_dir"), True, "absolute_dump_db", ["gibberish"], id="Absolute dump_dir"),
+        param(Path("not_a_dir"), False, "no_dump_db", [], id="Non-existent dump_dir"),
     ],
 )
-@patch("ensembl.utils.plugin.UnitTestDB", new=MockTestDB)
-def test_db_factory(request: FixtureRequest, db_factory: Callable, dump_dir: Path, db_name: str) -> None:
+def test_db_factory(
+    request: FixtureRequest,
+    db_factory: Callable[[Path, str], UnitTestDB],
+    data_dir: Path,
+    dump_dir: Path,
+    make_absolute: bool,
+    db_name: str,
+    expected_tables: list[str],
+) -> None:
     """Tests the `db_factory` fixture.
 
     Args:
@@ -97,10 +104,9 @@ def test_db_factory(request: FixtureRequest, db_factory: Callable, dump_dir: Pat
         db_name: Name to give to the new database.
 
     """
-    test_db = db_factory(dump_dir, db_name)
-    assert test_db.server_url == request.config.getoption("server")
-    assert test_db.name == db_name
-    if dump_dir.is_absolute():
-        assert test_db.dump_dir == dump_dir
-    else:
-        assert test_db.dump_dir.stem == str(dump_dir)
+    if make_absolute:
+        dump_dir = Path(data_dir, dump_dir).absolute()
+    test_db: UnitTestDB = db_factory(dump_dir, db_name)
+    assert test_db.dbc.url.startswith(request.config.getoption("server"))
+    assert Path(test_db.dbc.db_name).stem.endswith(db_name)
+    assert set(test_db.dbc.tables.keys()) == set(expected_tables)
