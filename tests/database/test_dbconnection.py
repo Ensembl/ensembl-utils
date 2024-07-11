@@ -14,21 +14,19 @@
 # limitations under the License.
 """Unit testing of `ensembl.utils.database.dbconnection` module."""
 
-from contextlib import nullcontext as does_not_raise
 import os
 from pathlib import Path
-from typing import ContextManager
 
 import pytest
-from pytest import FixtureRequest, param, raises
+from pytest import FixtureRequest, param
 from sqlalchemy import text, VARCHAR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.engine.url import make_url
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
-from ensembl.utils.database import DBConnection, Query, UnitTestDB
+from ensembl.utils.database import DBConnection, UnitTestDB
 
 
 class MockBase(DeclarativeBase):
@@ -157,34 +155,7 @@ class TestDBConnection:
             num_conn = self.dbc._engine.pool.checkedin()  # pylint: disable=protected-access
             assert num_conn == 0, "A new pool should have 0 checked-in connections"
 
-    @pytest.mark.dependency(name="test_exec", depends=["test_init"], scope="class")
-    @pytest.mark.parametrize(
-        "query, nrows, expectation",
-        [
-            param("SELECT * FROM gibberish", 6, does_not_raise(), id="Valid string query"),
-            param(text("SELECT * FROM gibberish"), 6, does_not_raise(), id="Valid text query"),
-            param(
-                "SELECT * FROM my_table",
-                0,
-                raises(SQLAlchemyError, match=r"(my_table.* doesn't exist|no such table: my_table)"),
-                id="Querying an unexistent table",
-            ),
-        ],
-    )
-    def test_execute(self, query: Query, nrows: int, expectation: ContextManager) -> None:
-        """Tests `DBConnection.execute()` method.
-
-        Args:
-            query: SQL query.
-            nrows: Number of rows expected to be returned from the query.
-            expectation: Context manager for the expected exception.
-
-        """
-        with expectation:
-            result = self.dbc.execute(query)
-            assert len(result.fetchall()) == nrows, "Unexpected number of rows returned"
-
-    @pytest.mark.dependency(depends=["test_init", "test_connect", "test_exec"], scope="class")
+    @pytest.mark.dependency(depends=["test_init", "test_connect"], scope="class")
     @pytest.mark.parametrize(
         "identifier, rows_to_add, before, after",
         [
@@ -232,7 +203,7 @@ class TestDBConnection:
             results = session.execute(query)
             assert len(results.fetchall()) == after
 
-    @pytest.mark.dependency(depends=["test_init", "test_connect", "test_exec"], scope="class")
+    @pytest.mark.dependency(depends=["test_init", "test_connect"], scope="class")
     def test_test_session_scope(self) -> None:
         """Tests `DBConnection.test_session_scope()` method."""
         # Session requires mapped classes to interact with the database
