@@ -100,8 +100,11 @@ def test_db_factory(
     Args:
         request: Fixture that provides information of the requesting test function.
         db_factory: Fixture that provides a unit test database factory.
+        data_dir: Directory where this specific test data are stored.
         dump_dir: Directory path where the test database schema and content files are located.
+        make_absolute: change the dump_dir from relative to absolute (based on `data_dir`).
         db_name: Name to give to the new database.
+        expected_tables: List of tables that should be loaded in the test database.
 
     """
     if make_absolute:
