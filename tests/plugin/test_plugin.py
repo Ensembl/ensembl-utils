@@ -29,18 +29,6 @@ from ensembl.utils import StrPath
 from ensembl.utils.database import StrURL, UnitTestDB
 
 
-@dataclass
-class MockTestDB:
-    """Mocks `UnitTestDB` class by just storing the three arguments provided."""
-
-    server_url: StrURL
-    dump_dir: StrPath
-    name: str
-
-    def drop(self) -> None:
-        """Mocks `UnitTestDB.drop()` method."""
-
-
 @pytest.mark.dependency(name="test_data_dir")
 def test_data_dir(request: FixtureRequest, data_dir: Path) -> None:
     """Tests the `data_dir` fixture.
