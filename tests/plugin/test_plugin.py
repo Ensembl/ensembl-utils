@@ -18,15 +18,13 @@ Since certain elements are embedded within pytest itself, only the fixtures are 
 """
 
 from contextlib import nullcontext as does_not_raise
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, ContextManager
 
 import pytest
 from pytest import FixtureRequest, param, raises
 
-from ensembl.utils import StrPath
-from ensembl.utils.database import StrURL, UnitTestDB
+from ensembl.utils.database import UnitTestDB
 
 
 @pytest.mark.dependency(name="test_data_dir")
