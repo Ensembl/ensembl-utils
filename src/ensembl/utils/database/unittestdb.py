@@ -86,7 +86,7 @@ class UnitTestDB:
         db_url = make_url(server_url)
         if not name:
             name = Path(dump_dir).name if dump_dir else "testdb"
-        db_name =  f"{TEST_USERNAME}_{name}"
+        db_name = f"{TEST_USERNAME}_{name}"
 
         # Add the database name to the URL
         if db_url.get_dialect().name == "sqlite":

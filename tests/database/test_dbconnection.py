@@ -14,7 +14,6 @@
 # limitations under the License.
 """Unit testing of `ensembl.utils.database.dbconnection` module."""
 
-import os
 from pathlib import Path
 
 import pytest
@@ -28,9 +27,6 @@ from sqlalchemy_utils import create_database, database_exists, drop_database
 
 from ensembl.utils.database import DBConnection, UnitTestDB
 from ensembl.utils.database.unittestdb import TEST_USERNAME
-
-
-USERNAME = os.environ.get("USER", TEST_USERNAME)
 
 
 class MockBase(DeclarativeBase):
@@ -88,7 +84,7 @@ class TestDBConnection:
     @pytest.mark.dependency(name="test_db_name", depends=["test_init", "test_dialect"], scope="class")
     def test_db_name(self) -> None:
         """Tests `DBConnection.db_name` property."""
-        expected_db_name = f"{USERNAME}_mock_db"
+        expected_db_name = f"{TEST_USERNAME}_mock_db"
         if self.dbc.dialect == "sqlite":
             expected_db_name += ".db"
         assert self.dbc.db_name == expected_db_name
@@ -264,7 +260,7 @@ def test_create_all_tables(request: FixtureRequest) -> None:
 
     # Create a test db
     db_url = make_url(request.config.getoption("server"))
-    db_name = f"{USERNAME}_test_create_all_tables"
+    db_name = f"{TEST_USERNAME}_test_create_all_tables"
     db_url = db_url.set(database=db_name)
     if database_exists(db_url):
         drop_database(db_url)
@@ -283,7 +279,7 @@ def test_create_table(request: FixtureRequest) -> None:
 
     # Create a test db
     db_url = make_url(request.config.getoption("server"))
-    db_name = f"{USERNAME}_test_create_table"
+    db_name = f"{TEST_USERNAME}_test_create_table"
     db_url = db_url.set(database=db_name)
     if database_exists(db_url):
         drop_database(db_url)
