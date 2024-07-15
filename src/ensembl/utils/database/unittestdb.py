@@ -52,6 +52,8 @@ from sqlalchemy_utils.functions import create_database, database_exists, drop_da
 from ensembl.utils import StrPath
 from ensembl.utils.database.dbconnection import DBConnection, StrURL
 
+TEST_USERNAME = os.environ.get("USER", "pytestuser")
+
 
 class UnitTestDB:
     """Creates and connects to a new test database, applying the schema and importing the data.
@@ -84,7 +86,7 @@ class UnitTestDB:
         db_url = make_url(server_url)
         if not name:
             name = Path(dump_dir).name if dump_dir else "testdb"
-        db_name = os.environ["USER"] + "_" + name
+        db_name =  f"{TEST_USERNAME}_{name}"
 
         # Add the database name to the URL
         if db_url.get_dialect().name == "sqlite":
