@@ -20,7 +20,7 @@ from difflib import unified_diff
 import os
 from pathlib import Path
 import re
-from typing import Callable, Generator, Optional
+from typing import Callable, Generator
 
 import pytest
 from pytest import Config, FixtureRequest, Parser
@@ -125,7 +125,7 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
     created: dict[str, UnitTestDB] = {}
     server_url = request.config.getoption("server")
 
-    def _db_factory(src: StrPath, name: Optional[str] = None) -> UnitTestDB:
+    def _db_factory(src: StrPath | None, name: str | None = None) -> UnitTestDB:
         """Returns a unit test database.
 
         Args:
@@ -133,11 +133,15 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
             name: Name to give to the new database. See `UnitTestDB` for more information.
 
         """
-        src_path = Path(src)
-        if not src_path.is_absolute():
-            src_path = data_dir / src_path
-        db_key = name if name else src_path.name
-        dump_dir: Path | None = src_path if src_path.exists() else None
+        if src is not None:
+            src_path = Path(src)
+            if not src_path.is_absolute():
+                src_path = data_dir / src_path
+            db_key = name if name else src_path.name
+            dump_dir: Path | None = src_path if src_path.exists() else None
+        else:
+            db_key = name if name else "dbkey"
+            dump_dir = None
         return created.setdefault(db_key, UnitTestDB(server_url, dump_dir=dump_dir, name=name))
 
     yield _db_factory
