@@ -20,25 +20,32 @@ from typing import ContextManager, Optional
 
 import pytest
 from pytest import FixtureRequest, param, raises
-from sqlalchemy import text, VARCHAR
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import Integer, text, Sequence, String
+from sqlalchemy.orm import Mapped
 from sqlalchemy.schema import MetaData
 from sqlalchemy_utils.functions import database_exists
+# Support both SQLAlchemy 1.4+ and 2.0+
+try:
+    from sqlalchemy.orm import DeclarativeBase, mapped_column
+
+    class MockBase(DeclarativeBase):
+        """Mock Base for testing."""
+
+except ImportError:
+    from sqlalchemy.orm import declarative_base
+    from sqlalchemy.schema import Column as mapped_column
+    MockBase = declarative_base()
 
 from ensembl.utils.database import UnitTestDB
 
 
-class MockBase(DeclarativeBase):
-    """Mock Base for testing."""
-
-
 class MockTable(MockBase):
     """Mock Table for testing."""
-
     __tablename__ = "mock_table"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    grp: Mapped[str] = mapped_column(VARCHAR(30))
-    value: Mapped[int]
+
+    id: Mapped[int] = mapped_column(Integer, Sequence("id_seq"), primary_key=True)
+    grp: Mapped[str] = mapped_column(String(30))
+    value: Mapped[int] = mapped_column(Integer)
 
 
 mock_metadata = MockBase.metadata
