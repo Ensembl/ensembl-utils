@@ -83,7 +83,9 @@ docs = [
     "mkdocstrings",
     "mkdocstrings-python",
 ]
-mysql = [ "mysqlclient" ]
+mysql = [
+    "mysqlclient",
+]
 
 [project.urls]
 Homepage = "https://www.ensembl.org"
