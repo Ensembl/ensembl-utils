@@ -20,10 +20,11 @@ from typing import ContextManager, Optional
 
 import pytest
 from pytest import FixtureRequest, param, raises
+from sqlalchemy_utils.functions import database_exists
 from sqlalchemy import Integer, text, Sequence, String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.schema import MetaData
-from sqlalchemy_utils.functions import database_exists
+
 # Support both SQLAlchemy 1.4+ and 2.0+
 try:
     from sqlalchemy.orm import DeclarativeBase, mapped_column
@@ -33,14 +34,16 @@ try:
 
 except ImportError:
     from sqlalchemy.orm import declarative_base
-    from sqlalchemy.schema import Column as mapped_column
-    MockBase = declarative_base()
+    from sqlalchemy.schema import Column as mapped_column  # type: ignore
+
+    MockBase = declarative_base()  # type: ignore
 
 from ensembl.utils.database import UnitTestDB
 
 
 class MockTable(MockBase):
     """Mock Table for testing."""
+
     __tablename__ = "mock_table"
 
     id: Mapped[int] = mapped_column(Integer, Sequence("id_seq"), primary_key=True)

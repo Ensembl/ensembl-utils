@@ -18,12 +18,13 @@ from pathlib import Path
 
 import pytest
 from pytest import FixtureRequest, param
+from sqlalchemy_utils import create_database, database_exists, drop_database
 from sqlalchemy import Integer, text, Sequence, String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.engine.url import make_url
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy_utils import create_database, database_exists, drop_database
+
 # Support both SQLAlchemy 1.4+ and 2.0+
 try:
     from sqlalchemy.orm import DeclarativeBase, mapped_column
@@ -33,8 +34,9 @@ try:
 
 except ImportError:
     from sqlalchemy.orm import declarative_base
-    from sqlalchemy.schema import Column as mapped_column
-    MockBase = declarative_base()
+    from sqlalchemy.schema import Column as mapped_column  # type: ignore
+
+    MockBase = declarative_base()  # type: ignore
 
 from ensembl.utils.database import DBConnection, UnitTestDB
 from ensembl.utils.database.unittestdb import TEST_USERNAME
@@ -42,6 +44,7 @@ from ensembl.utils.database.unittestdb import TEST_USERNAME
 
 class MockTable(MockBase):
     """Mock Table for testing."""
+
     __tablename__ = "mock_table"
 
     id: Mapped[int] = mapped_column(Integer, Sequence("id_seq"), primary_key=True)
@@ -100,7 +103,7 @@ class TestDBConnection:
     def test_url(self) -> None:
         """Tests `DBConnection.url` property."""
         expected_url = make_url(self.server).set(database=self.dbc.db_name)
-        assert self.dbc.url == expected_url.render_as_string(hide_password=False)
+        assert self.dbc.url == expected_url.render_as_string(hide_password=False)  # pylint: disable=no-member
 
     @pytest.mark.dependency(depends=["test_init"], scope="class")
     def test_host(self) -> None:
