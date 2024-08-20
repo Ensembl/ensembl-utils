@@ -52,6 +52,7 @@ from sqlalchemy_utils.functions import create_database, database_exists, drop_da
 from ensembl.utils import StrPath
 from ensembl.utils.database.dbconnection import DBConnection, StrURL
 
+
 TEST_USERNAME = os.environ.get("USER", "pytestuser")
 
 
