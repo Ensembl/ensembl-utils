@@ -31,17 +31,22 @@ Examples:
 from __future__ import annotations
 
 __all__ = [
+    "ArgumentError",
     "ArgumentParser",
 ]
 
 import argparse
 import os
 from pathlib import Path
+from typing import Callable
 
 from sqlalchemy.engine import make_url, URL
 
 from ensembl.utils import StrPath
 
+
+class ArgumentError(Exception):
+    """An error from creating an argument (optional or positional)."""
 
 class ArgumentParser(argparse.ArgumentParser):
     """Extends `argparse.ArgumentParser` with additional methods and functionality.
@@ -95,6 +100,34 @@ class ArgumentParser(argparse.ArgumentParser):
                 break
         return dst_path
 
+    def _validate_number(
+        self,
+        value: str,
+        value_type: Callable[[str], int | float],
+        min_value: int | float | None,
+        max_value: int | float | None,
+    ) -> int | float:
+        """Returns the numeric value if it is of the expected type and it is within the specified range.
+
+        Args:
+            value: String representation of numeric value to check.
+            value_type: Expected type of the numeric value.
+            min_value: Minimum value constrain. If `None`, no minimum value constrain.
+            max_value: Maximum value constrain. If `None`, no maximum value constrain.
+
+        """
+        # Check if the string representation can be converted to the expected type
+        try:
+            result = value_type(value)
+        except (TypeError, ValueError):
+            self.error(f"invalid {value_type.__name__} value: {value}")
+        # Check if numeric value is within range
+        if (min_value is not None) and (result < min_value):
+            self.error(f"{value} is lower than minimum value ({min_value})")
+        if (max_value is not None) and (result > max_value):
+            self.error(f"{value} is greater than maximum value ({max_value})")
+        return result
+
     def add_argument(self, *args, **kwargs) -> None:  # type: ignore[override]
         """Extends the parent function by excluding the default value in the help text when not provided.
 
@@ -137,6 +170,33 @@ class ArgumentParser(argparse.ArgumentParser):
         """
         kwargs.setdefault("metavar", "URI")
         kwargs["type"] = make_url
+        self.add_argument(*args, **kwargs)
+
+    # pylint: disable=redefined-builtin
+    def add_numeric_argument(
+        self,
+        *args,
+        type: Callable[[str], int | float] = float,
+        min_value: int | float | None = None,
+        max_value: int | float | None = None,
+        **kwargs,
+    ) -> None:
+        """Adds a numeric argument with constrains on its type and its minimum or maximum value.
+
+        Note that the default value (if defined) is not checked unless the argument is an optional argument
+        and no value is provided in the command line.
+
+        Args:
+            type: Type to convert the argument value to when parsing.
+            min_value: Minimum value constrain. If `None`, no minimum value constrain.
+            max_value: Maximum value constrain. If `None`, no maximum value constrain.
+
+        """
+        # If both minimum and maximum values are defined, ensure min_value <= max_value
+        if (min_value is not None) and (max_value is not None) and (min_value > max_value):
+            raise ArgumentError("minimum value is greater than maximum value")
+        # Add lambda function to check numeric constrains when parsing argument
+        kwargs["type"] = lambda x: self._validate_number(x, type, min_value, max_value)
         self.add_argument(*args, **kwargs)
 
     # pylint: disable=redefined-builtin

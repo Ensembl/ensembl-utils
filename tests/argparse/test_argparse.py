@@ -17,13 +17,13 @@
 from contextlib import nullcontext as does_not_raise
 from pathlib import Path
 import re
-from typing import Any, ContextManager
+from typing import Any, Callable, ContextManager
 
 import pytest
 from pytest import param, raises
 from sqlalchemy.engine import make_url
 
-from ensembl.utils.argparse import ArgumentParser
+from ensembl.utils.argparse import ArgumentError, ArgumentParser
 
 
 def _args_dict_to_cmd_list(args_dict: dict[str, Any]) -> list[str]:
@@ -180,6 +180,44 @@ class TestArgumentParser:
         # Check that the argument is properly parsed
         args = parser.parse_args(cmd_args)
         assert args.url == make_url("https://github.com")
+
+    @pytest.mark.dependency(depends=["add_argument"])
+    @pytest.mark.parametrize(
+        "value, value_type, min_value, max_value, expectation",
+        [
+            param("3", int, None, None, does_not_raise(), id="Value has expected type"),
+            param("3.5", float, 3.4, 3.6, does_not_raise(), id="Value within range"),
+            param("3", int, 3, 2, raises(ArgumentError), id="Minimum value greater than maximum value"),
+            param("3.2", int, None, None, raises(SystemExit), id="Value has incorrect type"),
+            param("3", int, 4, None, raises(SystemExit), id="Value lower than minimum value"),
+            param("3", int, None, 2, raises(SystemExit), id="Value greater than maximum value"),
+        ],
+    )
+    def test_add_numeric_argument(
+        self,
+        value: str,
+        value_type: Callable[[str], int | float],
+        min_value: int | float | None,
+        max_value: int | float | None,
+        expectation: ContextManager
+    ) -> None:
+        """Tests `ArgumentParser.add_numeric_argument()` method.
+
+        Args:
+            value: Argument value.
+            value_type: Expected argument type.
+            min_value: Minimum value constrain. If `None`, no minimum value constrain.
+            max_value: Maximum value constrain. If `None`, no maximum value constrain.
+            expectation: Context manager for the expected exception.
+
+        """
+        parser = ArgumentParser()
+        # Add numeric argument to parser and its command line, and check that the argument is properly parsed
+        with expectation:
+            parser.add_numeric_argument("--num", type=value_type, min_value=min_value, max_value=max_value)
+            cmd_args = ["--num", value]
+            args = parser.parse_args(cmd_args)
+            assert args.num == value_type(value)
 
     @pytest.mark.dependency(name="add_server_arguments", depends=["add_argument"])
     @pytest.mark.parametrize(
