@@ -199,7 +199,7 @@ class TestArgumentParser:
         value_type: Callable[[str], int | float],
         min_value: int | float | None,
         max_value: int | float | None,
-        expectation: ContextManager
+        expectation: ContextManager,
     ) -> None:
         """Tests `ArgumentParser.add_numeric_argument()` method.
 

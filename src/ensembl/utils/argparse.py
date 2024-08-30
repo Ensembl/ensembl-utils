@@ -48,6 +48,7 @@ from ensembl.utils import StrPath
 class ArgumentError(Exception):
     """An error from creating an argument (optional or positional)."""
 
+
 class ArgumentParser(argparse.ArgumentParser):
     """Extends `argparse.ArgumentParser` with additional methods and functionality.
 
