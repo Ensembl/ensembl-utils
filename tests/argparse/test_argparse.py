@@ -186,6 +186,7 @@ class TestArgumentParser:
         "value, value_type, min_value, max_value, expectation",
         [
             param("3", int, None, None, does_not_raise(), id="Value has expected type"),
+            param("3", int, 3, 3, does_not_raise(), id="Value equal to minimum and maximum values"),
             param("3.5", float, 3.4, 3.6, does_not_raise(), id="Value within range"),
             param("3", int, 3, 2, raises(ArgumentError), id="Minimum value greater than maximum value"),
             param("3.2", int, None, None, raises(SystemExit), id="Value has incorrect type"),
