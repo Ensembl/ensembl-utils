@@ -30,7 +30,7 @@ from ensembl.utils.archive import open_gz_file, extract_file
         param("sample.txt", "sample.txt", id="uncompressed file"),
     ],
 )
-def test_open_gz_file(data_dir, src_file, expected_file) -> None:
+def test_open_gz_file(data_dir: Path, src_file: str, expected_file: str) -> None:
     """Tests `open_gz_file()` function.
 
     Args:

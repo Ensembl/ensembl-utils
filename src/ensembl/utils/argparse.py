@@ -38,7 +38,7 @@ __all__ = [
 import argparse
 import os
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 
 from sqlalchemy.engine import make_url, URL
 
@@ -57,7 +57,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
     """
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Extends the base class to include the information about default argument values by default."""
         super().__init__(*args, **kwargs)
         self.formatter_class = argparse.ArgumentDefaultsHelpFormatter
@@ -129,7 +129,7 @@ class ArgumentParser(argparse.ArgumentParser):
             self.error(f"{value} is greater than maximum value ({max_value})")
         return result
 
-    def add_argument(self, *args, **kwargs) -> None:  # type: ignore[override]
+    def add_argument(self, *args: Any, **kwargs: Any) -> None:  # type: ignore[override]
         """Extends the parent function by excluding the default value in the help text when not provided.
 
         Only applied to required arguments without a default value, i.e. positional arguments or optional
@@ -140,7 +140,7 @@ class ArgumentParser(argparse.ArgumentParser):
             kwargs.setdefault("default", argparse.SUPPRESS)
         super().add_argument(*args, **kwargs)
 
-    def add_argument_src_path(self, *args, **kwargs) -> None:
+    def add_argument_src_path(self, *args: Any, **kwargs: Any) -> None:
         """Adds `pathlib.Path` argument, checking if it exists and it is readable at parsing time.
 
         If "metavar" is not defined, it is added with "PATH" as value to improve help text readability.
@@ -150,7 +150,7 @@ class ArgumentParser(argparse.ArgumentParser):
         kwargs["type"] = self._validate_src_path
         self.add_argument(*args, **kwargs)
 
-    def add_argument_dst_path(self, *args, exists_ok: bool = True, **kwargs) -> None:
+    def add_argument_dst_path(self, *args: Any, exists_ok: bool = True, **kwargs: Any) -> None:
         """Adds `pathlib.Path` argument, checking if it is writable at parsing time.
 
         If "metavar" is not defined it is added with "PATH" as value to improve help text readability.
@@ -163,7 +163,7 @@ class ArgumentParser(argparse.ArgumentParser):
         kwargs["type"] = lambda x: self._validate_dst_path(x, exists_ok)
         self.add_argument(*args, **kwargs)
 
-    def add_argument_url(self, *args, **kwargs) -> None:
+    def add_argument_url(self, *args: Any, **kwargs: Any) -> None:
         """Adds `sqlalchemy.engine.URL` argument.
 
         If "metavar" is not defined it is added with "URI" as value to improve help text readability.
@@ -176,11 +176,11 @@ class ArgumentParser(argparse.ArgumentParser):
     # pylint: disable=redefined-builtin
     def add_numeric_argument(
         self,
-        *args,
+        *args: Any,
         type: Callable[[str], int | float] = float,
         min_value: int | float | None = None,
         max_value: int | float | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> None:
         """Adds a numeric argument with constrains on its type and its minimum or maximum value.
 
@@ -284,7 +284,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 help="level of the events to track in the log file: %(choices)s",
             )
 
-    def parse_args(self, *args, **kwargs) -> argparse.Namespace:  # type: ignore[override]
+    def parse_args(self, *args: Any, **kwargs: Any) -> argparse.Namespace:  # type: ignore[override]
         """Extends the parent function by adding a new URL argument for every server group added.
 
         The type of this new argument will be `sqlalchemy.engine.URL`. It also logs all the parsed

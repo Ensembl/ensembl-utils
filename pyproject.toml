@@ -143,6 +143,7 @@ docstring-code-format = true
 
 [tool.mypy]
 mypy_path = "src/ensembl"
+disallow_untyped_defs = true
 explicit_package_bases = true
 ignore_missing_imports = true
 show_error_codes = true

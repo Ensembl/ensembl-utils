@@ -38,7 +38,7 @@ __all__ = [
 ]
 
 from contextlib import contextmanager
-from typing import ContextManager, Generator, Optional, TypeVar
+from typing import Any, ContextManager, Generator, Optional, TypeVar
 
 import sqlalchemy
 from sqlalchemy import create_engine, event
@@ -59,7 +59,7 @@ class DBConnection:
 
     """
 
-    def __init__(self, url: StrURL, reflect: bool = True, **kwargs) -> None:
+    def __init__(self, url: StrURL, reflect: bool = True, **kwargs: Any) -> None:
         self._engine = create_engine(url, future=True, **kwargs)
         self._metadata: MetaData | None = None
         if reflect:
@@ -144,7 +144,7 @@ class DBConnection:
         """Returns a new database connection."""
         return self._engine.connect()
 
-    def begin(self, *args) -> ContextManager[sqlalchemy.engine.Connection]:
+    def begin(self, *args: Any) -> ContextManager[sqlalchemy.engine.Connection]:
         """Returns a context manager delivering a database connection with a transaction established."""
         return self._engine.begin(*args)
 
@@ -156,17 +156,20 @@ class DBConnection:
         """Enables SQLite SAVEPOINTS to allow session rollbacks."""
 
         @event.listens_for(engine, "connect")
-        def do_connect(dbapi_connection, connection_record):  # pylint: disable=unused-argument
+        def do_connect(
+            dbapi_connection: sqlalchemy.engine.interfaces.DBAPIConnection,
+            connection_record: sqlalchemy.pool.ConnectionPoolEntry,
+        ) -> None:  # pylint: disable=unused-argument
             """Disables emitting the BEGIN statement entirely, as well as COMMIT before any DDL."""
             dbapi_connection.isolation_level = None
 
         @event.listens_for(engine, "begin")
-        def do_begin(conn):
-            """Emits a customour own BEGIN."""
+        def do_begin(conn: sqlalchemy.engine.Connection) -> None:
+            """Emits a custom own BEGIN."""
             conn.exec_driver_sql("BEGIN")
 
     @contextmanager
-    def session_scope(self) -> Generator[sqlalchemy.orm.session.Session, None, None]:
+    def session_scope(self) -> Generator[sqlalchemy.orm.Session, None, None]:
         """Provides a transactional scope around a series of operations with rollback in case of failure.
 
         Bear in mind MySQL's storage engine MyISAM does not support rollback transactions, so all
@@ -191,7 +194,7 @@ class DBConnection:
             session.close()
 
     @contextmanager
-    def test_session_scope(self) -> Generator[sqlalchemy.orm.session.Session, None, None]:
+    def test_session_scope(self) -> Generator[sqlalchemy.orm.Session, None, None]:
         """Provides a transactional scope around a series of operations that will be rolled back at the end.
 
         Bear in mind MySQL's storage engine MyISAM does not support rollback transactions, so all
@@ -219,7 +222,9 @@ class DBConnection:
 
             # Define a new transaction event
             @event.listens_for(session, "after_transaction_end")
-            def end_savepoint(session, transaction):  # pylint: disable=unused-argument
+            def end_savepoint(
+                session: sqlalchemy.orm.Session, transaction: sqlalchemy.orm.SessionTransaction
+            ) -> None:  # pylint: disable=unused-argument
                 if not connection.in_nested_transaction():
                     connection.begin_nested()
 
