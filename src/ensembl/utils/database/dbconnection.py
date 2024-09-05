@@ -157,9 +157,9 @@ class DBConnection:
 
         @event.listens_for(engine, "connect")
         def do_connect(
-            dbapi_connection: sqlalchemy.engine.interfaces.DBAPIConnection,
-            connection_record: sqlalchemy.pool.ConnectionPoolEntry,
-        ) -> None:  # pylint: disable=unused-argument
+            dbapi_connection: Any,  # SQLAlchemy is not clear about the type of this argument
+            connection_record: sqlalchemy.pool.ConnectionPoolEntry,  # pylint: disable=unused-argument
+        ) -> None:
             """Disables emitting the BEGIN statement entirely, as well as COMMIT before any DDL."""
             dbapi_connection.isolation_level = None
 
@@ -223,8 +223,9 @@ class DBConnection:
             # Define a new transaction event
             @event.listens_for(session, "after_transaction_end")
             def end_savepoint(
-                session: sqlalchemy.orm.Session, transaction: sqlalchemy.orm.SessionTransaction
-            ) -> None:  # pylint: disable=unused-argument
+                session: sqlalchemy.orm.Session,  # pylint: disable=unused-argument
+                transaction: sqlalchemy.orm.SessionTransaction,  # pylint: disable=unused-argument
+            ) -> None:
                 if not connection.in_nested_transaction():
                     connection.begin_nested()
 

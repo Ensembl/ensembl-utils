@@ -36,8 +36,8 @@ class MockResponse:
 
 
 def mock_requests_get(
-    file_path: Path, *args: Any, **kwargs: Any
-) -> MockResponse:  # pylint: disable=unused-argument
+    file_path: Path, *args: Any, **kwargs: Any  # pylint: disable=unused-argument
+) -> MockResponse:
     """Mocks `requests.get()` function, bypassing the required internet connection."""
     with file_path.open("r") as in_file:
         content = in_file.read()
