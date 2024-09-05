@@ -42,6 +42,7 @@ __all__ = [
 import os
 from pathlib import Path
 import subprocess
+from typing import Any
 
 import sqlalchemy
 from sqlalchemy import text
@@ -172,8 +173,8 @@ class UnitTestDB:
         else:
             conn.execute(text(f"LOAD DATA LOCAL INFILE '{src}' INTO TABLE {table}"))
 
-    def __enter__(self):
+    def __enter__(self) -> UnitTestDB:
         return self
 
-    def __exit__(self, *args):
+    def __exit__(self, *args: Any) -> None:
         self.drop()
