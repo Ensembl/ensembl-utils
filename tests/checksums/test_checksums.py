@@ -22,6 +22,9 @@ from pytest import param
 from ensembl.utils.checksums import get_file_hash, validate_file_hash
 
 
+TEST_FILE_MD5_HASH = "0d17ea963a2c325f759fc4066f2fc9b2"
+
+
 @pytest.mark.dependency()
 def test_get_file_hash(data_dir: Path) -> None:
     """Tests `get_file_hash()` function.
@@ -31,14 +34,14 @@ def test_get_file_hash(data_dir: Path) -> None:
     """
     file_path = data_dir / "file.txt"
     result = get_file_hash(file_path)
-    assert result == "0d17ea963a2c325f759fc4066f2fc9b2"
+    assert result == TEST_FILE_MD5_HASH
 
 
 @pytest.mark.dependency(depends=["test_get_file_hash"])
 @pytest.mark.parametrize(
     "file_name, hash_value, expected_result",
     [
-        param("file.txt", "0d17ea963a2c325f759fc4066f2fc9b2", True, id="Correct hash"),
+        param("file.txt", TEST_FILE_MD5_HASH, True, id="Correct hash"),
         param("file.txt", "not_a_hash", False, id="Wrong hash"),
     ],
 )
