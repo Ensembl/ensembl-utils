@@ -23,18 +23,30 @@ from ensembl.utils.checksums import get_file_hash, validate_file_hash
 
 
 TEST_FILE_MD5_HASH = "0d17ea963a2c325f759fc4066f2fc9b2"
+TEST_FILE_SHA256_HASH = "f76e2e362c0f7ba15ea2052bcf91debda446479eb610d4a47754ef2a33829649"
 
 
-@pytest.mark.dependency()
-def test_get_file_hash(data_dir: Path) -> None:
+@pytest.mark.dependency(name="test_get_file_hash")
+@pytest.mark.parametrize(
+    "algorithm, expected_hash_value",
+    [
+        ("md5", TEST_FILE_MD5_HASH),
+        ("sha256", TEST_FILE_SHA256_HASH),
+    ],
+)
+def test_get_file_hash(data_dir: Path, algorithm: str, expected_hash_value: str) -> None:
     """Tests `get_file_hash()` function.
 
     Fixtures:
         data_dir
+
+    Args:
+    hash_algorithm: Secure hash or message digest algorithm name.
+        expected_hash_value: Expected hash value.
     """
     file_path = data_dir / "file.txt"
-    result = get_file_hash(file_path)
-    assert result == TEST_FILE_MD5_HASH
+    result = get_file_hash(file_path, algorithm=algorithm)
+    assert result == expected_hash_value
 
 
 @pytest.mark.dependency(depends=["test_get_file_hash"])
