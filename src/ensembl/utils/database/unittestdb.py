@@ -118,6 +118,7 @@ class UnitTestDB:
     def _load_schema_and_data(
         self, dump_dir: StrPath | None = None, metadata: MetaData | None = None
     ) -> None:
+
         with self.dbc.begin() as conn:
             # Set InnoDB engine as default and disable foreign key checks for MySQL databases
             if self.dbc.dialect == "mysql":

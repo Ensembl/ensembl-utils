@@ -23,8 +23,21 @@ from typing import Callable, ContextManager
 
 import pytest
 from pytest import FixtureRequest, param, raises
+from sqlalchemy.schema import MetaData
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from ensembl.utils.database import UnitTestDB
+
+
+class Base(DeclarativeBase):
+    """Test DB with one table."""
+
+
+class Foo(Base):
+    """One test table."""
+
+    __tablename__ = "foo"
+    id: Mapped[int] = mapped_column(primary_key=True)
 
 
 @pytest.mark.dependency(name="test_data_dir")
@@ -65,20 +78,22 @@ def test_assert_files(
 
 
 @pytest.mark.parametrize(
-    "dump_dir, make_absolute, db_name, expected_tables",
+    "dump_dir, make_absolute, db_name, metadata, expected_tables",
     [
-        param(Path("dump_dir"), False, "relative_dump_db", ["gibberish"], id="Relative dump_dir"),
-        param(Path("dump_dir"), True, "absolute_dump_db", ["gibberish"], id="Absolute dump_dir"),
-        param(Path("not_a_dir"), False, "no_dump_db", [], id="Non-existent dump_dir"),
+        param(Path("dump_dir"), False, "relative_dump_db", None, ["gibberish"], id="Relative dump_dir"),
+        param(Path("dump_dir"), True, "absolute_dump_db", None, ["gibberish"], id="Absolute dump_dir"),
+        param(Path("not_a_dir"), False, "no_dump_db", None, [], id="Non-existent dump_dir"),
+        param(Path("not_a_dir"), False, "with_metadata", Base.metadata, ["foo"], id="Use metadata"),
     ],
 )
 def test_db_factory(
     request: FixtureRequest,
-    db_factory: Callable[[Path, str], UnitTestDB],
+    db_factory: Callable[[Path, str, MetaData | None], UnitTestDB],
     data_dir: Path,
     dump_dir: Path,
     make_absolute: bool,
     db_name: str,
+    metadata: MetaData | None,
     expected_tables: list[str],
 ) -> None:
     """Tests the `db_factory` fixture.
@@ -90,12 +105,14 @@ def test_db_factory(
         dump_dir: Directory path where the test database schema and content files are located.
         make_absolute: change the dump_dir from relative to absolute (based on `data_dir`).
         db_name: Name to give to the new database.
+        metadata: SQLAlchemy metadata to build a database from ORM instead of dump_dir.
         expected_tables: List of tables that should be loaded in the test database.
 
     """
     if make_absolute:
         dump_dir = Path(data_dir, dump_dir).absolute()
-    test_db: UnitTestDB = db_factory(dump_dir, db_name)
+    test_db: UnitTestDB = db_factory(dump_dir, db_name, metadata)
+
     assert test_db.dbc.url.startswith(request.config.getoption("server"))
     assert Path(test_db.dbc.db_name).stem.endswith(db_name)
     assert set(test_db.dbc.tables.keys()) == set(expected_tables)
