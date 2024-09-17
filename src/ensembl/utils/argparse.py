@@ -201,7 +201,9 @@ class ArgumentParser(argparse.ArgumentParser):
         self.add_argument(*args, **kwargs)
 
     # pylint: disable=redefined-builtin
-    def add_server_arguments(self, prefix: str = "", include_database: bool = False, help: str = "") -> None:
+    def add_server_arguments(
+        self, prefix: str = "", include_database: bool = False, help: str | None = None
+    ) -> None:
         """Adds the usual set of arguments needed to connect to a server, i.e. `--host`, `--port`, `--user`
         and `--password` (optional).
 
@@ -215,12 +217,29 @@ class ArgumentParser(argparse.ArgumentParser):
 
         """
         group = self.add_argument_group(f"{prefix}server connection arguments", description=help)
-        group.add_argument(f"--{prefix}host", required=True, metavar="HOST", help="host name")
-        group.add_argument(f"--{prefix}port", required=True, type=int, metavar="PORT", help="port number")
-        group.add_argument(f"--{prefix}user", required=True, metavar="USER", help="user name")
+        group.add_argument(
+            f"--{prefix}host", required=True, metavar="HOST", default=argparse.SUPPRESS, help="host name"
+        )
+        group.add_argument(
+            f"--{prefix}port",
+            required=True,
+            type=int,
+            metavar="PORT",
+            default=argparse.SUPPRESS,
+            help="port number",
+        )
+        group.add_argument(
+            f"--{prefix}user", required=True, metavar="USER", default=argparse.SUPPRESS, help="user name"
+        )
         group.add_argument(f"--{prefix}password", metavar="PWD", help="host password")
         if include_database:
-            group.add_argument(f"--{prefix}database", required=True, metavar="NAME", help="database name")
+            group.add_argument(
+                f"--{prefix}database",
+                required=True,
+                metavar="NAME",
+                default=argparse.SUPPRESS,
+                help="database name",
+            )
         self.__server_groups.append(prefix)
 
     def add_log_arguments(self, add_log_file: bool = False) -> None:
