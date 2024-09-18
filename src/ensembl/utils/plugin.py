@@ -24,6 +24,7 @@ from typing import Callable, Generator
 
 import pytest
 from pytest import Config, FixtureRequest, Parser
+from sqlalchemy.schema import MetaData
 
 from ensembl.utils import StrPath
 from ensembl.utils.database import UnitTestDB
@@ -125,12 +126,15 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
     created: dict[str, UnitTestDB] = {}
     server_url = request.config.getoption("server")
 
-    def _db_factory(src: StrPath | None, name: str | None = None) -> UnitTestDB:
+    def _db_factory(
+        src: StrPath | None, name: str | None = None, metadata: MetaData | None = None
+    ) -> UnitTestDB:
         """Returns a unit test database.
 
         Args:
             src: Directory path where the test database schema and content files are located, if any.
             name: Name to give to the new database. See `UnitTestDB` for more information.
+            metadata: SQLAlchemy ORM schema to populate the schema of the test database.
 
         """
         if src is not None:
@@ -142,7 +146,9 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
         else:
             db_key = name if name else "dbkey"
             dump_dir = None
-        return created.setdefault(db_key, UnitTestDB(server_url, dump_dir=dump_dir, name=name))
+        return created.setdefault(
+            db_key, UnitTestDB(server_url, dump_dir=dump_dir, name=name, metadata=metadata)
+        )
 
     yield _db_factory
     # Drop all unit test databases unless the user has requested to keep them
@@ -175,5 +181,5 @@ def test_dbs(request: FixtureRequest, db_factory: Callable) -> dict[str, UnitTes
         src = Path(argument["src"])
         name = argument.get("name", None)
         key = name if name else src.name
-        databases[key] = db_factory(src=src, name=name)
+        databases[key] = db_factory(src=src, name=name, metadata=argument.get("metadata"))
     return databases
