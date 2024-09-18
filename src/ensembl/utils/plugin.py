@@ -134,6 +134,7 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
         Args:
             src: Directory path where the test database schema and content files are located, if any.
             name: Name to give to the new database. See `UnitTestDB` for more information.
+            metadata: SQLAlchemy ORM schema to populate the schema of the test database.
 
         """
         if src is not None:
