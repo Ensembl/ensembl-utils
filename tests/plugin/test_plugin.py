@@ -23,8 +23,8 @@ from typing import Callable, ContextManager
 
 import pytest
 from pytest import FixtureRequest, param, raises
-from sqlalchemy.schema import MetaData
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.schema import MetaData
 
 from ensembl.utils.database import UnitTestDB
 
@@ -88,7 +88,7 @@ def test_assert_files(
 )
 def test_db_factory(
     request: FixtureRequest,
-    db_factory: Callable[[Path, str, MetaData | None], UnitTestDB],
+    db_factory: Callable[[Path | None, str | None, MetaData | None], UnitTestDB],
     data_dir: Path,
     dump_dir: Path,
     make_absolute: bool,
