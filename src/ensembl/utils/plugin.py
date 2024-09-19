@@ -20,7 +20,7 @@ from difflib import unified_diff
 import os
 from pathlib import Path
 import re
-from typing import Callable, Generator
+from typing import Callable, Generator, TypeAlias
 
 import pytest
 from pytest import Config, FixtureRequest, Parser
@@ -28,6 +28,9 @@ from sqlalchemy.schema import MetaData
 
 from ensembl.utils import StrPath
 from ensembl.utils.database import UnitTestDB
+
+
+DBFactory: TypeAlias = Callable[[StrPath | None, str | None, MetaData | None], UnitTestDB]
 
 
 def pytest_addoption(parser: Parser) -> None:
@@ -115,7 +118,7 @@ def fixture_assert_files() -> Callable[[StrPath, StrPath], None]:
 
 
 @pytest.fixture(name="db_factory", scope="module")
-def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Callable, None, None]:
+def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[DBFactory, None, None]:
     """Yields a unit test database factory.
 
     Args:
