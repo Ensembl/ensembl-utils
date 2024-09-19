@@ -134,7 +134,7 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
         Args:
             src: Directory path where the test database schema and content files are located, if any.
             name: Name to give to the new database. See `UnitTestDB` for more information.
-            metadata: SQLAlchemy ORM schema to populate the schema of the test database.
+            metadata: SQLAlchemy ORM schema metadata to populate the schema of the test database.
 
         """
         if src is not None:
@@ -161,12 +161,21 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[Cal
 def test_dbs(request: FixtureRequest, db_factory: Callable) -> dict[str, UnitTestDB]:
     """Returns a dictionary of unit test databases with the database name as key.
 
-    Requires a list of dictionaries, each with keys `src` (mandatory) and `name` (optional), passed via
-    `request.param`. See `db_factory()` for details about each key's value. This fixture is a wrapper of
-    `db_factory()` intended to be used via indirect parametrization, for example::
+    Requires a list of dictionaries, each with keys `src` (mandatory), `name` (optional) and `metadata`
+    (optional), passed via `request.param`. See `db_factory()` for details about each key's value. This
+    fixture is a wrapper of `db_factory()` intended to be used via indirect parametrization, for example::
 
+        from ensembl.core.models import Base
         @pytest.mark.parametrize(
-            "test_dbs", [[{"src": "master"}, {"src": "master", "name": "master2"}]], indirect=True
+            "test_dbs",
+            [
+                [
+                    {"src": "core_db"},
+                    {"src": "core_db", "name": "human"},
+                    {"src": "core_db", "name": "cat", "metadata": Base.metadata},
+                ]
+            ],
+            indirect=True
         )
         def test_method(..., test_dbs: dict[str, UnitTestDB], ...):
 
