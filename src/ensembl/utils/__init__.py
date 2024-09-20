@@ -14,7 +14,7 @@
 # limitations under the License.
 """Ensembl Python general-purpose utils library."""
 
-__version__ = "0.4.4"
+__version__ = "0.5.0"
 
 __all__ = [
     "StrPath",

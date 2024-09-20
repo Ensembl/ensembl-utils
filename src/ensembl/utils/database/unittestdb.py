@@ -126,17 +126,16 @@ class UnitTestDB:
 
             # Load the schema
             if metadata:
-                self.dbc.create_all_tables(metadata)
+                metadata.create_all(conn)
             elif dump_dir:
-                dump_dir_path = Path(dump_dir)
-                with open(dump_dir_path / "table.sql", "r") as schema:
+                with Path(dump_dir, "table.sql").open("r") as schema:
                     for query in "".join(schema.readlines()).split(";"):
                         if query.strip():
                             conn.execute(text(query))
 
             # And import any available data for each table
             if dump_dir:
-                for tsv_file in dump_dir_path.glob("*.txt"):
+                for tsv_file in Path(dump_dir).glob("*.txt"):
                     table = tsv_file.stem
                     self._load_data(conn, table, tsv_file)
 
