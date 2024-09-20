@@ -190,7 +190,9 @@ def test_dbs(request: FixtureRequest, db_factory: Callable) -> dict[str, UnitTes
     """
     databases = {}
     for argument in request.param:
-        src = Path(argument["src"])
+        src = argument.get("src", None)
+        if src is not None:
+            src = Path(src)
         name = argument.get("name", None)
         key = name if name else src.name
         databases[key] = db_factory(src=src, name=name, metadata=argument.get("metadata"))
