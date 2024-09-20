@@ -126,7 +126,7 @@ class UnitTestDB:
 
             # Load the schema
             if metadata:
-                self.dbc.create_all_tables(metadata)
+                metadata.create_all(conn)
             elif dump_dir:
                 dump_dir_path = Path(dump_dir)
                 with open(dump_dir_path / "table.sql", "r") as schema:
