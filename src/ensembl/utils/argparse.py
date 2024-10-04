@@ -38,6 +38,7 @@ __all__ = [
 import argparse
 import os
 from pathlib import Path
+import re
 from typing import Any, Callable
 
 from sqlalchemy.engine import make_url, URL
@@ -61,7 +62,6 @@ class ArgumentParser(argparse.ArgumentParser):
         """Extends the base class to include the information about default argument values by default."""
         super().__init__(*args, **kwargs)
         self.formatter_class = argparse.ArgumentDefaultsHelpFormatter
-        self.__server_groups: list[str] = []
 
     def _validate_src_path(self, src_path: StrPath) -> Path:
         """Returns the path if exists and it is readable, raises an error through the parser otherwise.
@@ -240,7 +240,6 @@ class ArgumentParser(argparse.ArgumentParser):
                 default=argparse.SUPPRESS,
                 help="database name",
             )
-        self.__server_groups.append(prefix)
 
     def add_log_arguments(self, add_log_file: bool = False) -> None:
         """Adds the usual set of arguments required to set and initialise a logging system.
@@ -312,17 +311,23 @@ class ArgumentParser(argparse.ArgumentParser):
         """
         arguments = super().parse_args(*args, **kwargs)
         # Build and add an sqlalchemy.engine.URL object for every server group added
-        for prefix in self.__server_groups:
+        pattern = re.compile(r"([\w-]*)host$")
+        server_prefixes = [x.group(1) for x in map(pattern.match, vars(arguments)) if x]
+        for prefix in server_prefixes:
             # Raise an error rather than overwriting when the URL argument is already present
             if f"{prefix}url" in arguments:
                 self.error(f"argument '{prefix}url' is already present")
-            server_url = URL.create(
-                "mysql",
-                getattr(arguments, f"{prefix}user"),
-                getattr(arguments, f"{prefix}password"),
-                getattr(arguments, f"{prefix}host"),
-                getattr(arguments, f"{prefix}port"),
-                getattr(arguments, f"{prefix}database", None),
-            )
+            try:
+                server_url = URL.create(
+                    "mysql",
+                    getattr(arguments, f"{prefix}user"),
+                    getattr(arguments, f"{prefix}password"),
+                    getattr(arguments, f"{prefix}host"),
+                    getattr(arguments, f"{prefix}port"),
+                    getattr(arguments, f"{prefix}database", None),
+                )
+            except AttributeError:
+                # Not a server host argument
+                continue
             setattr(arguments, f"{prefix}url", server_url)
         return arguments
