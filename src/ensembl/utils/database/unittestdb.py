@@ -80,6 +80,7 @@ class UnitTestDB:
     def __init__(
         self,
         server_url: StrURL,
+        *,
         dump_dir: StrPath | None = None,
         name: str | None = None,
         metadata: MetaData | None = None,
