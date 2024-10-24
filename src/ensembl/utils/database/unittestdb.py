@@ -106,13 +106,17 @@ class UnitTestDB:
         try:
             db_exists = database_exists(db_url)
         except OperationalError as exc:
-            err_code, _ = exc.orig.args
             if (exc.code == "e3q8"  # OperationalError ... https://sqlalche.me/e/20/e3q8
-                    and err_code == 1045):  # Access denied
+                    and exc.orig and exc.orig.args[0] == 1045  # Access denied
+                    and db_url.password):
                 # If access denied, assume that the password is an environment
                 # variable, and try again with that variable expanded.
-                db_url = db_url.set(password=os.path.expandvars(db_url.password))
-                db_exists = database_exists(db_url)
+                updated_credential = os.path.expandvars(db_url.password)
+                if updated_credential:
+                    db_url = db_url.set(password=updated_credential)
+                    db_exists = database_exists(db_url)
+                else:
+                    raise
             else:
                 raise
         if db_exists:
