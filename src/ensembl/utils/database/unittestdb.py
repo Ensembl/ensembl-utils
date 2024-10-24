@@ -47,6 +47,7 @@ from typing import Any
 import sqlalchemy
 from sqlalchemy import text
 from sqlalchemy.engine import make_url
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.schema import MetaData
 from sqlalchemy_utils.functions import create_database, database_exists, drop_database
 
@@ -102,7 +103,19 @@ class UnitTestDB:
         if db_url.get_dialect().name == "mysql":
             connect_args["local_infile"] = 1
         # Create the database, dropping it beforehand if it already exists
-        if database_exists(db_url):
+        try:
+            db_exists = database_exists(db_url)
+        except OperationalError as exc:
+            err_code, _ = exc.orig.args
+            if (exc.code == "e3q8"  # OperationalError ... https://sqlalche.me/e/20/e3q8
+                    and err_code == 1045):  # Access denied
+                # If access denied, assume that the password is an environment
+                # variable, and try again with that variable expanded.
+                db_url = db_url.set(password=os.path.expandvars(db_url.password))
+                db_exists = database_exists(db_url)
+            else:
+                raise
+        if db_exists:
             drop_database(db_url)
         create_database(db_url)
         # Establish the connection to the database, load the schema and import the data
