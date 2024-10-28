@@ -79,22 +79,30 @@ def test_assert_files(
 
 
 @pytest.mark.parametrize(
-    "dump_dir, make_absolute, db_name, metadata, expected_tables",
+    "dump_dir, make_absolute, db_name, metadata, expected_db_name, expected_tables",
     [
-        param(Path("dump_dir"), False, "relative_dump_db", None, ["gibberish"], id="Relative dump_dir"),
-        param(Path("dump_dir"), True, "absolute_dump_db", None, ["gibberish"], id="Absolute dump_dir"),
-        param(Path("not_a_dir"), False, "no_dump_db", None, [], id="Non-existent dump_dir"),
-        param(Path("not_a_dir"), False, "with_metadata", Base.metadata, ["foo"], id="Use metadata"),
+        param(
+            Path("dump_dir"), False, "rel_dump_db", None, "rel_dump_db", ["gibberish"], id="Relative dump_dir"
+        ),
+        param(Path("dump_dir"), False, "", None, "dump_dir", ["gibberish"], id="Relative dump_dir"),
+        param(
+            Path("dump_dir"), True, "abs_dump_db", None, "abs_dump_db", ["gibberish"], id="Absolute dump_dir"
+        ),
+        param(Path("not_a_dir"), False, "no_dump_db", None, "no_dump_db", [], id="Non-existent dump_dir"),
+        param(Path("not_a_dir"), False, "metadata", Base.metadata, "metadata", ["foo"], id="Use metadata"),
+        param(None, False, "named_empty_db", None, "named_empty_db", [], id="Named empty database"),
+        param(None, False, "", None, "testdb", [], id="Unnamed empty database"),
     ],
 )
 def test_db_factory(
     request: FixtureRequest,
     db_factory: Callable[[Path | None, str | None, MetaData | None], UnitTestDB],
     data_dir: Path,
-    dump_dir: Path,
+    dump_dir: Path | None,
     make_absolute: bool,
     db_name: str,
     metadata: MetaData | None,
+    expected_db_name: str,
     expected_tables: list[str],
 ) -> None:
     """Tests the `db_factory` fixture.
@@ -107,13 +115,29 @@ def test_db_factory(
         make_absolute: change the dump_dir from relative to absolute (based on `data_dir`).
         db_name: Name to give to the new database.
         metadata: SQLAlchemy metadata to build a database from ORM instead of dump_dir.
+        expected_db_name: Expected database name.
         expected_tables: List of tables that should be loaded in the test database.
 
     """
-    if make_absolute:
+    if (dump_dir is not None) and make_absolute:
         dump_dir = Path(data_dir, dump_dir).absolute()
     test_db: UnitTestDB = db_factory(dump_dir, db_name, metadata)
 
     assert test_db.dbc.url.startswith(request.config.getoption("server"))
-    assert Path(test_db.dbc.db_name).stem.endswith(db_name)
+    assert Path(test_db.dbc.db_name).stem.endswith(expected_db_name)
     assert set(test_db.dbc.tables.keys()) == set(expected_tables)
+
+
+@pytest.mark.parametrize(
+    "test_dbs, expected_db_name",
+    [
+        param([{"name": "human"}], "human", id="Empty test database"),
+        param([{"src": "dump_dir"}], "dump_dir", id="Basic test database"),
+        param([{"src": "dump_dir", "name": "human"}], "human", id="Named test database"),
+        param([{"src": "dump_dir", "metadata": Base.metadata}], "dump_dir", id="Declare metadata"),
+    ],
+    indirect=["test_dbs"],
+)
+def test_test_dbs(test_dbs: dict[str, UnitTestDB], expected_db_name: str) -> None:
+    assert expected_db_name in test_dbs
+    assert test_dbs[expected_db_name].dbc is not None
