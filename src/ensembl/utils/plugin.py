@@ -78,7 +78,7 @@ def pytest_configure(config: Config) -> None:
     # If password set, treat it as an environment variable that needs to be resolved
     if server_url.password:
         server_url = server_url.set(password=os.path.expandvars(server_url.password))
-        config.option.server = str(server_url)
+        config.option.server = server_url.render_as_string(hide_password=False)
 
 
 def pytest_report_header(config: Config) -> str:
