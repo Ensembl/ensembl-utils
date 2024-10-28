@@ -304,3 +304,12 @@ class TestArgumentParser:
         # Check that the error is handled properly
         with raises(SystemExit):
             parser.parse_args(["--src_host", "host", "--src_port", "42", "--src_user", "username"])
+
+    @pytest.mark.dependency(depends=["add_server_arguments"])
+    def test_parse_args_not_server_host(self) -> None:
+        """Tests `ArgumentParser.parse_args()` method when a non-database server host is added as argument."""
+        parser = ArgumentParser()
+        parser.add_argument("--file_host")
+        args = parser.parse_args(["--file_host", "host"])
+        assert args.file_host == "host"
+        assert not hasattr(args, "file_port")
