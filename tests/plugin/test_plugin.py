@@ -139,5 +139,6 @@ def test_db_factory(
     indirect=["test_dbs"],
 )
 def test_test_dbs(test_dbs: dict[str, UnitTestDB], expected_db_name: str) -> None:
+    """Tests the `test_dbs` fixture."""
     assert expected_db_name in test_dbs
     assert test_dbs[expected_db_name].dbc is not None
