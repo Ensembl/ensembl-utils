@@ -293,12 +293,9 @@ class TestArgumentParser:
                 assert getattr(args, arg_name) == value
 
     @pytest.mark.dependency(depends=["add_server_arguments"])
-    def test_parse_args(self) -> None:
-        """Tests `ArgumentParser.parse_args()` method.
-
-        The only check left is when server arguments and a URL argument all with the same prefix
-        are added to the parser.
-
+    def test_parse_args_url_arg_present(self) -> None:
+        """Tests `ArgumentParser.parse_args()` method when server arguments and a URL argument all
+        with the same prefix are added to the parser.
         """
         # Add server arguments with prefix "src" and URL argument with the same prefix to the parser
         parser = ArgumentParser()
