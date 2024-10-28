@@ -164,9 +164,12 @@ def fixture_db_factory(request: FixtureRequest, data_dir: Path) -> Generator[DBF
 def test_dbs(request: FixtureRequest, db_factory: Callable) -> dict[str, UnitTestDB]:
     """Returns a dictionary of unit test databases with the database name as key.
 
-    Requires a list of dictionaries, each with keys `src` (mandatory), `name` (optional) and `metadata`
-    (optional), passed via `request.param`. See `db_factory()` for details about each key's value. This
-    fixture is a wrapper of `db_factory()` intended to be used via indirect parametrization, for example::
+    Requires a list of dictionaries, each with keys `src`, `name` and `metadata`, passed via `request.param`.
+    At minimum either `src` or `name` needs to be provided. See `db_factory()` for details about each key's
+    value.
+
+    This fixture is a wrapper of `db_factory()` intended to be used via indirect parametrization,
+    for example::
 
         from ensembl.core.models import Base
         @pytest.mark.parametrize(
@@ -194,6 +197,9 @@ def test_dbs(request: FixtureRequest, db_factory: Callable) -> dict[str, UnitTes
         if src is not None:
             src = Path(src)
         name = argument.get("name", None)
-        key = name if name else src.name
+        try:
+            key = name if name else src.name
+        except AttributeError:
+            raise TypeError("Expected at least 'src' or 'name' argument defined")
         databases[key] = db_factory(src=src, name=name, metadata=argument.get("metadata"))
     return databases
