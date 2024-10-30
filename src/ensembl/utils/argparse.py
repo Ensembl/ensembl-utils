@@ -23,8 +23,8 @@ Examples:
     >>> parser.add_server_arguments(help="Server to connect to")
     >>> args = parser.parse_args()
     >>> args
-    Namespace(host='myserver', port=3826, src_file=PosixPath('/path/to/src_file.txt'),
-    url=URL('mysql://username@myserver:3826'), user='username')
+    Namespace(host='localhost', port=3826, src_file=PosixPath('/path/to/src_file.txt'),
+    url=URL('mysql://username@localhost:3826'), user='username')
 
 """
 
@@ -327,7 +327,7 @@ class ArgumentParser(argparse.ArgumentParser):
                     getattr(arguments, f"{prefix}database", None),
                 )
             except AttributeError:
-                # Not a server host argument
+                # Not a database server host argument
                 continue
             setattr(arguments, f"{prefix}url", server_url)
         return arguments
