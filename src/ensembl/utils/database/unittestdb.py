@@ -114,12 +114,8 @@ class UnitTestDB:
             ):
                 # If access denied, assume that the password is an environment
                 # variable, and try again with that variable expanded.
-                updated_credential = os.path.expandvars(db_url.password)
-                if updated_credential:
-                    db_url = db_url.set(password=updated_credential)
-                    db_exists = database_exists(db_url)
-                else:
-                    raise
+                db_url = db_url.set(password=os.path.expandvars(db_url.password))
+                db_exists = database_exists(db_url)
             else:
                 raise
         if db_exists:
