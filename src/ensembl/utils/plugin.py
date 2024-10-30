@@ -24,6 +24,7 @@ from typing import Callable, Generator, TypeAlias
 
 import pytest
 from pytest import Config, FixtureRequest, Parser
+from sqlalchemy.engine import make_url
 from sqlalchemy.schema import MetaData
 
 from ensembl.utils import StrPath
@@ -61,6 +62,23 @@ def pytest_addoption(parser: Parser) -> None:
         required=False,
         help="Do not remove the test databases (default: False)",
     )
+
+
+def pytest_configure(config: Config) -> None:
+    """Allows plugins and conftest files to perform initial configuration.
+
+    More information: https://docs.pytest.org/en/latest/reference/reference.html#std-hook-pytest_configure
+
+    Args:
+        config: The pytest config object.
+
+    """
+    # Load server information
+    server_url = make_url(config.getoption("server"))
+    # If password set, treat it as an environment variable that needs to be resolved
+    if server_url.password:
+        server_url = server_url.set(password=os.path.expandvars(server_url.password))
+        config.option.server = server_url.render_as_string(hide_password=False)
 
 
 def pytest_report_header(config: Config) -> str:
