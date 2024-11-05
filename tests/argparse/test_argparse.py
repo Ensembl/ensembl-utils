@@ -296,6 +296,7 @@ class TestArgumentParser:
     def test_parse_args_url_arg_present(self) -> None:
         """Tests `ArgumentParser.parse_args()` method when server arguments and a URL argument all
         with the same prefix are added to the parser.
+
         """
         # Add server arguments with prefix "src" and URL argument with the same prefix to the parser
         parser = ArgumentParser()
@@ -307,7 +308,12 @@ class TestArgumentParser:
 
     @pytest.mark.dependency(depends=["add_server_arguments"])
     def test_parse_args_not_server_host(self) -> None:
-        """Tests `ArgumentParser.parse_args()` method when a non-database server host is added as argument."""
+        """Tests `ArgumentParser.parse_args()` method when a non-database server host is added as argument.
+
+        This test checks that arguments with a `host` suffix in their names (e.g. `file_host`) are
+        parsed correctly.
+
+        """
         parser = ArgumentParser()
         parser.add_argument("--file_host")
         args = parser.parse_args(["--file_host", "host"])
