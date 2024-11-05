@@ -198,7 +198,7 @@ def test_dbs(request: FixtureRequest, db_factory: Callable) -> dict[str, UnitTes
             src = Path(src)
         name = argument.get("name", None)
         try:
-            key = name if name else src.name
+            key = name or src.name
         except AttributeError as exc:
             raise TypeError("Expected at least 'src' or 'name' argument defined") from exc
         databases[key] = db_factory(src=src, name=name, metadata=argument.get("metadata"))
