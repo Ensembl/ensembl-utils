@@ -18,7 +18,6 @@ name: "Update NOTICE copyright year at the start of every year"
 on:
   schedule:
     - cron:  '15 15 1 1 *'
-  workflow_dispatch:
 
 jobs:
   notice_update:
