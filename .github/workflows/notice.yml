@@ -27,6 +27,7 @@ jobs:
     env:
       branch_name: bau/notice-update
     permissions:
+      contents: write
       pull-requests: write
 
     steps:
