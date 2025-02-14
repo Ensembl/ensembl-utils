@@ -13,46 +13,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Upload Python package to PyPI when a release is created
+name: "Documentation (MkDocs)"
 
 on:
-  release:
-    types: [created]
+  workflow_call:
+    inputs:
+      python-version:
+        description: Python version to run MkDocs and coverage with
+        required: true
+        type: string
 
 defaults:
   run:
     working-directory: ./
 
-env:
-  PYTHON_VERSION: "3.10"
-
 jobs:
-  mkdocs:
+  deploy_docs:
     name: Deploy documentation to GitHub Pages
-    uses: ./.github/workflows/mkdocs.yml
-    with:
-      python-version: ${{ env.PYTHON_VERSION }}
-
-  pypi-publish:
-    name: Publish release to PyPI
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/ensembl-utils
     permissions:
-      id-token: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/python_build
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          tags: "[build]"
+          python-version: ${{ inputs.python-version }}
+          tags: "[cicd,docs]"
 
-      - name: Build package
+      - name: Generate coverage report
         run: |
-          python -m build
+          coverage run -m pytest
+          coverage html -d ./reports/htmlcov
+          coverage xml -o ./reports/coverage.xml
+          genbadge coverage -i ./reports/coverage.xml -o ./reports/htmlcov/coverage-badge.svg
 
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Run mkdocs
+        run: |
+          mkdocs gh-deploy --force
