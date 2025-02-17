@@ -79,7 +79,7 @@ def init_logging(
     """
     # Define new formatter used for handlers
     formatter = logging.Formatter(msg_format)
-    formatter.formatTime = formatTime
+    formatter.formatTime = formatTime  # type: ignore[method-assign]
     # Configure the basic logging system, setting the root logger to the minimum log level available
     # to avoid filtering messages in any handler due to "parent delegation". Also close and remove any
     # existing handlers before setting this configuration.
