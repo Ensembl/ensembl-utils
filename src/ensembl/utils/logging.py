@@ -34,6 +34,7 @@ __all__ = [
 ]
 
 import argparse
+from datetime import datetime
 import logging
 from typing import Optional, Union
 
@@ -43,12 +44,24 @@ from ensembl.utils import StrPath
 LogLevel = Union[int, str]
 
 
+def formatTime(
+    record: logging.LogRecord,
+    datefmt: str | None = None,  # pylint: disable=unused-argument
+) -> str:
+    """Returns the creation time of the log record in ISO8601 format.
+
+    Args:
+        record: Log record to format.
+        datefmt: Date format to use. Ignored in this implementation.
+    """
+    return datetime.fromtimestamp(record.created).astimezone().isoformat(timespec="milliseconds")
+
+
 def init_logging(
     log_level: LogLevel = "WARNING",
     log_file: Optional[StrPath] = None,
     log_file_level: LogLevel = "DEBUG",
-    msg_format: str = "%(asctime)s\t%(levelname)s\t%(message)s",
-    date_format: str = r"%Y-%m-%d_%H:%M:%S",
+    msg_format: str = "%(asctime)s [%(process)s] %(levelname)-9s %(name)-13s: %(message)s",
 ) -> None:
     """Initialises the logging system.
 
@@ -62,19 +75,20 @@ def init_logging(
         log_file_level: Minimum logging level for the logging file.
         msg_format: A format string for the logged output as a whole. More information:
             https://docs.python.org/3/library/logging.html#logrecord-attributes
-        date_format: A format string for the date/time portion of the logged output. More information:
-            https://docs.python.org/3/library/logging.html#logging.Formatter.formatTime
 
     """
+    # Define new formatter used for handlers
+    formatter = logging.Formatter(msg_format)
+    formatter.formatTime = formatTime
     # Configure the basic logging system, setting the root logger to the minimum log level available
     # to avoid filtering messages in any handler due to "parent delegation". Also close and remove any
     # existing handlers before setting this configuration.
-    logging.basicConfig(format=msg_format, datefmt=date_format, level="DEBUG", force=True)
-    # Set the correct log level of the new StreamHandler (by default it is set to NOTSET)
+    logging.basicConfig(level="DEBUG", force=True)
+    # Set the correct log level and format of the new StreamHandler (by default the latter is set to NOTSET)
     logging.root.handlers[0].setLevel(log_level)
+    logging.root.handlers[0].setFormatter(formatter)
     if log_file:
         # Create the log file handler and add it to the root logger
-        formatter = logging.Formatter(msg_format, datefmt=date_format)
         file_handler = logging.FileHandler(log_file)
         file_handler.setLevel(log_file_level)
         file_handler.setFormatter(formatter)
