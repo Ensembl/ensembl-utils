@@ -14,7 +14,7 @@
 # limitations under the License.
 
 name: "Documentation"
-run-name: Generate GitHub pages documentation with MkDocs by @${{ github.actor }}
+run-name: Deploy GitHub pages documentation with MkDocs by @${{ github.actor }}
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ on:
 
 jobs:
   mkdocs:
-    name: Python CI
+    name: Deploy documentation to GitHub Pages
     uses: ./.github/workflows/mkdocs.yml
     with:
       python-version: ${{ inputs.python-version }}
