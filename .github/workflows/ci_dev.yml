@@ -23,10 +23,12 @@ on:
         description: Python version
         required: true
         type: string
+        default: "3.10"
       sqlalchemy-version:
         description: SQLAlchemy version
         required: true
         type: string
+        default: "2.*"
 
 jobs:
   python_ci:
