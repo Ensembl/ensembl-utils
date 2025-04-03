@@ -24,7 +24,8 @@ readme = "README.md"
 authors = [
     {name = "Ensembl", email = "dev@ensembl.org"},
 ]
-license = {text = "Apache License 2.0"}
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 keywords = [
     "ensembl",
     "python",
@@ -35,7 +36,6 @@ classifiers = [
     "Environment :: Console",
     "Framework :: Pytest",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
