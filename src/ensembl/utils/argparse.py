@@ -245,7 +245,7 @@ class ArgumentParser(argparse.ArgumentParser):
         """Adds the usual set of arguments required to set and initialise a logging system.
 
         The current set includes a mutually exclusive group for the default logging level: `--verbose`,
-        `--debug` or `--log LEVEL`.
+        `--debug`, `--quiet` or `--log LEVEL`.
 
         Args:
             add_log_file: Add arguments to allow storing messages into a file, i.e. `--log_file` and
@@ -273,6 +273,13 @@ class ArgumentParser(argparse.ArgumentParser):
             const="DEBUG",
             dest="log_level",
             help="debugging mode, i.e. 'DEBUG' log level",
+        )
+        subgroup.add_argument(
+            "--quiet",
+            action="store_const",
+            const="CRITICAL",
+            dest="log_level",
+            help="quiet mode, i.e. 'CRITICAL' log level",
         )
         subgroup.add_argument(
             "--log",
