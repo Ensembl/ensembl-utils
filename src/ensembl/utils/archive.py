@@ -26,7 +26,7 @@ from contextlib import contextmanager
 import gzip
 from pathlib import Path
 import shutil
-from typing import Generator, TextIO
+from typing import Generator, IO
 
 from ensembl.utils import StrPath
 from ensembl.utils.argparse import ArgumentParser
@@ -54,21 +54,25 @@ SUPPORTED_ARCHIVE_FORMATS = [ext for elem in shutil.get_unpack_formats() for ext
 
 
 @contextmanager
-def open_gz_file(file_path: StrPath) -> Generator[TextIO, None, None]:
+def open_gz_file(
+    file_path: StrPath, mode: str = "rt", encoding: str = "utf-8"
+) -> Generator[gzip.GzipFile | IO, None, None]:
     """Yields an open file object, even if the file is compressed with gzip.
 
     The file is expected to contain a text, and this can be used with the usual "with".
 
     Args:
         file_path: A (single) file path to open.
+        mode: The mode in which the file is opened.
+        encoding: The name of the encoding used to decode or encode the file.
 
     """
     src_file = Path(file_path)
     if src_file.suffix == ".gz":
-        with gzip.open(src_file, "rt") as fh:
+        with gzip.open(src_file, mode, encoding=encoding) as fh:
             yield fh
     else:
-        with src_file.open("rt") as fh:
+        with src_file.open(mode, encoding=encoding) as fh:
             yield fh
 
 
