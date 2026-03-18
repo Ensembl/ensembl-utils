@@ -23,6 +23,7 @@ from pytest import param
 from ensembl.utils.archive import open_gz_file, extract_file
 
 
+@pytest.mark.dependency(name="open_gz_file_read")
 @pytest.mark.parametrize(
     "src_file, expected_file",
     [
@@ -30,11 +31,10 @@ from ensembl.utils.archive import open_gz_file, extract_file
         param("sample.txt", "sample.txt", id="uncompressed file"),
     ],
 )
-def test_open_gz_file(data_dir: Path, src_file: str, expected_file: str) -> None:
-    """Tests `open_gz_file()` function.
+def test_open_gz_file_read(data_dir: Path, src_file: str, expected_file: str) -> None:
+    """Tests `open_gz_file()` function for read mode.
 
     Args:
-        tmp_path: Fixture that provides a temporary directory path unique to the test invocation.
         data_dir: Fixture that provides the path to the test data folder matching the test's name.
         src_file: Source file to open.
         expected_file: File with the expected content to be found in the source file.
@@ -48,6 +48,31 @@ def test_open_gz_file(data_dir: Path, src_file: str, expected_file: str) -> None
     with expected_path.open("r") as in_file:
         expected_content = in_file.readlines()
     assert src_content == expected_content
+
+
+@pytest.mark.dependency(depends=["open_gz_file_read"])
+@pytest.mark.parametrize(
+    "file_name",
+    [
+        param("test.txt.gz", id="gzip file"),
+        param("test.txt", id="uncompressed file"),
+    ],
+)
+def test_open_gz_file_write(tmp_path: Path, file_name: str) -> None:
+    """Tests `open_gz_file()` function for write mode.
+
+    Args:
+        tmp_path: Fixture that provides a temporary directory path unique to the test invocation.
+        file_name: Name of the file to be created and written to.
+
+    """
+    text = "test content\n"
+    file_path = tmp_path / file_name
+    with open_gz_file(file_path, mode="wt") as out_file:
+        out_file.write(text)
+    # Check if the content has been written correctly
+    with open_gz_file(file_path) as in_file:
+        assert text == "".join(in_file.readlines())
 
 
 @pytest.mark.parametrize(
