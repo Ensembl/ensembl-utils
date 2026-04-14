@@ -13,21 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: "Documentation"
-run-name: Deploy GitHub pages documentation with MkDocs by @${{ github.actor }}
+.PHONY: docs apidoc coverage clean
 
-on:
-  workflow_dispatch:
-    inputs:
-      python-version:
-        description: Python version to run MkDocs and coverage with
-        required: true
-        type: string
-        default: "3.10"
+apidoc:
+	sphinx-apidoc -o docs/reference/ src/ensembl --force --module-first --no-toc --implicit-namespaces
+	rm -f docs/reference/ensembl.rst
 
-jobs:
-  mkdocs:
-    name: Deploy documentation to GitHub Pages
-    uses: ./.github/workflows/mkdocs.yml
-    with:
-      python-version: ${{ inputs.python-version }}
+docs: apidoc
+	sphinx-build -b html docs/ docs/_build/html
+
+coverage:
+	coverage run -m pytest
+	coverage html -d docs/_static/htmlcov
+	coverage xml -o reports/coverage.xml
+	genbadge coverage -i reports/coverage.xml -o docs/_static/htmlcov/coverage-badge.svg
+	rm -rf reports
+
+clean:
+	rm -rf docs/_build docs/reference docs/_static/htmlcov

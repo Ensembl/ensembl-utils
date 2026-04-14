@@ -22,7 +22,7 @@ import configparser
 import json
 import logging
 from io import StringIO
-from typing import Optional, Any
+from typing import Any
 
 import dotenv
 import requests
@@ -40,15 +40,15 @@ class RemoteFileLoader:
         parser: Parser to use for this object. Default: `None` (no format-specific parsing done).
 
     Attributes:
-        available_formats: File formats with ad-hoc parsers available.
+        available_formats: File formats with ad-hoc parser available.
         parser: Parser selected for this object.
 
     """
 
     available_formats: set[str] = {"yaml", "ini", "env", "json"}
-    parser: Optional[str] = None
+    parser: str | None = None
 
-    def __init__(self, parser: Optional[str] = None) -> None:
+    def __init__(self, parser: str | None = None) -> None:
         if parser in self.available_formats:
             self.parser = parser
 

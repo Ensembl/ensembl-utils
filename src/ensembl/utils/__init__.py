@@ -21,7 +21,7 @@ __all__ = [
 ]
 
 import os
-from typing import TypeVar
 
 
-StrPath = TypeVar("StrPath", str, os.PathLike)
+StrPath = str | os.PathLike[str]
+"""Type alias for a string or :class:`os.PathLike` path."""

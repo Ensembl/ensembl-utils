@@ -1,0 +1,91 @@
+# See the NOTICE file distributed with this work for additional information
+# regarding copyright ownership.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Deploy versioned documentation
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: Python version to use
+        required: true
+        type: string
+      tag:
+        description: Release tag to deploy
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/python_build
+        with:
+          python-version: ${{ inputs.python-version }}
+          tags: "[cicd,docs]"
+
+      - name: Generate coverage report
+        run: make coverage
+
+      - name: Build docs
+        run: make docs
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Update switcher.json
+        run: |
+          python docs/_scripts/update_switcher.py \
+            --version "${{ inputs.tag }}" \
+            --switcher "gh-pages/latest/_static/switcher.json"
+
+      - name: Deploy versioned docs
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html
+          destination_dir: ${{ inputs.tag }}
+          keep_files: true
+
+      - name: Deploy as latest
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html
+          destination_dir: latest
+          keep_files: true
+
+      - name: Commit updated switcher.json
+        run: |
+          cd gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add latest/_static/switcher.json
+          if git diff --staged --quiet; then
+            echo "No changes to switcher.json, skipping commit"
+          else
+            git commit -m "Update switcher.json for ${{ inputs.tag }}"
+            git push
+          fi
