@@ -99,6 +99,8 @@ class ArgumentParser(argparse.ArgumentParser):
                 if not os.access(parent_path, os.W_OK):
                     self.error(f"'{dst_path}' is not writable")
                 break
+        else:
+            self.error(f"'{dst_path}' is not writable")
         return dst_path
 
     def _validate_number(
