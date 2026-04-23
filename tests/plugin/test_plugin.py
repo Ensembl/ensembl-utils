@@ -30,7 +30,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.schema import MetaData
 
 from ensembl.utils.database import UnitTestDB
-from ensembl.utils.plugin import pytest_configure
+from ensembl.utils.plugin import pytest_configure, test_dbs as test_dbs_fixture
 
 
 class Base(DeclarativeBase):
@@ -163,3 +163,11 @@ def test_test_dbs(test_dbs: dict[str, UnitTestDB], expected_db_name: str) -> Non
     """Tests the `test_dbs` fixture."""
     assert expected_db_name in test_dbs
     assert test_dbs[expected_db_name].dbc is not None
+
+
+def test_test_dbs_missing_src_and_name(db_factory: Callable) -> None:
+    """Tests that `test_dbs` fixture raises TypeError when neither 'src' nor 'name' is provided."""
+    mock_request = MagicMock(spec=FixtureRequest)
+    mock_request.param = [{}]
+    with pytest.raises(TypeError, match=r"Expected at least 'src' or 'name' argument defined"):
+        test_dbs_fixture.__wrapped__(mock_request, db_factory)
