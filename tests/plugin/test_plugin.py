@@ -19,8 +19,10 @@ Since certain elements are embedded within pytest itself, only the fixtures are 
 # pylint: disable=too-many-positional-arguments
 
 from contextlib import nullcontext as does_not_raise
+import os
 from pathlib import Path
 from typing import Callable, ContextManager
+from unittest.mock import MagicMock, patch
 
 import pytest
 from pytest import FixtureRequest, param, raises
@@ -28,6 +30,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.schema import MetaData
 
 from ensembl.utils.database import UnitTestDB
+from ensembl.utils.plugin import pytest_configure
 
 
 class Base(DeclarativeBase):
@@ -39,6 +42,24 @@ class Foo(Base):
 
     __tablename__ = "foo"
     id: Mapped[int] = mapped_column(primary_key=True)
+
+
+def test_pytest_configure_no_password() -> None:
+    """Test that `pytest_configure()` does not modify the server URL when no password is provided."""
+    config = MagicMock()
+    config.getoption.return_value = "mysql://user@localhost/"
+    config.option = MagicMock(spec=[])
+    pytest_configure(config)
+    assert not hasattr(config.option, "server")
+
+
+def test_pytest_configure_with_password_env_var() -> None:
+    """Test that `pytest_configure()` resolves the password from an environment variable."""
+    config = MagicMock()
+    config.getoption.return_value = "mysql://user:$DB_PASSWORD@localhost/"
+    with patch.dict(os.environ, {"DB_PASSWORD": "secret"}):
+        pytest_configure(config)
+    assert config.option.server == "mysql://user:secret@localhost/"
 
 
 @pytest.mark.dependency(name="test_data_dir")
