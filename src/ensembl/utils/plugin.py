@@ -30,7 +30,6 @@ from sqlalchemy.schema import MetaData
 from ensembl.utils import StrPath
 from ensembl.utils.database import UnitTestDB
 
-
 DBFactory: TypeAlias = Callable[[StrPath | None, str | None, MetaData | None], UnitTestDB]
 
 

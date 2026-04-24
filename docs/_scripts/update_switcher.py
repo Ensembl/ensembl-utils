@@ -25,12 +25,13 @@ from ensembl.utils import argparse
 
 
 def main() -> None:
+    """Script's main entry point."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", required=True, help="Version to add to the switcher")
     parser.add_argument(
         "--base-url",
         default="https://ensembl.github.io/ensembl-utils",
-        help="Base URL of the documentation site"
+        help="Base URL of the documentation site",
     )
     parser.add_argument_src_path("--switcher", required=True, help="Path to the switcher JSON file")
     args = parser.parse_args()

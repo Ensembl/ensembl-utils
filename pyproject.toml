@@ -63,7 +63,7 @@ build = [
     "wheel",
 ]
 cicd = [
-    "black",
+    "black >= 23.0.0",
     "coverage",
     "genbadge[coverage]",
     "mypy",
@@ -111,6 +111,7 @@ requires = [
 
 [tool.black]
 line-length = 110
+target-version = ["py310"]
 
 [tool.pylint.main]
 max-line-length = 110

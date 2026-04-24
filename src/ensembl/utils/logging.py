@@ -40,7 +40,6 @@ from typing import Optional, Union
 
 from ensembl.utils import StrPath
 
-
 LogLevel = Union[int, str]
 
 

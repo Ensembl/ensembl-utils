@@ -22,6 +22,5 @@ __all__ = [
 
 import os
 
-
 StrPath = str | os.PathLike[str]
 """Type alias for a string or :class:`os.PathLike` path."""
