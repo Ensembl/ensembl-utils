@@ -26,13 +26,16 @@ from contextlib import contextmanager
 import gzip
 from pathlib import Path
 import shutil
-from typing import Generator, IO
+import sys
+from typing import Any, Generator, IO
 
 from ensembl.utils import StrPath
 from ensembl.utils.argparse import ArgumentParser
 
 
-def _unpack_gz_files(src_file: StrPath, dst_dir: StrPath) -> None:
+def _unpack_gz_files(
+    src_file: StrPath, dst_dir: StrPath, **kwargs: Any  # pylint: disable=unused-argument
+) -> None:
     """Unpacks `src_file` to `dst_dir`.
 
     Args:
@@ -91,7 +94,10 @@ def extract_file(src_file: StrPath, dst_dir: StrPath) -> None:
     extensions = {"".join(src_file.suffixes[i:]) for i in range(0, len(src_file.suffixes))}
 
     if extensions.intersection(SUPPORTED_ARCHIVE_FORMATS):
-        shutil.unpack_archive(src_file, dst_dir)
+        if sys.version_info >= (3, 12):
+            shutil.unpack_archive(src_file, dst_dir, filter="data")
+        else:
+            shutil.unpack_archive(src_file, dst_dir)
     else:
         # Replicate the functionality of shutil.unpack_archive() by creating `dst_dir`
         Path(dst_dir).mkdir(parents=True, exist_ok=True)
