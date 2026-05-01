@@ -15,13 +15,24 @@
 """Unit testing of `ensembl.utils.logging` module."""
 
 import argparse
+from datetime import datetime
 import logging
 from pathlib import Path
 
 import pytest
 from pytest import param
 
-from ensembl.utils.logging import LogLevel, init_logging, init_logging_with_args
+from ensembl.utils.logging import LogLevel, formatTime, init_logging, init_logging_with_args
+
+
+def test_formatTime() -> None:
+    """Tests `formatTime()` function."""
+    record = logging.LogRecord(
+        name="test", level=logging.INFO, pathname="", lineno=0, msg="test", args=(), exc_info=None
+    )
+    record.created = 1700000000.123
+    expected = datetime.fromtimestamp(1700000000.123).astimezone().isoformat(timespec="milliseconds")
+    assert formatTime(record) == expected
 
 
 @pytest.mark.parametrize(

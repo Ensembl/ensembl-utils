@@ -19,7 +19,9 @@
 from contextlib import nullcontext as does_not_raise
 from pathlib import Path
 import re
+import sys
 from typing import Any, Callable, ContextManager
+from unittest.mock import patch
 
 import pytest
 from pytest import param, raises
@@ -65,10 +67,11 @@ class TestArgumentParser:
     @pytest.mark.parametrize(
         "is_dir",
         [
-            param(True, id="Destination path is a file"),
-            param(False, id="Destination path is a directory"),
+            param(False, id="Destination path is a file"),
+            param(True, id="Destination path is a directory"),
         ],
     )
+    @pytest.mark.skipif(sys.platform == "win32", reason="chmod not reliable on Windows")
     def test_validate_unwritable_dst_path(self, tmp_path: Path, is_dir: bool) -> None:
         """Tests `ArgumentParser._validate_dst_path()` method for an unwritable path.
 
@@ -90,6 +93,13 @@ class TestArgumentParser:
         parser = ArgumentParser()
         with raises(SystemExit):
             parser._validate_dst_path(dst_path)  # pylint: disable=protected-access
+
+    def test_validate_no_parent_dst_path(self) -> None:
+        """Tests `ArgumentParser._validate_dst_path()` method when no existing parent directory is found."""
+        with patch.object(Path, "exists", return_value=False):
+            parser = ArgumentParser()
+            with pytest.raises(SystemExit):
+                parser._validate_dst_path("/nonexistent/path/file.txt")  # pylint: disable=protected-access
 
     @pytest.mark.dependency(name="add_argument")
     @pytest.mark.parametrize(
