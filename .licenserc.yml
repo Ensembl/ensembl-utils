@@ -18,6 +18,7 @@ header:
 
   paths-ignore:
     - '**/*.md'
+    - '**/*.json'
     - 'tests/**/test_*/**/*'
     - '.gitignore'
     - 'LICENSE'

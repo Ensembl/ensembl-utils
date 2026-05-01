@@ -21,7 +21,6 @@ from pytest import param
 
 from ensembl.utils.checksums import get_file_hash, validate_file_hash
 
-
 TEST_FILE_MD5_HASH = "0d17ea963a2c325f759fc4066f2fc9b2"
 TEST_FILE_SHA256_HASH = "f76e2e362c0f7ba15ea2052bcf91debda446479eb610d4a47754ef2a33829649"
 

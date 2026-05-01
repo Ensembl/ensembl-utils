@@ -45,7 +45,6 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.schema import MetaData, Table
 
-
 Query = TypeVar("Query", str, sqlalchemy.sql.expression.ClauseElement, sqlalchemy.sql.expression.TextClause)
 StrURL = TypeVar("StrURL", str, sqlalchemy.engine.URL)
 

@@ -121,8 +121,11 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
-site/
+# Sphinx documentation
+docs/_build/
+docs/_static/htmlcov/
+docs/reference/
+reports/
 
 # mypy
 .mypy_cache/
@@ -140,3 +143,6 @@ cython_debug/
 
 # ruff
 .ruff_cache/
+
+# macOS files
+.DS_Store
