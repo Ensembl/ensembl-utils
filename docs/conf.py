@@ -41,7 +41,7 @@ extensions = [
 language = "en"
 
 # MyST settings
-myst_enable_extensions = ["colon_fence", "linkify", "substitution"]
+myst_enable_extensions = ["colon_fence", "substitution"]
 myst_heading_anchors = 2
 
 # Autodoc settings
