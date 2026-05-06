@@ -82,10 +82,7 @@ html_js_files = [
 # Define the version and json_url for the version switcher
 release = ensembl.utils.__version__
 version_match = f"v{release}"
-if os.environ.get("READTHEDOCS") or os.environ.get("CI"):
-    json_url = "https://ensembl.github.io/ensembl-utils/latest/_static/switcher.json"
-else:
-    json_url = "_static/switcher.json"
+json_url = "_static/switcher.json"
 
 html_theme_options = {
     "header_links_before_dropdown": 4,
