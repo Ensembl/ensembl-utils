@@ -46,20 +46,22 @@ jobs:
       - name: Generate coverage report
         run: make coverage
 
-      - name: Build docs
-        run: make docs
-
       - name: Checkout gh-pages
         uses: actions/checkout@v6
         with:
           ref: gh-pages
           path: gh-pages
 
-      - name: Update switcher.json
+      - name: Generate switcher.json
         run: |
+          mkdir -p docs/_static
           python docs/_scripts/update_switcher.py \
             --version "${{ inputs.tag }}" \
             --switcher "gh-pages/latest/_static/switcher.json"
+          cp gh-pages/latest/_static/switcher.json docs/_static/switcher.json
+
+      - name: Build docs
+        run: make docs
 
       - name: Deploy versioned docs
         uses: peaceiris/actions-gh-pages@v4
@@ -76,16 +78,3 @@ jobs:
           publish_dir: docs/_build/html
           destination_dir: latest
           keep_files: true
-
-      - name: Commit updated switcher.json
-        run: |
-          cd gh-pages
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add latest/_static/switcher.json
-          if git diff --staged --quiet; then
-            echo "No changes to switcher.json, skipping commit"
-          else
-            git commit -m "Update switcher.json for ${{ inputs.tag }}"
-            git push
-          fi
