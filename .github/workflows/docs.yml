@@ -55,12 +55,6 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Update switcher.json
-        run: |
-          python docs/_scripts/update_switcher.py \
-            --version "${{ inputs.tag }}" \
-            --switcher "gh-pages/latest/_static/switcher.json"
-
       - name: Deploy versioned docs
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -77,12 +71,20 @@ jobs:
           destination_dir: latest
           keep_files: true
 
+      - name: Update switcher.json
+        run: |
+          python docs/_scripts/update_switcher.py \
+            --version "${{ inputs.tag }}" \
+            --switcher "gh-pages/latest/_static/switcher.json"
+          cp gh-pages/latest/_static/switcher.json \
+            gh-pages/${{ inputs.tag }}/_static/switcher.json
+
       - name: Commit updated switcher.json
         run: |
           cd gh-pages
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add latest/_static/switcher.json
+          git add ${{ inputs.tag }}/_static/switcher.json latest/_static/switcher.json
           if git diff --staged --quiet; then
             echo "No changes to switcher.json, skipping commit"
           else
