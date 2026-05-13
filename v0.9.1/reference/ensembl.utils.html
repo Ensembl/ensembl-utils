@@ -1,0 +1,1148 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ensembl.utils package &#8212; ensembl-utils</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=25cdf2e9" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=fea2a977"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/ensembl.utils';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensembl.github.io/ensembl-utils/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.9.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = true;</script>
+    <script defer="defer" src="../_static/custom-icons.js?v=e84dd8f9"></script>
+    <link rel="icon" href="../_static/ensembl_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ensembl.utils.database package" href="ensembl.utils.database.html" />
+    <link rel="prev" title="Coverage Report" href="../coverage_report.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="May 13, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ensembl_mark_white.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/ensembl_mark_white.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">ensembl-utils</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../coverage_report.html">
+    Coverage Report
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    ensembl.utils package
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Ensembl/ensembl-utils" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ensembl-utils" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../coverage_report.html">
+    Coverage Report
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    ensembl.utils package
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Ensembl/ensembl-utils" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ensembl-utils" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ensembl.utils.database.html">ensembl.utils.database package</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ensembl.utils package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-ensembl.utils">
+<span id="ensembl-utils-package"></span><h1>ensembl.utils package<a class="headerlink" href="#module-ensembl.utils" title="Link to this heading">#</a></h1>
+<p>Ensembl Python general-purpose utils library.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="ensembl.utils.StrPath">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.</span></span><span class="sig-name descname"><span class="pre">StrPath</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">str</span> <span class="pre">|</span> <span class="pre">os.PathLike[str]</span></em><a class="headerlink" href="#ensembl.utils.StrPath" title="Link to this definition">#</a></dt>
+<dd><p>Type alias for a string or <code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code> path.</p>
+</dd></dl>
+
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ensembl.utils.database.html">ensembl.utils.database package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ensembl.utils.database.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensembl.utils.database.html#module-ensembl.utils.database.dbconnection">ensembl.utils.database.dbconnection module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection"><code class="docutils literal notranslate"><span class="pre">DBConnection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.__repr__"><code class="docutils literal notranslate"><span class="pre">DBConnection.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.begin"><code class="docutils literal notranslate"><span class="pre">DBConnection.begin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.connect"><code class="docutils literal notranslate"><span class="pre">DBConnection.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.create_all_tables"><code class="docutils literal notranslate"><span class="pre">DBConnection.create_all_tables()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.create_table"><code class="docutils literal notranslate"><span class="pre">DBConnection.create_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.db_name"><code class="docutils literal notranslate"><span class="pre">DBConnection.db_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.dialect"><code class="docutils literal notranslate"><span class="pre">DBConnection.dialect</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.dispose"><code class="docutils literal notranslate"><span class="pre">DBConnection.dispose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.get_columns"><code class="docutils literal notranslate"><span class="pre">DBConnection.get_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.get_primary_key_columns"><code class="docutils literal notranslate"><span class="pre">DBConnection.get_primary_key_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.host"><code class="docutils literal notranslate"><span class="pre">DBConnection.host</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.load_metadata"><code class="docutils literal notranslate"><span class="pre">DBConnection.load_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.port"><code class="docutils literal notranslate"><span class="pre">DBConnection.port</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.session_scope"><code class="docutils literal notranslate"><span class="pre">DBConnection.session_scope()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.tables"><code class="docutils literal notranslate"><span class="pre">DBConnection.tables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.test_session_scope"><code class="docutils literal notranslate"><span class="pre">DBConnection.test_session_scope()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.dbconnection.DBConnection.url"><code class="docutils literal notranslate"><span class="pre">DBConnection.url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ensembl.utils.database.html#module-ensembl.utils.database.unittestdb">ensembl.utils.database.unittestdb module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.unittestdb.UnitTestDB"><code class="docutils literal notranslate"><span class="pre">UnitTestDB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.unittestdb.UnitTestDB.__repr__"><code class="docutils literal notranslate"><span class="pre">UnitTestDB.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.unittestdb.UnitTestDB.drop"><code class="docutils literal notranslate"><span class="pre">UnitTestDB.drop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-ensembl.utils.archive">
+<span id="ensembl-utils-archive-module"></span><h2>ensembl.utils.archive module<a class="headerlink" href="#module-ensembl.utils.archive" title="Link to this heading">#</a></h2>
+<p>Utils for common IO operations over archive files, e.g. tar or gzip.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.archive.extract_file">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.archive.</span></span><span class="sig-name descname"><span class="pre">extract_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/archive.html#extract_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.archive.extract_file" title="Link to this definition">#</a></dt>
+<dd><p>Extracts the <cite>src_file</cite> into <cite>dst_dir</cite>.</p>
+<p>If the file is not an archive, it will be copied to <cite>dst_dir</cite>. <cite>dst_dir</cite> will be created if it
+does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Path to the file to unpack.</p></li>
+<li><p><strong>dst_dir</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Path to the folder where to extract the file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.archive.open_gz_file">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.archive.</span></span><span class="sig-name descname"><span class="pre">open_gz_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/archive.html#open_gz_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.archive.open_gz_file" title="Link to this definition">#</a></dt>
+<dd><p>Yields an open file object, even if the file is compressed with gzip.</p>
+<p>The file is expected to contain a text, and this can be used with the usual “with”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – A (single) file path to open.</p></li>
+<li><p><strong>mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'rt'</span></code>) – The mode in which the file is opened.</p></li>
+<li><p><strong>encoding</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'utf-8'</span></code>) – The name of the encoding used to decode or encode the file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">GzipFile</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ensembl.utils.argparse">
+<span id="ensembl-utils-argparse-module"></span><h2>ensembl.utils.argparse module<a class="headerlink" href="#module-ensembl.utils.argparse" title="Link to this heading">#</a></h2>
+<p>Provide an extended version of <cite>argparse.ArgumentParser</cite> with additional functionality.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ensembl.util.argparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Tool description&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span><span class="o">.</span><span class="n">add_argument_src_path</span><span class="p">(</span><span class="s2">&quot;--src_file&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to source file&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span><span class="o">.</span><span class="n">add_server_arguments</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">&quot;Server to connect to&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">args</span>
+<span class="go">Namespace(host=&#39;localhost&#39;, port=3826, src_file=PosixPath(&#39;/path/to/src_file.txt&#39;),</span>
+<span class="go">url=URL(&#39;mysql://username@localhost:3826&#39;), user=&#39;username&#39;)</span>
+</pre></div>
+</div>
+<dl class="py exception">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ensembl.utils.argparse.</span></span><span class="sig-name descname"><span class="pre">ArgumentError</span></span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>An error from creating an argument (optional or positional).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ensembl.utils.argparse.</span></span><span class="sig-name descname"><span class="pre">ArgumentParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code></p>
+<p>Extends <cite>argparse.ArgumentParser</cite> with additional methods and functionality.</p>
+<p>The default behaviour of the help text will be to display the default values on every non-required
+argument, i.e. optional arguments with <cite>required=False</cite>.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.add_argument">
+<span class="sig-name descname"><span class="pre">add_argument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.add_argument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.add_argument" title="Link to this definition">#</a></dt>
+<dd><p>Extends the parent function by excluding the default value in the help text when not provided.</p>
+<p>Only applied to required arguments without a default value, i.e. positional arguments or optional
+arguments with <cite>required=True</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.add_argument_dst_path">
+<span class="sig-name descname"><span class="pre">add_argument_dst_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exists_ok</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.add_argument_dst_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.add_argument_dst_path" title="Link to this definition">#</a></dt>
+<dd><p>Adds <cite>pathlib.Path</cite> argument, checking if it is writable at parsing time.</p>
+<p>If “metavar” is not defined it is added with “PATH” as value to improve help text readability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exists_ok</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Do not raise an error if the destination path already exists.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.add_argument_src_path">
+<span class="sig-name descname"><span class="pre">add_argument_src_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.add_argument_src_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.add_argument_src_path" title="Link to this definition">#</a></dt>
+<dd><p>Adds <cite>pathlib.Path</cite> argument, checking if it exists and it is readable at parsing time.</p>
+<p>If “metavar” is not defined, it is added with “PATH” as value to improve help text readability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.add_argument_url">
+<span class="sig-name descname"><span class="pre">add_argument_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.add_argument_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.add_argument_url" title="Link to this definition">#</a></dt>
+<dd><p>Adds <cite>sqlalchemy.engine.URL</cite> argument.</p>
+<p>If “metavar” is not defined it is added with “URI” as value to improve help text readability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.add_log_arguments">
+<span class="sig-name descname"><span class="pre">add_log_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">add_log_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.add_log_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.add_log_arguments" title="Link to this definition">#</a></dt>
+<dd><p>Adds the usual set of arguments required to set and initialise a logging system.</p>
+<p>The current set includes a mutually exclusive group for the default logging level: <cite>–verbose</cite>,
+<cite>–debug</cite>, <cite>–quiet</cite> or <cite>–log LEVEL</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>add_log_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Add arguments to allow storing messages into a file, i.e. <cite>–log_file</cite> and
+<cite>–log_file_level</cite>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.add_numeric_argument">
+<span class="sig-name descname"><span class="pre">add_numeric_argument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_value=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_value=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.add_numeric_argument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.add_numeric_argument" title="Link to this definition">#</a></dt>
+<dd><p>Adds a numeric argument with constrains on its type and its minimum or maximum value.</p>
+<p>Note that the default value (if defined) is not checked unless the argument is an optional argument
+and no value is provided in the command line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></code>) – Type to convert the argument value to when parsing.</p></li>
+<li><p><strong>min_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Minimum value constrain. If <cite>None</cite>, no minimum value constrain.</p></li>
+<li><p><strong>max_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Maximum value constrain. If <cite>None</cite>, no maximum value constrain.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.add_server_arguments">
+<span class="sig-name descname"><span class="pre">add_server_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">help</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.add_server_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.add_server_arguments" title="Link to this definition">#</a></dt>
+<dd><p>Adds the usual set of arguments needed to connect to a server, i.e. <cite>–host</cite>, <cite>–port</cite>, <cite>–user</cite>
+and <cite>–password</cite> (optional).</p>
+<p>Note that the parser will assume this is a MySQL server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prefix</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">''</span></code>) – Prefix to add the each argument, e.g. if prefix is <cite>src_</cite>, the arguments will be
+<cite>–src_host</cite>, etc.</p></li>
+<li><p><strong>include_database</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include <cite>–database</cite> argument.</p></li>
+<li><p><strong>help</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Description message to include for this set of arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.argparse.ArgumentParser.parse_args">
+<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/argparse.html#ArgumentParser.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.argparse.ArgumentParser.parse_args" title="Link to this definition">#</a></dt>
+<dd><p>Extends the parent function by adding a new URL argument for every server group added.</p>
+<p>The type of this new argument will be <cite>sqlalchemy.engine.URL</cite>. It also logs all the parsed
+arguments for debugging purposes when logging arguments have been added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ensembl.utils.checksums">
+<span id="ensembl-utils-checksums-module"></span><h2>ensembl.utils.checksums module<a class="headerlink" href="#module-ensembl.utils.checksums" title="Link to this heading">#</a></h2>
+<p>Utils for common hash operations (often referred to as checksums) over files, e.g. MD5 or SHA128.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.checksums.get_file_hash">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.checksums.</span></span><span class="sig-name descname"><span class="pre">get_file_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'md5'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/checksums.html#get_file_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.checksums.get_file_hash" title="Link to this definition">#</a></dt>
+<dd><p>Returns the hash value for a given file and hash algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – File path to get the hash for.</p></li>
+<li><p><strong>algorithm</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'md5'</span></code>) – Secure hash or message digest algorithm name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.checksums.validate_file_hash">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.checksums.</span></span><span class="sig-name descname"><span class="pre">validate_file_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'md5'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/checksums.html#validate_file_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.checksums.validate_file_hash" title="Link to this definition">#</a></dt>
+<dd><p>Returns true if the file’s hash value is the same as the one provided for that hash
+algorithm, false otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Path to the file to validate.</p></li>
+<li><p><strong>hash_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Expected hash value.</p></li>
+<li><p><strong>algorithm</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'md5'</span></code>) – Secure hash or message digest algorithm name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ensembl.utils.logging">
+<span id="ensembl-utils-logging-module"></span><h2>ensembl.utils.logging module<a class="headerlink" href="#module-ensembl.utils.logging" title="Link to this heading">#</a></h2>
+<p>Easy initialisation functionality to set an event logging system.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span><span class="o">,</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ensembl.utils.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_logging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logfile</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;test.log&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">init_logging</span><span class="p">(</span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="p">,</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This message is written in both stderr and the log file&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;This message is only written in the log file&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.logging.init_logging">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.logging.</span></span><span class="sig-name descname"><span class="pre">init_logging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'WARNING'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DEBUG'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%(asctime)s</span> <span class="pre">[%(process)s]</span> <span class="pre">%(levelname)-9s</span> <span class="pre">%(name)-13s:</span> <span class="pre">%(message)s'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/logging.html#init_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.logging.init_logging" title="Link to this definition">#</a></dt>
+<dd><p>Initialises the logging system.</p>
+<p>By default, all the log messages corresponding to <cite>log_level</cite> (and above) will be printed in the
+standard error. If <cite>log_file</cite> is provided, all messages of <cite>log_file_level</cite> level (and above) will
+be written into the provided file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_level</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'WARNING'</span></code>) – Minimum logging level for the standard error.</p></li>
+<li><p><strong>log_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Logging file where to write logging messages besides the standard error.</p></li>
+<li><p><strong>log_file_level</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'DEBUG'</span></code>) – Minimum logging level for the logging file.</p></li>
+<li><p><strong>msg_format</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'%(asctime)s</span> <span class="pre">[%(process)s]</span> <span class="pre">%(levelname)-9s</span> <span class="pre">%(name)-13s:</span> <span class="pre">%(message)s'</span></code>) – A format string for the logged output as a whole. More information:
+<a class="reference external" href="https://docs.python.org/3/library/logging.html#logrecord-attributes">https://docs.python.org/3/library/logging.html#logrecord-attributes</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.logging.init_logging_with_args">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.logging.</span></span><span class="sig-name descname"><span class="pre">init_logging_with_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/logging.html#init_logging_with_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.logging.init_logging_with_args" title="Link to this definition">#</a></dt>
+<dd><p>Processes the Namespace object provided to call <cite>init_logging()</cite> with the correct arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code></span>) – Namespace populated by an argument parser.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ensembl.utils.plugin">
+<span id="ensembl-utils-plugin-module"></span><h2>ensembl.utils.plugin module<a class="headerlink" href="#module-ensembl.utils.plugin" title="Link to this heading">#</a></h2>
+<p>Ensembl’s pytest plugin with useful unit testing hooks and fixtures.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.plugin.fixture_assert_files">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.plugin.</span></span><span class="sig-name descname"><span class="pre">fixture_assert_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/plugin.html#fixture_assert_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.plugin.fixture_assert_files" title="Link to this definition">#</a></dt>
+<dd><p>Returns a function that asserts if two text files are equal, or prints their differences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.plugin.fixture_db_factory">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.plugin.</span></span><span class="sig-name descname"><span class="pre">fixture_db_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/plugin.html#fixture_db_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.plugin.fixture_db_factory" title="Link to this definition">#</a></dt>
+<dd><p>Yields a unit test database factory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">FixtureRequest</span></code></span>) – Fixture that provides information of the requesting test function.</p></li>
+<li><p><strong>data_dir</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></span>) – Fixture that provides the path to the test data folder matching the test’s name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>] | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>], <a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.unittestdb.UnitTestDB" title="ensembl.utils.database.unittestdb.UnitTestDB"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnitTestDB</span></code></a>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.plugin.local_data_dir">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.plugin.</span></span><span class="sig-name descname"><span class="pre">local_data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/plugin.html#local_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.plugin.local_data_dir" title="Link to this definition">#</a></dt>
+<dd><p>Returns the path to the test data folder matching the test’s name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">FixtureRequest</span></code></span>) – Fixture that provides information of the requesting test function.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.plugin.pytest_addoption">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.plugin.</span></span><span class="sig-name descname"><span class="pre">pytest_addoption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/plugin.html#pytest_addoption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.plugin.pytest_addoption" title="Link to this definition">#</a></dt>
+<dd><p>Registers argparse-style options for Ensembl’s unit testing.</p>
+<p><a class="reference external" href="https://docs.pytest.org/en/latest/reference.html#_pytest.hookspec.pytest_addoption">Pytest initialisation hook</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parser</span></code></span>) – Parser for command line arguments and ini-file values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.plugin.pytest_configure">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.plugin.</span></span><span class="sig-name descname"><span class="pre">pytest_configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/plugin.html#pytest_configure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.plugin.pytest_configure" title="Link to this definition">#</a></dt>
+<dd><p>Allows plugins and conftest files to perform initial configuration.</p>
+<p>More information: <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-hook-pytest_configure">https://docs.pytest.org/en/latest/reference/reference.html#std-hook-pytest_configure</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></span>) – The pytest config object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.plugin.pytest_report_header">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.plugin.</span></span><span class="sig-name descname"><span class="pre">pytest_report_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/plugin.html#pytest_report_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.plugin.pytest_report_header" title="Link to this definition">#</a></dt>
+<dd><p>Presents extra information in the report header.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></span>) – Access to configuration values, pluginmanager and plugin hooks.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ensembl.utils.plugin.test_dbs">
+<span class="sig-prename descclassname"><span class="pre">ensembl.utils.plugin.</span></span><span class="sig-name descname"><span class="pre">test_dbs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_factory</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/plugin.html#test_dbs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.plugin.test_dbs" title="Link to this definition">#</a></dt>
+<dd><p>Returns a dictionary of unit test databases with the database name as key.</p>
+<p>Requires a list of dictionaries, each with keys <cite>src</cite>, <cite>name</cite> and <cite>metadata</cite>, passed via <cite>request.param</cite>.
+At minimum either <cite>src</cite> or <cite>name</cite> needs to be provided. See <cite>db_factory()</cite> for details about each key’s
+value.</p>
+<p>This fixture is a wrapper of <cite>db_factory()</cite> intended to be used via indirect parametrization,
+for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ensembl.core.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Base</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">&quot;test_dbs&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;core_db&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;core_db&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;human&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;core_db&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="p">},</span>
+        <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="n">indirect</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_method</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">test_dbs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">UnitTestDB</span><span class="p">],</span> <span class="o">...</span><span class="p">):</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">FixtureRequest</span></code></span>) – Fixture that provides information of the requesting test function.</p></li>
+<li><p><strong>db_factory</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></span>) – Fixture that provides a unit test database factory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="ensembl.utils.database.html#ensembl.utils.database.unittestdb.UnitTestDB" title="ensembl.utils.database.unittestdb.UnitTestDB"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnitTestDB</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ensembl.utils.rloader">
+<span id="ensembl-utils-rloader-module"></span><h2>ensembl.utils.rloader module<a class="headerlink" href="#module-ensembl.utils.rloader" title="Link to this heading">#</a></h2>
+<p>Allow to seamlessly load / read the content of a remote file as if it was located locally.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ensembl.utils.rloader.RemoteFileLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ensembl.utils.rloader.</span></span><span class="sig-name descname"><span class="pre">RemoteFileLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/rloader.html#RemoteFileLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.rloader.RemoteFileLoader" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Loads remote files, allowing specific format parsing options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Parser to use for this object. Default: <cite>None</cite> (no format-specific parsing done).</p>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>available_formats</strong> – File formats with ad-hoc parser available.</p></li>
+<li><p><strong>parser</strong> – Parser selected for this object.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ensembl.utils.rloader.RemoteFileLoader.available_formats">
+<span class="sig-name descname"><span class="pre">available_formats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'env',</span> <span class="pre">'ini',</span> <span class="pre">'json',</span> <span class="pre">'yaml'}</span></em><a class="headerlink" href="#ensembl.utils.rloader.RemoteFileLoader.available_formats" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ensembl.utils.rloader.RemoteFileLoader.parser">
+<span class="sig-name descname"><span class="pre">parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> <span class="pre">|</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ensembl.utils.rloader.RemoteFileLoader.parser" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.rloader.RemoteFileLoader.r_open">
+<span class="sig-name descname"><span class="pre">r_open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/rloader.html#RemoteFileLoader.r_open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.rloader.RemoteFileLoader.r_open" title="Link to this definition">#</a></dt>
+<dd><p>Returns the parsed remote file from the given URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – URL of the remote file to fetch.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>requests.exception.HTTPError</strong> – If loading or requesting the given URL returned an error.</p></li>
+<li><p><strong>requests.exception.Timeout</strong> – If a timeout was raised whilst requesting the given URL.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../coverage_report.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Coverage Report</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ensembl.utils.database.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ensembl.utils.database package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.StrPath"><code class="docutils literal notranslate"><span class="pre">StrPath</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.archive">ensembl.utils.archive module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.archive.extract_file"><code class="docutils literal notranslate"><span class="pre">extract_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.archive.open_gz_file"><code class="docutils literal notranslate"><span class="pre">open_gz_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.argparse">ensembl.utils.argparse module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentError"><code class="docutils literal notranslate"><span class="pre">ArgumentError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser"><code class="docutils literal notranslate"><span class="pre">ArgumentParser</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.add_argument"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.add_argument()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.add_argument_dst_path"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.add_argument_dst_path()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.add_argument_src_path"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.add_argument_src_path()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.add_argument_url"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.add_argument_url()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.add_log_arguments"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.add_log_arguments()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.add_numeric_argument"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.add_numeric_argument()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.add_server_arguments"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.add_server_arguments()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.argparse.ArgumentParser.parse_args"><code class="docutils literal notranslate"><span class="pre">ArgumentParser.parse_args()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.checksums">ensembl.utils.checksums module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.checksums.get_file_hash"><code class="docutils literal notranslate"><span class="pre">get_file_hash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.checksums.validate_file_hash"><code class="docutils literal notranslate"><span class="pre">validate_file_hash()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.logging">ensembl.utils.logging module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.logging.init_logging"><code class="docutils literal notranslate"><span class="pre">init_logging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.logging.init_logging_with_args"><code class="docutils literal notranslate"><span class="pre">init_logging_with_args()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.plugin">ensembl.utils.plugin module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.plugin.fixture_assert_files"><code class="docutils literal notranslate"><span class="pre">fixture_assert_files()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.plugin.fixture_db_factory"><code class="docutils literal notranslate"><span class="pre">fixture_db_factory()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.plugin.local_data_dir"><code class="docutils literal notranslate"><span class="pre">local_data_dir()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.plugin.pytest_addoption"><code class="docutils literal notranslate"><span class="pre">pytest_addoption()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.plugin.pytest_configure"><code class="docutils literal notranslate"><span class="pre">pytest_configure()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.plugin.pytest_report_header"><code class="docutils literal notranslate"><span class="pre">pytest_report_header()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.plugin.test_dbs"><code class="docutils literal notranslate"><span class="pre">test_dbs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.rloader">ensembl.utils.rloader module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.rloader.RemoteFileLoader"><code class="docutils literal notranslate"><span class="pre">RemoteFileLoader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.rloader.RemoteFileLoader.available_formats"><code class="docutils literal notranslate"><span class="pre">RemoteFileLoader.available_formats</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.rloader.RemoteFileLoader.parser"><code class="docutils literal notranslate"><span class="pre">RemoteFileLoader.parser</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.rloader.RemoteFileLoader.r_open"><code class="docutils literal notranslate"><span class="pre">RemoteFileLoader.r_open()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2016-2026, EMBL-European Bioinformatics Institute.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__center">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

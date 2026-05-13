@@ -1,0 +1,874 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ensembl.utils.database package &#8212; ensembl-utils</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=25cdf2e9" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=fea2a977"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/ensembl.utils.database';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensembl.github.io/ensembl-utils/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.9.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = true;</script>
+    <script defer="defer" src="../_static/custom-icons.js?v=e84dd8f9"></script>
+    <link rel="icon" href="../_static/ensembl_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="ensembl.utils package" href="ensembl.utils.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="May 13, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ensembl_mark_white.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/ensembl_mark_white.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">ensembl-utils</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../coverage_report.html">
+    Coverage Report
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="ensembl.utils.html">
+    ensembl.utils package
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Ensembl/ensembl-utils" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ensembl-utils" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../coverage_report.html">
+    Coverage Report
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="ensembl.utils.html">
+    ensembl.utils package
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Ensembl/ensembl-utils" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ensembl-utils" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ensembl.utils.database package</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="ensembl.utils.html" class="nav-link">ensembl.utils package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ensembl.utils.database package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-ensembl.utils.database">
+<span id="ensembl-utils-database-package"></span><h1>ensembl.utils.database package<a class="headerlink" href="#module-ensembl.utils.database" title="Link to this heading">#</a></h1>
+<p>Database module.</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-ensembl.utils.database.dbconnection">
+<span id="ensembl-utils-database-dbconnection-module"></span><h2>ensembl.utils.database.dbconnection module<a class="headerlink" href="#module-ensembl.utils.database.dbconnection" title="Link to this heading">#</a></h2>
+<p>Database connection handler.</p>
+<p>This module provides the main class to connect to and access databases. It will be an ORM-less
+connection, that is, the data can only be accessed via SQL queries (see example below).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ensembl.utils.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">DBConnection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dbc</span> <span class="o">=</span> <span class="n">DBConnection</span><span class="p">(</span><span class="s2">&quot;mysql://ensro@mysql-server:4242/mydb&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># You can access the database data via sql queries, for instance:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">dbc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM my_table;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Or via a connection in a transaction manner:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">dbc</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">results</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM my_table;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ensembl.utils.database.dbconnection.</span></span><span class="sig-name descname"><span class="pre">DBConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Database connection handler, providing also the database’s schema and properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">StrURL</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">URL</span></code>)</span>) – URL to the database, e.g. <cite>mysql://user:passwd&#64;host:port/my_db</cite>.</p></li>
+<li><p><strong>reflect</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Reflect the database schema or not.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.__repr__" title="Link to this definition">#</a></dt>
+<dd><p>Returns a string representation of this object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.begin">
+<span class="sig-name descname"><span class="pre">begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.begin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.begin" title="Link to this definition">#</a></dt>
+<dd><p>Returns a context manager delivering a database connection with a transaction established.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextManager</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.connect" title="Link to this definition">#</a></dt>
+<dd><p>Returns a new database connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.create_all_tables">
+<span class="sig-name descname"><span class="pre">create_all_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.create_all_tables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.create_all_tables" title="Link to this definition">#</a></dt>
+<dd><p>Create the tables from the metadata and set the metadata.</p>
+<p>This assumes the database is empty beforehand. If the tables already exist, they will be ignored.
+If there are other tables, you may need to run <cite>self.load_metadata()</cite> to update the metadata schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.create_table">
+<span class="sig-name descname"><span class="pre">create_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.create_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.create_table" title="Link to this definition">#</a></dt>
+<dd><p>Create a table in the database and update the metadata. Do nothing if the table already exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.db_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">db_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.db_name" title="Link to this definition">#</a></dt>
+<dd><p>Returns the database name.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.dialect">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dialect</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.dialect" title="Link to this definition">#</a></dt>
+<dd><p>Returns the SQLAlchemy database dialect name of the database host.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.dispose">
+<span class="sig-name descname"><span class="pre">dispose</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.dispose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.dispose" title="Link to this definition">#</a></dt>
+<dd><p>Disposes of the connection pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.get_columns">
+<span class="sig-name descname"><span class="pre">get_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.get_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.get_columns" title="Link to this definition">#</a></dt>
+<dd><p>Returns the column names for the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Table name.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.get_primary_key_columns">
+<span class="sig-name descname"><span class="pre">get_primary_key_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.get_primary_key_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.get_primary_key_columns" title="Link to this definition">#</a></dt>
+<dd><p>Returns the primary key column names for the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Table name.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.host">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.host" title="Link to this definition">#</a></dt>
+<dd><p>Returns the database host.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.load_metadata">
+<span class="sig-name descname"><span class="pre">load_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.load_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.load_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Loads the metadata information of the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.port">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.port" title="Link to this definition">#</a></dt>
+<dd><p>Returns the port of the database host.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.session_scope">
+<span class="sig-name descname"><span class="pre">session_scope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.session_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.session_scope" title="Link to this definition">#</a></dt>
+<dd><p>Provides a transactional scope around a series of operations with rollback in case of failure.</p>
+<p>Bear in mind MySQL’s storage engine MyISAM does not support rollback transactions, so all
+the modifications performed to the database will persist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.tables">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tables</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Table</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.tables" title="Link to this definition">#</a></dt>
+<dd><p>Returns the database tables keyed to their name, or an empty dict if no metadata was loaded.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.test_session_scope">
+<span class="sig-name descname"><span class="pre">test_session_scope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/dbconnection.html#DBConnection.test_session_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.test_session_scope" title="Link to this definition">#</a></dt>
+<dd><p>Provides a transactional scope around a series of operations that will be rolled back at the end.</p>
+<p>Bear in mind MySQL’s storage engine MyISAM does not support rollback transactions, so all
+the modifications performed to the database will persist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ensembl.utils.database.dbconnection.DBConnection.url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ensembl.utils.database.dbconnection.DBConnection.url" title="Link to this definition">#</a></dt>
+<dd><p>Returns the database URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ensembl.utils.database.unittestdb">
+<span id="ensembl-utils-database-unittestdb-module"></span><h2>ensembl.utils.database.unittestdb module<a class="headerlink" href="#module-ensembl.utils.database.unittestdb" title="Link to this heading">#</a></h2>
+<p>Unit testing database handler.</p>
+<p>This module provides the main class to create and drop testing databases, populating them from
+preexisting dumps (if supplied).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ensembl.utils.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnitTestDB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># For more safety use the context manager (automatically drops the database even if things go wrong):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">UnitTestDB</span><span class="p">(</span><span class="s2">&quot;mysql://user:passwd@mysql-server:4242/&quot;</span><span class="p">,</span> <span class="s2">&quot;path/to/dumps&quot;</span><span class="p">,</span> <span class="s2">&quot;my_db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">test_db</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">dbc</span> <span class="o">=</span> <span class="n">test_db</span><span class="o">.</span><span class="n">dbc</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># If you know what you are doing you can also control when the test_db is dropped:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_db</span> <span class="o">=</span> <span class="n">UnitTestDB</span><span class="p">(</span><span class="s2">&quot;mysql://user:passwd@mysql-server:4242/&quot;</span><span class="p">,</span> <span class="s2">&quot;path/to/dumps&quot;</span><span class="p">,</span> <span class="s2">&quot;my_db&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># You can access the database via test_db.dbc, for instance:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dbc</span> <span class="o">=</span> <span class="n">test_db</span><span class="o">.</span><span class="n">dbc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># At the end do not forget to drop the database</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_db</span><span class="o">.</span><span class="n">drop</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="ensembl.utils.database.unittestdb.UnitTestDB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ensembl.utils.database.unittestdb.</span></span><span class="sig-name descname"><span class="pre">UnitTestDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_url</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dump_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmp_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/unittestdb.html#UnitTestDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.unittestdb.UnitTestDB" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Creates and connects to a new test database, applying the schema and importing the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>server_url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">StrURL</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">URL</span></code>)</span>) – URL of the server hosting the database.</p></li>
+<li><p><strong>metadata</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">MetaData</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Use this metadata to create the schema instead of using an SQL schema file.</p></li>
+<li><p><strong>dump_dir</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Directory path with the database schema in <cite>table.sql</cite> (mandatory) and one TSV data
+file (without headers) per table following the convention <cite>&lt;table_name&gt;.txt</cite> (optional).</p></li>
+<li><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Name to give to the new database. If not provided, the last directory name of <cite>dump_dir</cite>
+will be used instead. In either case, the new database name will be prefixed by the username.</p></li>
+<li><p><strong>tmp_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Temp dir where the test db is created if using SQLite (otherwise use current dir).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dbc</strong> – Database connection handler.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>FileNotFoundError</strong> – If <cite>table.sql</cite> is not found.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.unittestdb.UnitTestDB.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/unittestdb.html#UnitTestDB.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.unittestdb.UnitTestDB.__repr__" title="Link to this definition">#</a></dt>
+<dd><p>Returns a string representation of this object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ensembl.utils.database.unittestdb.UnitTestDB.drop">
+<span class="sig-name descname"><span class="pre">drop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ensembl/utils/database/unittestdb.html#UnitTestDB.drop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ensembl.utils.database.unittestdb.UnitTestDB.drop" title="Link to this definition">#</a></dt>
+<dd><p>Drops the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ensembl.utils.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ensembl.utils package</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.database.dbconnection">ensembl.utils.database.dbconnection module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection"><code class="docutils literal notranslate"><span class="pre">DBConnection</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.__repr__"><code class="docutils literal notranslate"><span class="pre">DBConnection.__repr__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.begin"><code class="docutils literal notranslate"><span class="pre">DBConnection.begin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.connect"><code class="docutils literal notranslate"><span class="pre">DBConnection.connect()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.create_all_tables"><code class="docutils literal notranslate"><span class="pre">DBConnection.create_all_tables()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.create_table"><code class="docutils literal notranslate"><span class="pre">DBConnection.create_table()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.db_name"><code class="docutils literal notranslate"><span class="pre">DBConnection.db_name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.dialect"><code class="docutils literal notranslate"><span class="pre">DBConnection.dialect</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.dispose"><code class="docutils literal notranslate"><span class="pre">DBConnection.dispose()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.get_columns"><code class="docutils literal notranslate"><span class="pre">DBConnection.get_columns()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.get_primary_key_columns"><code class="docutils literal notranslate"><span class="pre">DBConnection.get_primary_key_columns()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.host"><code class="docutils literal notranslate"><span class="pre">DBConnection.host</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.load_metadata"><code class="docutils literal notranslate"><span class="pre">DBConnection.load_metadata()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.port"><code class="docutils literal notranslate"><span class="pre">DBConnection.port</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.session_scope"><code class="docutils literal notranslate"><span class="pre">DBConnection.session_scope()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.tables"><code class="docutils literal notranslate"><span class="pre">DBConnection.tables</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.test_session_scope"><code class="docutils literal notranslate"><span class="pre">DBConnection.test_session_scope()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.dbconnection.DBConnection.url"><code class="docutils literal notranslate"><span class="pre">DBConnection.url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ensembl.utils.database.unittestdb">ensembl.utils.database.unittestdb module</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.unittestdb.UnitTestDB"><code class="docutils literal notranslate"><span class="pre">UnitTestDB</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.unittestdb.UnitTestDB.__repr__"><code class="docutils literal notranslate"><span class="pre">UnitTestDB.__repr__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ensembl.utils.database.unittestdb.UnitTestDB.drop"><code class="docutils literal notranslate"><span class="pre">UnitTestDB.drop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2016-2026, EMBL-European Bioinformatics Institute.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__center">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
