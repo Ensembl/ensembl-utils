@@ -27,6 +27,17 @@ on:
         required: true
         type: string
 
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: Python version to use
+        required: true
+        type: string
+      tag:
+        description: Release tag to deploy
+        required: true
+        type: string
+
 permissions:
   contents: write
 
@@ -49,19 +60,22 @@ jobs:
       - name: Build docs
         run: make docs
 
-      - name: Update switcher.json
-        run: |
-          python docs/_scripts/update_switcher.py \
-            --version "${{ inputs.tag }}" \
-            --switcher "./docs/_build/html/_static/switcher.json"
-
       - name: Checkout gh-pages
         uses: actions/checkout@v6
         with:
           ref: gh-pages
           path: gh-pages
 
-      - name: Commit updated switcher.json
+      - name: Update switcher.json
+        run: |
+          if [ ! -f "gh-pages/switcher.json" ]; then
+            cp "docs/_build/html/_static/switcher.json" "gh-pages/switcher.json"
+          fi
+          python docs/_scripts/update_switcher.py \
+            --version "${{ inputs.tag }}" \
+            --switcher "gh-pages/switcher.json"
+
+      - name: Copy docs and push
         run: |
           cd gh-pages
           git config user.name "github-actions[bot]"
@@ -69,9 +83,11 @@ jobs:
           # Copy built docs into versioned and latest directories
           rsync -a --delete ../docs/_build/html/ ./${{ inputs.tag }}/
           rsync -a --delete ../docs/_build/html/ ./latest/
-          # Update switcher.json at the root of gh-pages
-          cp "../docs/_build/html/_static/switcher.json" "./switcher.json"
-          git add .
+          # Ensure Jekyll is disabled
+          touch .nojekyll
+          # Redirect base GitHub Pages URL to latest version
+          echo '<meta http-equiv="refresh" content="0; url=latest/">' > ./index.html
+          git add -f .
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
