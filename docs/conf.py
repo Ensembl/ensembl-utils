@@ -83,7 +83,7 @@ html_js_files = [
 release = ensembl.utils.__version__
 version_match = f"v{release}"
 if os.environ.get("READTHEDOCS") or os.environ.get("CI"):
-    json_url = "https://ensembl.github.io/ensembl-utils/latest/_static/switcher.json"
+    json_url = "https://ensembl.github.io/ensembl-utils/switcher.json"
 else:
     json_url = "_static/switcher.json"
 
