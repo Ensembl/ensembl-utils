@@ -53,23 +53,7 @@ jobs:
         run: |
           python docs/_scripts/update_switcher.py \
             --version "${{ inputs.tag }}" \
-            --switcher "docs/_build/html/_static/switcher.json"
-
-      - name: Deploy versioned docs
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/html
-          destination_dir: ${{ inputs.tag }}
-          keep_files: true
-
-      - name: Deploy as latest
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/html
-          destination_dir: latest
-          keep_files: true
+            --switcher "./docs/_build/html/_static/switcher.json"
 
       - name: Checkout gh-pages
         uses: actions/checkout@v6
@@ -82,11 +66,15 @@ jobs:
           cd gh-pages
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Copy built docs into versioned and latest directories
+          rsync -a --delete ../docs/_build/html/ ./${{ inputs.tag }}/
+          rsync -a --delete ../docs/_build/html/ ./latest/
+          # Update switcher.json at the root of gh-pages
           cp "../docs/_build/html/_static/switcher.json" "./switcher.json"
-          git add switcher.json
+          git add .
           if git diff --staged --quiet; then
-            echo "No changes to switcher.json, skipping commit"
+            echo "No changes to commit"
           else
-            git commit -m "Update switcher.json after release ${{ inputs.tag }}"
+            git commit -m "Deploy docs for ${{ inputs.tag }}"
             git push
           fi
