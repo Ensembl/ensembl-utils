@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/actions/python_build
         with:
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/actions/python_build
         with:
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/actions/python_build
         with:
@@ -82,12 +82,12 @@ jobs:
   pytest:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       checks: write
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/actions/python_build
         with:
@@ -97,14 +97,35 @@ jobs:
 
       - name: Run pytest with coverage
         run: |
-          coverage run -m pytest --junitxml=./reports/test_results.xml
-          coverage xml -o ./reports/coverage.xml
-          coverage report -m
+          mkdir -p reports
+          set -o pipefail
+          coverage run -m pytest 2>&1 | tee ./reports/pytest_output.txt
+          coverage report -m | tee ./reports/coverage_report.txt
 
-      - name: Add coverage reports
-        if: ${{ github.event_name == 'pull_request' }}
-        continue-on-error: true
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-xml-coverage-path: ./reports/coverage.xml
-          junitxml-path: ./reports/test_results.xml
+      - name: Write summary
+        run: |
+          echo "## Test & Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat ./reports/coverage_report.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Post coverage comment on PR
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          PYTEST_SUMMARY=$(grep -E "=+ .*(passed|failed|error).* =+" ./reports/pytest_output.txt \
+            | tail -1 \
+            | tr -d '=' \
+            | xargs)
+          COV_TOTAL=$(grep "^TOTAL" ./reports/coverage_report.txt | awk '{print $NF}')
+          gh pr comment "$PR_NUMBER" --body "## Test & Coverage Report
+          **${PYTEST_SUMMARY}** | Coverage: **${COV_TOTAL}**
+
+          <details><summary>Coverage breakdown</summary>
+
+          \`\`\`
+          $(cat ./reports/coverage_report.txt)
+          \`\`\`
+          </details>"

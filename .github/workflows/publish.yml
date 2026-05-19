@@ -39,9 +39,10 @@ jobs:
       url: https://pypi.org/p/ensembl-utils
     permissions:
       id-token: write
+      contents: read
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - uses: ./.github/actions/python_build
         with:
@@ -53,4 +54,4 @@ jobs:
           python -m build
 
       - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
