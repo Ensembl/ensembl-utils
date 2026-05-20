@@ -130,3 +130,17 @@ jobs:
           \`\`\`
           </details>"
         continue-on-error: true
+
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: ./.github/actions/python_build
+        with:
+          python-version: ${{ inputs.python-version }}
+          tags: "[docs]"
+
+      - name: Build docs
+        run: make docs
