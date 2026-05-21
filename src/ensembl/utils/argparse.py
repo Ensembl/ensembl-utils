@@ -211,6 +211,11 @@ class ArgumentParser(argparse.ArgumentParser):
 
         Note that the parser will assume this is a MySQL server.
 
+        Warning:
+            Avoid passing ``--password`` directly on the command line as it will be visible in the
+            process list and shell history. Use an environment variable or an interactive prompt via
+            ``getpass`` instead.
+
         Args:
             prefix: Prefix to add the each argument, e.g. if prefix is `src_`, the arguments will be
                 `--src_host`, etc.
