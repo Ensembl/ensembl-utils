@@ -45,7 +45,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.3
+      - uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 0
 
@@ -61,7 +61,7 @@ jobs:
         run: make docs
 
       - name: Checkout gh-pages
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.0
         with:
           ref: gh-pages
           path: gh-pages
