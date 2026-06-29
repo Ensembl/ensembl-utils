@@ -43,6 +43,8 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
@@ -78,6 +80,7 @@ docs = [
     "sphinx >= 7",
     "sphinx-autodoc-typehints",
     "sphinx-copybutton",
+    "tomli; python_version < '3.11'",
 ]
 mysql = [
     "mysqlclient",
@@ -91,6 +94,7 @@ Issues = "https://github.com/Ensembl/ensembl-utils/issues"
 
 [project.scripts]
 extract_file = "ensembl.utils.archive:extract_file_cli"
+update_docs_switcher = "ensembl.utils.docs.switcher:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -100,6 +104,9 @@ version = {attr = "ensembl.utils.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"ensembl.utils.docs" = ["_static/*"]
 
 [build-system]
 build-backend = "setuptools.build_meta"
@@ -152,7 +159,7 @@ addopts = [
     "--tb=native",
 ]
 testpaths = ["tests"]
-norecursedirs = ["docs", "*.egg_info"]
+norecursedirs = ["*.egg_info"]
 
 [tool.coverage.run]
 branch = true

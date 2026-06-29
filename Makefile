@@ -24,10 +24,10 @@ docs: apidoc
 
 coverage:
 	coverage run -m pytest
-	coverage html -d docs/_static/htmlcov
-	coverage xml -o reports/coverage.xml
-	genbadge coverage -i reports/coverage.xml -o docs/_static/htmlcov/coverage-badge.svg
-	rm -rf reports
+	coverage html -d docs/reports/htmlcov
+	coverage xml -o docs/reports/coverage.xml
+	genbadge coverage -i docs/reports/coverage.xml -o docs/reports/htmlcov/coverage-badge.svg
+	rm docs/reports/coverage.xml
 
 clean:
-	rm -rf docs/_build docs/reference docs/_static/htmlcov
+	rm -rf docs/_build docs/reference docs/reports

@@ -15,8 +15,8 @@
 """Update the switcher JSON file with a new version entry.
 
 Adds a new version to the PyData Sphinx Theme version switcher dropdown.
-Usage: `python update_switcher.py --version <version> --switcher <path_to_switcher_json> \
-            [--base-url <base_url>]`
+Usage: `update_docs_switcher --base-url <base_url> --version <version> <path_to_switcher_json>`
+
 """
 
 import json
@@ -27,13 +27,9 @@ from ensembl.utils import argparse
 def main() -> None:
     """Script's main entry point."""
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--base-url", required=True, help="Base URL of the documentation site")
     parser.add_argument("--version", required=True, help="Version to add to the switcher")
-    parser.add_argument(
-        "--base-url",
-        default="https://ensembl.github.io/ensembl-utils",
-        help="Base URL of the documentation site",
-    )
-    parser.add_argument_src_path("--switcher", required=True, help="Path to the switcher JSON file")
+    parser.add_argument_src_path("switcher", help="Path to the switcher JSON file")
     args = parser.parse_args()
     # Avoid duplicates and remove "(latest)" from last version
     versions = json.loads(args.switcher.read_text()) if args.switcher.exists() else []
@@ -47,7 +43,3 @@ def main() -> None:
     }
     versions.insert(0, new_entry)
     args.switcher.write_text(json.dumps(versions, indent=2))
-
-
-if __name__ == "__main__":
-    main()

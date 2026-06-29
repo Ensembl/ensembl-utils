@@ -13,4 +13,5 @@ myst:
 
 install
 usage
+documentation
 ```
