@@ -242,9 +242,9 @@ class TestDBConnection:
             ):
                 assert len(results.all()) == 2, f"MyISAM: 2 rows permanently added to ID {identifier}"
             else:
-                assert not results.fetchall(), (
-                    f"No entries should have been permanently added to ID {identifier}"
-                )
+                assert (
+                    not results.fetchall()
+                ), f"No entries should have been permanently added to ID {identifier}"
 
 
 @pytest.mark.parametrize(

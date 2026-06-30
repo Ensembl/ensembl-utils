@@ -23,7 +23,6 @@ from pathlib import Path
 import ensembl.utils
 from ensembl.utils.docs import configure
 
-
 coverage_root = Path(__file__).parent / "reports"
 configure(
     globals(),

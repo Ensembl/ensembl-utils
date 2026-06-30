@@ -33,7 +33,7 @@ the matching module-level variable, e.g. ``extensions += ["sphinx_click"]`` or
 
 __all__ = ["build_config", "configure"]
 
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 import os
 from pathlib import Path
 from typing import Any
@@ -91,7 +91,7 @@ def build_config(
         # Project information
         "project": project,
         "author": "EMBL-European Bioinformatics Institute",
-        "copyright": f"2016-{datetime.now(tz=UTC).year}, EMBL-European Bioinformatics Institute",
+        "copyright": f"2016-{datetime.now(tz=timezone.utc).year}, EMBL-European Bioinformatics Institute",
         # General configuration
         "extensions": [
             "myst_parser",

@@ -41,7 +41,7 @@ jobs:
       - uses: ./.github/actions/python_build
         with:
           python-version: ${{ inputs.python-version }}
-          tags: "[cicd]"
+          tags: "[cicd,docs]"
 
       - name: Run pylint
         run: |
@@ -93,7 +93,7 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
           sqlalchemy-version: ${{ inputs.sqlalchemy-version }}
-          tags: "[cicd]"
+          tags: "[cicd,docs]"
 
       - name: Run pytest with coverage
         run: |

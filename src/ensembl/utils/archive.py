@@ -37,7 +37,7 @@ from ensembl.utils.argparse import ArgumentParser
 def _unpack_gz_files(
     src_file: StrPath,
     dst_dir: StrPath,
-    **kwargs: Any,  # pylint: disable=unused-argument
+    **_kwargs: Any,
 ) -> None:
     """Unpacks `src_file` to `dst_dir`.
 
