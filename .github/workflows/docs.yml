@@ -71,9 +71,10 @@ jobs:
           if [ ! -f "gh-pages/switcher.json" ]; then
             cp "docs/_build/html/_static/switcher.json" "gh-pages/switcher.json"
           fi
-          python docs/_scripts/update_switcher.py \
-            --version "${{ inputs.tag }}" \
-            --switcher "gh-pages/switcher.json"
+          update_docs_switcher \
+              --base-url "https://ensembl.github.io/ensembl-utils" \
+              --version "${{ inputs.tag }}" \
+              "gh-pages/switcher.json"
 
       - name: Copy docs and push
         run: |
