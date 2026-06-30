@@ -27,7 +27,7 @@ coverage_root = Path(__file__).parent / "reports"
 configure(
     globals(),
     project="ensembl-utils",
-    repo_url="https://gitlab.com/Ensembl/ensembl-utils",
+    repo_url="https://github.com/Ensembl/ensembl-utils",
     release=ensembl.utils.__version__,
     docs_base_url="https://ensembl.github.io/ensembl-utils",
     coverage_root=coverage_root if coverage_root.exists() else None,
