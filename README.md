@@ -13,7 +13,8 @@ For more information, please consult this repository's [GitHub pages](https://en
 
 ### Basic installation
 
-This library is publicly available in [PyPI](https://pypi.org/project/ensembl-utils/) so it can be easily installed with your favourite Python dependency and packaging management tool, e.g.
+This library is publicly available in [PyPI](https://pypi.org/project/ensembl-utils/) so it can be easily installed with your favourite Python dependency and packaging management tool, e.g.:
+
 ```bash
 pip install ensembl-utils
 ```
@@ -21,14 +22,17 @@ pip install ensembl-utils
 ### Quick usage
 
 Besides the standard `import ensembl.utils`, this library also provides some useful command line scripts:
+
 - `extract_file` - to easily extract archive files in different formats
 
 Furthermore, `ensembl-utils` also has a [`pytest`](https://docs.pytest.org/) plugin with some useful functionalities to ease your unit testing. You can enable it by adding it explicitly when running pytest:
+
 ```bash
 pytest -p ensembl.utils.plugin ...
 ```
 
 Or adding the following line to your `conftest.py`:
+
 ```python
 pytest_plugins = ("ensembl.utils.plugin",)
 ```

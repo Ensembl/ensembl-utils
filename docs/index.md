@@ -2,8 +2,7 @@
 myst:
   html_meta:
     "description lang=en": |
-      Top-level documentation for ensembl-utils package, with links to the rest
-      of the site..
+      Top-level documentation for ensembl-utils package, with links to the rest of the site.
 html_theme.sidebar_secondary.remove: true
 ---
 

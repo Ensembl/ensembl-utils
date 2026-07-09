@@ -29,12 +29,15 @@ import shutil
 import sys
 from typing import Any, Generator, IO
 
+import ensembl.utils
 from ensembl.utils import StrPath
 from ensembl.utils.argparse import ArgumentParser
 
 
 def _unpack_gz_files(
-    src_file: StrPath, dst_dir: StrPath, **kwargs: Any  # pylint: disable=unused-argument
+    src_file: StrPath,
+    dst_dir: StrPath,
+    **_kwargs: Any,
 ) -> None:
     """Unpacks `src_file` to `dst_dir`.
 
@@ -111,5 +114,6 @@ def extract_file_cli() -> None:
     parser.add_argument_dst_path(
         "--dst_dir", default=Path.cwd(), help="Path to the folder where to extract the file"
     )
+    parser.add_argument("--version", action="version", version=ensembl.utils.__version__)
     args = parser.parse_args()
     extract_file(args.src_file, args.dst_dir)

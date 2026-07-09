@@ -21,6 +21,9 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   license_check:
     name: Check missing license headers
@@ -37,6 +40,9 @@ jobs:
   python_ci:
     name: Python CI
     uses: ./.github/workflows/python_ci.yml
+    permissions:
+      contents: read
+      pull-requests: write
     with:
       python-version: "3.10"
       sqlalchemy-version: "2.*"

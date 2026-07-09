@@ -30,10 +30,16 @@ on:
         type: string
         default: "2.*"
 
+permissions:
+  contents: read
+
 jobs:
   python_ci:
     name: Python CI
     uses: ./.github/workflows/python_ci.yml
+    permissions:
+      contents: read
+      pull-requests: write
     with:
       python-version: ${{ inputs.python-version }}
       sqlalchemy-version: ${{ inputs.sqlalchemy-version }}

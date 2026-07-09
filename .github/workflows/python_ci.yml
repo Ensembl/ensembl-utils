@@ -27,6 +27,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 defaults:
   run:
     working-directory: ./
@@ -41,7 +44,7 @@ jobs:
       - uses: ./.github/actions/python_build
         with:
           python-version: ${{ inputs.python-version }}
-          tags: "[cicd]"
+          tags: "[cicd,docs]"
 
       - name: Run pylint
         run: |
@@ -83,7 +86,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      checks: write
       pull-requests: write
 
     steps:
@@ -93,7 +95,7 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
           sqlalchemy-version: ${{ inputs.sqlalchemy-version }}
-          tags: "[cicd]"
+          tags: "[cicd,docs]"
 
       - name: Run pytest with coverage
         run: |
