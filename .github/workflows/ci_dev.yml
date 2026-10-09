@@ -23,7 +23,7 @@ on:
         description: Python version
         required: true
         type: string
-        default: "3.10"
+        default: "3.12"
       sqlalchemy-version:
         description: SQLAlchemy version
         required: true
