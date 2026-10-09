@@ -16,7 +16,7 @@
 [project]
 name = "ensembl-utils"
 description = "Ensembl Python general-purpose utils"
-requires-python = ">= 3.10"
+requires-python = ">= 3.12"
 dynamic = [
     "version",
 ]
@@ -40,8 +40,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
@@ -49,41 +47,41 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "pytest >= 8.2.0",
-    "python-dotenv >= 0.19.2",
+    "pytest >= 9.0.3",
+    "python-dotenv >= 1.2.3",
     "pyyaml ~= 6.0",
-    "requests >= 2.22.0",
-    "sqlalchemy >= 1.4.45",
-    "sqlalchemy_utils >= 0.41.2",
+    "requests >= 2.34.0",
+    "sqlalchemy >= 2.0.46, < 2.1.0",
+    "sqlalchemy_utils >= 0.42.1",
 ]
 
 [project.optional-dependencies]
 build = [
     "build",
-    "setuptools >= 64",
+    "setuptools >= 80.10.2",
     "setuptools-scm",
     "wheel",
 ]
 cicd = [
-    "black >= 23.0.0",
+    "black >= 26.1.0",
     "coverage",
     "genbadge[coverage]",
     "mypy",
     "pylint",
     "pytest-dependency",
+    "sphinx >= 8.0.2",
     "types-pyyaml",
     "types-requests",
 ]
 docs = [
     "myst-parser",
     "pydata-sphinx-theme",
-    "sphinx >= 7",
+    "sphinx >= 8.0.2",
     "sphinx-autodoc-typehints",
     "sphinx-copybutton",
-    "tomli; python_version < '3.11'",
 ]
 mysql = [
-    "mysqlclient",
+    "mysqlclient >= 2.3.0",
 ]
 
 [project.urls]
@@ -118,7 +116,7 @@ requires = [
 
 [tool.black]
 line-length = 110
-target-version = ["py310"]
+target-version = ["py312"]
 
 [tool.pylint.main]
 max-line-length = 110

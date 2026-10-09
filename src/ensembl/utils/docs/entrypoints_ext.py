@@ -37,23 +37,14 @@ Optionally override the defaults in ``conf.py`` after the ``configure()`` call::
 """
 
 import re
-import sys
 from pathlib import Path
 from typing import Any
+import tomllib
 
 from sphinx.application import Sphinx
 from sphinx.util import logging as sphinx_logging
 
 import ensembl.utils
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    try:
-        import tomli as tomllib  # type: ignore[no-redef]
-    except ImportError as exc:
-        raise ImportError("Python < 3.11 requires the 'tomli' package: pip install tomli") from exc
-
 
 logger = sphinx_logging.getLogger(__name__)
 
