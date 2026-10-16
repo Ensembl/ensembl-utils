@@ -99,4 +99,3 @@ def test_extract_file(tmp_path: Path, data_dir: Path, src_file: str, expected_ou
     """
     extract_file(data_dir / src_file, tmp_path)
     assert filecmp.cmp(tmp_path / expected_output, data_dir / expected_output)
-
