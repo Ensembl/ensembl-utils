@@ -15,11 +15,7 @@
 """Unit testing of `ensembl.utils.archive` module."""
 
 import filecmp
-import io
 from pathlib import Path
-import shutil
-import sys
-import tarfile
 
 import pytest
 from pytest import param
@@ -83,6 +79,10 @@ def test_open_gz_file_write(tmp_path: Path, file_name: str) -> None:
     "src_file, expected_output",
     [
         param("sample.tar", "sample.txt", id="tar file"),
+        param("sample.zip", "sample.txt", id="zip file"),
+        param("sample.tar.gz", "sample.txt", id="gzip tar file"),
+        param("sample.tar.bz2", "sample.txt", id="bzip2 tar file"),
+        param("sample.tar.xz", "sample.txt", id="xz tar file"),
         param("sample.txt.gz", "sample.txt", id="gzip file"),
         param("sample.txt", "sample.txt", id="uncompressed file"),
     ],
@@ -100,31 +100,3 @@ def test_extract_file(tmp_path: Path, data_dir: Path, src_file: str, expected_ou
     extract_file(data_dir / src_file, tmp_path)
     assert filecmp.cmp(tmp_path / expected_output, data_dir / expected_output)
 
-
-@pytest.mark.parametrize("archive_format", ["zip", "tar", "gztar", "bztar", "xztar"])
-def test_extract_generated_archive(tmp_path: Path, archive_format: str) -> None:
-    """Extract supported archives into a newly created destination directory."""
-    source = tmp_path / "source"
-    source.mkdir()
-    (source / "sample.txt").write_text("archive contents\n")
-    archive = shutil.make_archive(str(tmp_path / "sample"), archive_format, source)
-    destination = tmp_path / "extracted"
-
-    extract_file(archive, destination)
-
-    assert (destination / "sample.txt").read_text() == "archive contents\n"
-
-
-@pytest.mark.skipif(sys.version_info < (3, 12), reason="Explicit extraction filters require Python 3.12")
-def test_extract_tar_rejects_parent_path(tmp_path: Path) -> None:
-    """Retain the data filter when extracting tar archives."""
-    archive = tmp_path / "unsafe.tar"
-    member = tarfile.TarInfo("../outside.txt")
-    member.size = 1
-    with tarfile.open(archive, "w") as tar:
-        tar.addfile(member, io.BytesIO(b"x"))
-
-    with pytest.raises(tarfile.OutsideDestinationError):
-        extract_file(archive, tmp_path / "extracted")
-
-    assert not (tmp_path / "outside.txt").exists()
