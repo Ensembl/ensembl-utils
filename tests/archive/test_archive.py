@@ -79,6 +79,10 @@ def test_open_gz_file_write(tmp_path: Path, file_name: str) -> None:
     "src_file, expected_output",
     [
         param("sample.tar", "sample.txt", id="tar file"),
+        param("sample.zip", "sample.txt", id="zip file"),
+        param("sample.tar.gz", "sample.txt", id="gzip tar file"),
+        param("sample.tar.bz2", "sample.txt", id="bzip2 tar file"),
+        param("sample.tar.xz", "sample.txt", id="xz tar file"),
         param("sample.txt.gz", "sample.txt", id="gzip file"),
         param("sample.txt", "sample.txt", id="uncompressed file"),
     ],

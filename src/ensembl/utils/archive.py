@@ -97,7 +97,8 @@ def extract_file(src_file: StrPath, dst_dir: StrPath) -> None:
     extensions = {"".join(src_file.suffixes[i:]) for i in range(0, len(src_file.suffixes))}
 
     if extensions.intersection(SUPPORTED_ARCHIVE_FORMATS):
-        if sys.version_info >= (3, 12):
+        # ZIP extraction does not accept the tar-specific filter argument.
+        if sys.version_info >= (3, 12) and src_file.suffix != ".zip":
             shutil.unpack_archive(src_file, dst_dir, filter="data")
         else:
             shutil.unpack_archive(src_file, dst_dir)
