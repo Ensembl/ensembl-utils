@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -26,30 +25,31 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/ensembl.css?v=25cdf2e9" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/ensembl.css?v=25cdf2e9" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../../../../_static/documentation_options.js?v=c73c0f3e"></script>
-    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../../_static/copybutton.js?v=f281be69"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ensembl/utils/docs/config';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensembl.github.io/ensembl-utils/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v1.0.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v1.1.0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -59,9 +59,10 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 09, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 21, 2026"/>
   
     
     <script src="../../../../_static/searchtools.js"></script>
@@ -109,7 +110,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -202,7 +203,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -213,15 +214,15 @@
         <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -258,7 +259,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -351,15 +352,15 @@
           <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -455,18 +456,18 @@
 <span></span><span class="c1"># See the NOTICE file distributed with this work for additional information</span>
 <span class="c1"># regarding copyright ownership.</span>
 <span class="c1">#</span>
-<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the "License");</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
 <span class="c1"># You may obtain a copy of the License at</span>
 <span class="c1">#</span>
 <span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
-<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># distributed under the License is distributed on an "AS IS" BASIS,</span>
 <span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
 <span class="c1"># See the License for the specific language governing permissions and</span>
 <span class="c1"># limitations under the License.</span>
-<span class="sd">&quot;&quot;&quot;Shared Sphinx configuration for Ensembl documentation builds.</span>
+<span class="sd">"""Shared Sphinx configuration for Ensembl documentation builds.</span>
 
 <span class="sd">Downstream repositories drive their ``docs/conf.py`` from this module::</span>
 
@@ -474,18 +475,18 @@
 
 <span class="sd">    configure(</span>
 <span class="sd">        globals(),</span>
-<span class="sd">        project=&quot;ensembl-utils&quot;,</span>
-<span class="sd">        repo_url=&quot;https://github.com/Ensembl/ensembl-utils&quot;,</span>
-<span class="sd">        docs_base_url=&quot;https://ensembl.github.io/ensembl-utils&quot;,</span>
+<span class="sd">        project="ensembl-utils",</span>
+<span class="sd">        repo_url="https://github.com/Ensembl/ensembl-utils",</span>
+<span class="sd">        docs_base_url="https://ensembl.github.io/ensembl-utils",</span>
 <span class="sd">    )</span>
 
 <span class="sd">Any standard Sphinx setting can be tweaked *after* the ``configure`` call by reassigning or mutating</span>
-<span class="sd">the matching module-level variable, e.g. ``extensions += [&quot;sphinx_click&quot;]`` or</span>
-<span class="sd">``html_theme_options[&quot;announcement&quot;] = ...``.</span>
+<span class="sd">the matching module-level variable, e.g. ``extensions += ["sphinx_click"]`` or</span>
+<span class="sd">``html_theme_options["announcement"] = ...``.</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;build_config&quot;</span><span class="p">,</span> <span class="s2">&quot;configure&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"build_config"</span><span class="p">,</span> <span class="s2">"configure"</span><span class="p">]</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -495,7 +496,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ensembl.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrPath</span>
 
-<span class="n">_STATIC_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;_static&quot;</span>
+<span class="n">_STATIC_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"_static"</span>
 
 
 <div class="viewcode-block" id="build_config">
@@ -512,17 +513,17 @@
     <span class="n">add_pypi_icon</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">overrides</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the Ensembl-standard Sphinx configuration as a mapping.</span>
+<span class="w">    </span><span class="sd">"""Return the Ensembl-standard Sphinx configuration as a mapping.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        project: Human-readable project name, e.g. ``&quot;ensembl-utils&quot;``.</span>
+<span class="sd">        project: Human-readable project name, e.g. ``"ensembl-utils"``.</span>
 <span class="sd">        repo_url: GitHub or GitLab URL for this repository, used to build the source link.</span>
 <span class="sd">        docs_base_url: Public base URL where the docs are published; the version switcher JSON is</span>
 <span class="sd">            expected at ``{docs_base_url}/switcher.json``.</span>
 <span class="sd">        release: Release version the switcher highlights as current.</span>
 <span class="sd">        json_url: Location of the switcher JSON. If omitted, hosted/CI builds point at</span>
 <span class="sd">            ``{docs_base_url}/switcher.json`` and local builds use the relative ``_static/switcher.json``.</span>
-<span class="sd">        coverage_root: Absolute path to the directory where pytest&#39;s HTML coverage report **folder**</span>
+<span class="sd">        coverage_root: Absolute path to the directory where pytest's HTML coverage report **folder**</span>
 <span class="sd">            is generated to include it with the documentation.</span>
 <span class="sd">        include_entrypoints: When ``True``, adds :mod:`ensembl.utils.docs.entrypoints_table` to ``extensions``</span>
 <span class="sd">            so the CLI entry-points table is auto-injected into the target Markdown file at build time.</span>
@@ -532,126 +533,126 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A dictionary suitable for injecting into a ``conf.py`` namespace.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">base_url</span> <span class="o">=</span> <span class="n">docs_base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">base_url</span> <span class="o">=</span> <span class="n">docs_base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
     <span class="c1"># If release version is not provided, take it from the DOCS_VERSION environment variable, which</span>
-    <span class="c1"># should be set to the git tag name (e.g. &quot;v1.2.0&quot;). Falls back to &quot;dev&quot; for local builds so</span>
+    <span class="c1"># should be set to the git tag name (e.g. "v1.2.0"). Falls back to "dev" for local builds so</span>
     <span class="c1"># conf.py is always valid without any environment setup.</span>
-    <span class="n">version_match</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;v</span><span class="si">{</span><span class="n">release</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">release</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DOCS_VERSION&quot;</span><span class="p">,</span> <span class="s2">&quot;dev&quot;</span><span class="p">)</span>
+    <span class="n">version_match</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"v</span><span class="si">{</span><span class="n">release</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">release</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"DOCS_VERSION"</span><span class="p">,</span> <span class="s2">"dev"</span><span class="p">)</span>
     <span class="c1"># If run via GitHub Actions or GitLab CI/CD, point the switcher at the published JSON. Anything</span>
-    <span class="c1"># else is a local build and uses the copy generated into the build&#39;s own _static.</span>
+    <span class="c1"># else is a local build and uses the copy generated into the build's own _static.</span>
     <span class="k">if</span> <span class="n">json_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">json_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/switcher.json&quot;</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;_static/switcher.json&quot;</span>
+        <span class="n">json_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/switcher.json"</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"CI"</span><span class="p">)</span> <span class="k">else</span> <span class="s2">"_static/switcher.json"</span>
     <span class="c1"># Set up Sphinx configuration</span>
     <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="c1"># Project information</span>
-        <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="n">project</span><span class="p">,</span>
-        <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;EMBL-European Bioinformatics Institute&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;copyright&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;2016-</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">, EMBL-European Bioinformatics Institute&quot;</span><span class="p">,</span>
+        <span class="s2">"project"</span><span class="p">:</span> <span class="n">project</span><span class="p">,</span>
+        <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"EMBL-European Bioinformatics Institute"</span><span class="p">,</span>
+        <span class="s2">"copyright"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"2016-</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">, EMBL-European Bioinformatics Institute"</span><span class="p">,</span>
         <span class="c1"># General configuration</span>
-        <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&quot;myst_parser&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx.ext.autodoc&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx.ext.coverage&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx.ext.extlinks&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx.ext.intersphinx&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx.ext.napoleon&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx.ext.viewcode&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx_autodoc_typehints&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sphinx_copybutton&quot;</span><span class="p">,</span>
-            <span class="c1"># Registers this package&#39;s own setup(app) for deferred config (CSS, ...)</span>
-            <span class="s2">&quot;ensembl.utils.docs&quot;</span><span class="p">,</span>
+        <span class="s2">"extensions"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"myst_parser"</span><span class="p">,</span>
+            <span class="s2">"sphinx.ext.autodoc"</span><span class="p">,</span>
+            <span class="s2">"sphinx.ext.coverage"</span><span class="p">,</span>
+            <span class="s2">"sphinx.ext.extlinks"</span><span class="p">,</span>
+            <span class="s2">"sphinx.ext.intersphinx"</span><span class="p">,</span>
+            <span class="s2">"sphinx.ext.napoleon"</span><span class="p">,</span>
+            <span class="s2">"sphinx.ext.viewcode"</span><span class="p">,</span>
+            <span class="s2">"sphinx_autodoc_typehints"</span><span class="p">,</span>
+            <span class="s2">"sphinx_copybutton"</span><span class="p">,</span>
+            <span class="c1"># Registers this package's own setup(app) for deferred config (CSS, ...)</span>
+            <span class="s2">"ensembl.utils.docs"</span><span class="p">,</span>
         <span class="p">],</span>
-        <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span>
+        <span class="s2">"language"</span><span class="p">:</span> <span class="s2">"en"</span><span class="p">,</span>
         <span class="c1"># MyST settings</span>
-        <span class="s2">&quot;myst_enable_extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;colon_fence&quot;</span><span class="p">,</span> <span class="s2">&quot;substitution&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;myst_heading_anchors&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"myst_enable_extensions"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"colon_fence"</span><span class="p">,</span> <span class="s2">"substitution"</span><span class="p">],</span>
+        <span class="s2">"myst_heading_anchors"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="c1"># Autodoc settings</span>
-        <span class="s2">&quot;autodoc_default_options&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;show-inheritance&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;private-members&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">&quot;undoc-members&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">&quot;special-members&quot;</span><span class="p">:</span> <span class="s2">&quot;__repr__&quot;</span><span class="p">,</span>
+        <span class="s2">"autodoc_default_options"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"members"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"show-inheritance"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"private-members"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"undoc-members"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"special-members"</span><span class="p">:</span> <span class="s2">"__repr__"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;autodoc_typehints&quot;</span><span class="p">:</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;autodoc_typehints_description_target&quot;</span><span class="p">:</span> <span class="s2">&quot;documented&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;suppress_warnings&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;autodoc.duplicate_object&quot;</span><span class="p">,</span> <span class="s2">&quot;sphinx_autodoc_typehints.forward_reference&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;typehints_defaults&quot;</span><span class="p">:</span> <span class="s2">&quot;comma&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;typehints_document_rtype_none&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">"autodoc_typehints"</span><span class="p">:</span> <span class="s2">"description"</span><span class="p">,</span>
+        <span class="s2">"autodoc_typehints_description_target"</span><span class="p">:</span> <span class="s2">"documented"</span><span class="p">,</span>
+        <span class="s2">"suppress_warnings"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"autodoc.duplicate_object"</span><span class="p">,</span> <span class="s2">"sphinx_autodoc_typehints.forward_reference"</span><span class="p">],</span>
+        <span class="s2">"typehints_defaults"</span><span class="p">:</span> <span class="s2">"comma"</span><span class="p">,</span>
+        <span class="s2">"typehints_document_rtype_none"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
         <span class="c1"># Napolean settings</span>
-        <span class="s2">&quot;napoleon_use_ivar&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"napoleon_use_ivar"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
         <span class="c1"># Coverage settings</span>
-        <span class="s2">&quot;coverage_write_headline&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">"coverage_write_headline"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
         <span class="c1"># HTML output settings</span>
-        <span class="s2">&quot;html_theme&quot;</span><span class="p">:</span> <span class="s2">&quot;pydata_sphinx_theme&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;html_sourcelink_suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;html_last_updated_fmt&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;html_title&quot;</span><span class="p">:</span> <span class="n">project</span><span class="p">,</span>
-        <span class="s2">&quot;html_static_path&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;html_css_files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ensembl.css&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;html_js_files&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">(</span><span class="s2">&quot;extra-icons.js&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;defer&quot;</span><span class="p">:</span> <span class="s2">&quot;defer&quot;</span><span class="p">}),</span>
+        <span class="s2">"html_theme"</span><span class="p">:</span> <span class="s2">"pydata_sphinx_theme"</span><span class="p">,</span>
+        <span class="s2">"html_sourcelink_suffix"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"html_last_updated_fmt"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"html_title"</span><span class="p">:</span> <span class="n">project</span><span class="p">,</span>
+        <span class="s2">"html_static_path"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"html_css_files"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"ensembl.css"</span><span class="p">],</span>
+        <span class="s2">"html_js_files"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">"extra-icons.js"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"defer"</span><span class="p">:</span> <span class="s2">"defer"</span><span class="p">}),</span>
         <span class="p">],</span>
         <span class="c1"># Additional HTML options</span>
-        <span class="s2">&quot;html_theme_options&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;footer_start&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;copyright&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;footer_center&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sphinx-version&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;header_links_before_dropdown&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-            <span class="s2">&quot;icon_links&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;logo&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">project</span><span class="p">,</span>
+        <span class="s2">"html_theme_options"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"footer_start"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"copyright"</span><span class="p">],</span>
+            <span class="s2">"footer_center"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"sphinx-version"</span><span class="p">],</span>
+            <span class="s2">"header_links_before_dropdown"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="s2">"icon_links"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"logo"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"text"</span><span class="p">:</span> <span class="n">project</span><span class="p">,</span>
             <span class="p">},</span>
-            <span class="s2">&quot;navbar_align&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;navbar_center&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;version-switcher&quot;</span><span class="p">,</span> <span class="s2">&quot;navbar-nav&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;navigation_with_keys&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;search_as_you_type&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;secondary_sidebar_items&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;**/*&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;page-toc&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;coverage_report&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"navbar_align"</span><span class="p">:</span> <span class="s2">"left"</span><span class="p">,</span>
+            <span class="s2">"navbar_center"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"version-switcher"</span><span class="p">,</span> <span class="s2">"navbar-nav"</span><span class="p">],</span>
+            <span class="s2">"navigation_with_keys"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"search_as_you_type"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"secondary_sidebar_items"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"**/*"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"page-toc"</span><span class="p">],</span>
+                <span class="s2">"coverage_report"</span><span class="p">:</span> <span class="p">[],</span>
             <span class="p">},</span>
-            <span class="s2">&quot;show_toc_level&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">&quot;show_version_warning_banner&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;switcher&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;json_url&quot;</span><span class="p">:</span> <span class="n">json_url</span><span class="p">,</span>
-                <span class="s2">&quot;version_match&quot;</span><span class="p">:</span> <span class="n">version_match</span><span class="p">,</span>
+            <span class="s2">"show_toc_level"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"show_version_warning_banner"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"switcher"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"json_url"</span><span class="p">:</span> <span class="n">json_url</span><span class="p">,</span>
+                <span class="s2">"version_match"</span><span class="p">:</span> <span class="n">version_match</span><span class="p">,</span>
             <span class="p">},</span>
-            <span class="s2">&quot;use_edit_page_button&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"use_edit_page_button"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;html_sidebars&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;coverage_report&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"html_sidebars"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"coverage_report"</span><span class="p">:</span> <span class="p">[],</span>
         <span class="p">},</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="n">coverage_root</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">coverage_root</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;html_extra_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">coverage_root</span><span class="p">)]</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">"html_extra_path"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">coverage_root</span><span class="p">)]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Coverage root folder &#39;</span><span class="si">{</span><span class="n">coverage_root</span><span class="si">}</span><span class="s2">&#39; does not exist. Remember to run &#39;make coverage&#39; &quot;</span>
-                <span class="s2">&quot;before &#39;make docs&#39;.&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"Coverage root folder '</span><span class="si">{</span><span class="n">coverage_root</span><span class="si">}</span><span class="s2">' does not exist. Remember to run 'make coverage' "</span>
+                <span class="s2">"before 'make docs'."</span><span class="p">,</span>
                 <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="p">)</span>
     <span class="k">if</span> <span class="n">include_entrypoints</span><span class="p">:</span>
-        <span class="n">config</span><span class="p">[</span><span class="s2">&quot;extensions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;ensembl.utils.docs.entrypoints_ext&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;github&quot;</span> <span class="ow">in</span> <span class="n">repo_url</span><span class="p">:</span>
-        <span class="n">config</span><span class="p">[</span><span class="s2">&quot;html_theme_options&quot;</span><span class="p">][</span><span class="s2">&quot;icon_links&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;GitHub&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">repo_url</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fa-brands fa-github&quot;</span><span class="p">}</span>
+        <span class="n">config</span><span class="p">[</span><span class="s2">"extensions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"ensembl.utils.docs.entrypoints_ext"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">"github"</span> <span class="ow">in</span> <span class="n">repo_url</span><span class="p">:</span>
+        <span class="n">config</span><span class="p">[</span><span class="s2">"html_theme_options"</span><span class="p">][</span><span class="s2">"icon_links"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"GitHub"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="n">repo_url</span><span class="p">,</span> <span class="s2">"icon"</span><span class="p">:</span> <span class="s2">"fa-brands fa-github"</span><span class="p">}</span>
         <span class="p">)</span>
-    <span class="k">elif</span> <span class="s2">&quot;gitlab&quot;</span> <span class="ow">in</span> <span class="n">repo_url</span><span class="p">:</span>
-        <span class="n">config</span><span class="p">[</span><span class="s2">&quot;html_theme_options&quot;</span><span class="p">][</span><span class="s2">&quot;icon_links&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;GitLab&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">repo_url</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fa-brands fa-square-gitlab&quot;</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="s2">"gitlab"</span> <span class="ow">in</span> <span class="n">repo_url</span><span class="p">:</span>
+        <span class="n">config</span><span class="p">[</span><span class="s2">"html_theme_options"</span><span class="p">][</span><span class="s2">"icon_links"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"GitLab"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="n">repo_url</span><span class="p">,</span> <span class="s2">"icon"</span><span class="p">:</span> <span class="s2">"fa-brands fa-square-gitlab"</span><span class="p">}</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Unrecognised repository platform in &#39;</span><span class="si">{</span><span class="n">repo_url</span><span class="si">}</span><span class="s2">&#39;. No icon link will be added.&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"Unrecognised repository platform in '</span><span class="si">{</span><span class="n">repo_url</span><span class="si">}</span><span class="s2">'. No icon link will be added."</span><span class="p">,</span>
             <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">add_pypi_icon</span><span class="p">:</span>
-        <span class="n">config</span><span class="p">[</span><span class="s2">&quot;html_theme_options&quot;</span><span class="p">][</span><span class="s2">&quot;icon_links&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">config</span><span class="p">[</span><span class="s2">"html_theme_options"</span><span class="p">][</span><span class="s2">"icon_links"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;PyPI&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;https://pypi.org/project/</span><span class="si">{</span><span class="n">project</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fa-custom fa-pypi&quot;</span><span class="p">,</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"PyPI"</span><span class="p">,</span>
+                <span class="s2">"url"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"https://pypi.org/project/</span><span class="si">{</span><span class="n">project</span><span class="si">}</span><span class="s2">/"</span><span class="p">,</span>
+                <span class="s2">"icon"</span><span class="p">:</span> <span class="s2">"fa-custom fa-pypi"</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
     <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">overrides</span><span class="p">)</span>
@@ -662,7 +663,7 @@
 <div class="viewcode-block" id="configure">
 <a class="viewcode-back" href="../../../../reference/ensembl.utils.docs.html#ensembl.utils.docs.configure">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">configure</span><span class="p">(</span><span class="n">namespace</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Populate a ``conf.py`` namespace in place with the Ensembl defaults.</span>
+<span class="w">    </span><span class="sd">"""Populate a ``conf.py`` namespace in place with the Ensembl defaults.</span>
 
 <span class="sd">    Call at the top of ``docs/conf.py`` as ``configure(globals(), ...)``. See :func:`build_config`</span>
 <span class="sd">    for the accepted keyword arguments.</span>
@@ -671,7 +672,7 @@
 <span class="sd">        namespace: The ``conf.py`` module namespace to populate, normally passed as ``globals()``.</span>
 <span class="sd">        **kwargs: Forwarded verbatim to :func:`build_config`.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">namespace</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">build_config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>  <span class="c1"># pylint: disable=missing-kwoa</span></div>
 
 </pre></div>
@@ -703,8 +704,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
-<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -729,8 +730,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
-    <br/>
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
   </p>
 </div>
       
@@ -742,7 +742,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
 </p></div>
       
     </div>

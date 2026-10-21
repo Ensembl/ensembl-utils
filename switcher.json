@@ -1,6 +1,11 @@
 [
   {
-    "name": "v1.0.0 (latest)",
+    "name": "v1.1.0 (latest)",
+    "version": "v1.1.0",
+    "url": "https://ensembl.github.io/ensembl-utils/v1.1.0/"
+  },
+  {
+    "name": "v1.0.0",
     "version": "v1.0.0",
     "url": "https://ensembl.github.io/ensembl-utils/v1.0.0/"
   },

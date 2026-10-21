@@ -3,8 +3,8 @@ ensembl.utils package
 
 .. automodule:: ensembl.utils
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Subpackages
 -----------
@@ -23,45 +23,45 @@ ensembl.utils.archive module
 
 .. automodule:: ensembl.utils.archive
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 ensembl.utils.argparse module
 -----------------------------
 
 .. automodule:: ensembl.utils.argparse
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 ensembl.utils.checksums module
 ------------------------------
 
 .. automodule:: ensembl.utils.checksums
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 ensembl.utils.logging module
 ----------------------------
 
 .. automodule:: ensembl.utils.logging
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 ensembl.utils.plugin module
 ---------------------------
 
 .. automodule:: ensembl.utils.plugin
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 ensembl.utils.rloader module
 ----------------------------
 
 .. automodule:: ensembl.utils.rloader
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

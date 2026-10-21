@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -26,30 +25,31 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/ensembl.css?v=25cdf2e9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/ensembl.css?v=25cdf2e9" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../../../_static/documentation_options.js?v=c73c0f3e"></script>
-    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ensembl/utils/argparse';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensembl.github.io/ensembl-utils/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v1.0.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v1.1.0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -59,9 +59,10 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 09, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 21, 2026"/>
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -109,7 +110,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -202,7 +203,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -213,15 +214,15 @@
         <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -258,7 +259,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -351,15 +352,15 @@
           <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -452,38 +453,38 @@
 <span></span><span class="c1"># See the NOTICE file distributed with this work for additional information</span>
 <span class="c1"># regarding copyright ownership.</span>
 <span class="c1">#</span>
-<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the "License");</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
 <span class="c1"># You may obtain a copy of the License at</span>
 <span class="c1">#</span>
 <span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
-<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># distributed under the License is distributed on an "AS IS" BASIS,</span>
 <span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
 <span class="c1"># See the License for the specific language governing permissions and</span>
 <span class="c1"># limitations under the License.</span>
-<span class="sd">&quot;&quot;&quot;Provide an extended version of `argparse.ArgumentParser` with additional functionality.</span>
+<span class="sd">"""Provide an extended version of `argparse.ArgumentParser` with additional functionality.</span>
 
 <span class="sd">Examples:</span>
 
 <span class="sd">    &gt;&gt;&gt; from pathlib import Path</span>
 <span class="sd">    &gt;&gt;&gt; from ensembl.util.argparse import ArgumentParser</span>
-<span class="sd">    &gt;&gt;&gt; parser = ArgumentParser(description=&quot;Tool description&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; parser.add_argument_src_path(&quot;--src_file&quot;, required=True, help=&quot;Path to source file&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; parser.add_server_arguments(help=&quot;Server to connect to&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; parser = ArgumentParser(description="Tool description")</span>
+<span class="sd">    &gt;&gt;&gt; parser.add_argument_src_path("--src_file", required=True, help="Path to source file")</span>
+<span class="sd">    &gt;&gt;&gt; parser.add_server_arguments(help="Server to connect to")</span>
 <span class="sd">    &gt;&gt;&gt; args = parser.parse_args()</span>
 <span class="sd">    &gt;&gt;&gt; args</span>
-<span class="sd">    Namespace(host=&#39;localhost&#39;, port=3826, src_file=PosixPath(&#39;/path/to/src_file.txt&#39;),</span>
-<span class="sd">    url=URL(&#39;mysql://username@localhost:3826&#39;), user=&#39;username&#39;)</span>
+<span class="sd">    Namespace(host='localhost', port=3826, src_file=PosixPath('/path/to/src_file.txt'),</span>
+<span class="sd">    url=URL('mysql://username@localhost:3826'), user='username')</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;ArgumentError&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ArgumentParser&quot;</span><span class="p">,</span>
+    <span class="s2">"ArgumentError"</span><span class="p">,</span>
+    <span class="s2">"ArgumentParser"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
@@ -500,63 +501,63 @@
 <div class="viewcode-block" id="ArgumentError">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentError">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ArgumentError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error from creating an argument (optional or positional).&quot;&quot;&quot;</span></div>
+<span class="w">    </span><span class="sd">"""An error from creating an argument (optional or positional)."""</span></div>
 
 
 
 <div class="viewcode-block" id="ArgumentParser">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ArgumentParser</span><span class="p">(</span><span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extends `argparse.ArgumentParser` with additional methods and functionality.</span>
+<span class="w">    </span><span class="sd">"""Extends `argparse.ArgumentParser` with additional methods and functionality.</span>
 
 <span class="sd">    The default behaviour of the help text will be to display the default values on every non-required</span>
 <span class="sd">    argument, i.e. optional arguments with `required=False`.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extends the base class to include the information about default argument values by default.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Extends the base class to include the information about default argument values by default."""</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">formatter_class</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentDefaultsHelpFormatter</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_src_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the path if exists and it is readable, raises an error through the parser otherwise.</span>
+<span class="w">        </span><span class="sd">"""Returns the path if exists and it is readable, raises an error through the parser otherwise.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            src_path: File or directory path to check.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">src_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">src_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">src_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">src_path</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">src_path</span><span class="si">}</span><span class="s2">' not found"</span><span class="p">)</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">src_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">R_OK</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">src_path</span><span class="si">}</span><span class="s2">&#39; not readable&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">src_path</span><span class="si">}</span><span class="s2">' not readable"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">src_path</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_dst_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dst_path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">,</span> <span class="n">exists_ok</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the path if it is writable, raises an error through the parser otherwise.</span>
+<span class="w">        </span><span class="sd">"""Returns the path if it is writable, raises an error through the parser otherwise.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            dst_path: File or directory path to check.</span>
 <span class="sd">            exists_ok: Do not raise an error during parsing if the destination path already exists.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">dst_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dst_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dst_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">dst_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">W_OK</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">exists_ok</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">dst_path</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">&#39; already exists&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">' already exists"</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">&#39; is not writable&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">' is not writable"</span><span class="p">)</span>
         <span class="c1"># Check if the first parent directory that exists is writable</span>
         <span class="k">for</span> <span class="n">parent_path</span> <span class="ow">in</span> <span class="n">dst_path</span><span class="o">.</span><span class="n">parents</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">parent_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">parent_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">W_OK</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">&#39; is not writable&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">' is not writable"</span><span class="p">)</span>
                 <span class="k">break</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">&#39; is not writable&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">dst_path</span><span class="si">}</span><span class="s2">' is not writable"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">dst_path</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_number</span><span class="p">(</span>
@@ -566,7 +567,7 @@
         <span class="n">min_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">max_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the numeric value if it is of the expected type and it is within the specified range.</span>
+<span class="w">        </span><span class="sd">"""Returns the numeric value if it is of the expected type and it is within the specified range.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            value: String representation of numeric value to check.</span>
@@ -574,72 +575,72 @@
 <span class="sd">            min_value: Minimum value constrain. If `None`, no minimum value constrain.</span>
 <span class="sd">            max_value: Maximum value constrain. If `None`, no maximum value constrain.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Check if the string representation can be converted to the expected type</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">value_type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;invalid </span><span class="si">{</span><span class="n">value_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> value: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"invalid </span><span class="si">{</span><span class="n">value_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> value: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="c1"># Check if numeric value is within range</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">min_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;</span> <span class="n">min_value</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> is lower than minimum value (</span><span class="si">{</span><span class="n">min_value</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> is lower than minimum value (</span><span class="si">{</span><span class="n">min_value</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">max_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">result</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> is greater than maximum value (</span><span class="si">{</span><span class="n">max_value</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> is greater than maximum value (</span><span class="si">{</span><span class="n">max_value</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
 
 <div class="viewcode-block" id="ArgumentParser.add_argument">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser.add_argument">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_argument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extends the parent function by excluding the default value in the help text when not provided.</span>
+<span class="w">        </span><span class="sd">"""Extends the parent function by excluding the default value in the help text when not provided.</span>
 
 <span class="sd">        Only applied to required arguments without a default value, i.e. positional arguments or optional</span>
 <span class="sd">        arguments with `required=True`.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;required&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-            <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"required"</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ArgumentParser.add_argument_src_path">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser.add_argument_src_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_argument_src_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds `pathlib.Path` argument, checking if it exists and it is readable at parsing time.</span>
+<span class="w">        </span><span class="sd">"""Adds `pathlib.Path` argument, checking if it exists and it is readable at parsing time.</span>
 
-<span class="sd">        If &quot;metavar&quot; is not defined, it is added with &quot;PATH&quot; as value to improve help text readability.</span>
+<span class="sd">        If "metavar" is not defined, it is added with "PATH" as value to improve help text readability.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;metavar&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH&quot;</span><span class="p">)</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_src_path</span>
+<span class="sd">        """</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"metavar"</span><span class="p">,</span> <span class="s2">"PATH"</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_src_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ArgumentParser.add_argument_dst_path">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser.add_argument_dst_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_argument_dst_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exists_ok</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds `pathlib.Path` argument, checking if it is writable at parsing time.</span>
+<span class="w">        </span><span class="sd">"""Adds `pathlib.Path` argument, checking if it is writable at parsing time.</span>
 
-<span class="sd">        If &quot;metavar&quot; is not defined it is added with &quot;PATH&quot; as value to improve help text readability.</span>
+<span class="sd">        If "metavar" is not defined it is added with "PATH" as value to improve help text readability.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            exists_ok: Do not raise an error if the destination path already exists.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;metavar&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH&quot;</span><span class="p">)</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_dst_path</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exists_ok</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"metavar"</span><span class="p">,</span> <span class="s2">"PATH"</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_dst_path</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exists_ok</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ArgumentParser.add_argument_url">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser.add_argument_url">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_argument_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds `sqlalchemy.engine.URL` argument.</span>
+<span class="w">        </span><span class="sd">"""Adds `sqlalchemy.engine.URL` argument.</span>
 
-<span class="sd">        If &quot;metavar&quot; is not defined it is added with &quot;URI&quot; as value to improve help text readability.</span>
+<span class="sd">        If "metavar" is not defined it is added with "URI" as value to improve help text readability.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;metavar&quot;</span><span class="p">,</span> <span class="s2">&quot;URI&quot;</span><span class="p">)</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_url</span>
+<span class="sd">        """</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"metavar"</span><span class="p">,</span> <span class="s2">"URI"</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_url</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -654,7 +655,7 @@
         <span class="n">max_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a numeric argument with constrains on its type and its minimum or maximum value.</span>
+<span class="w">        </span><span class="sd">"""Adds a numeric argument with constrains on its type and its minimum or maximum value.</span>
 
 <span class="sd">        Note that the default value (if defined) is not checked unless the argument is an optional argument</span>
 <span class="sd">        and no value is provided in the command line.</span>
@@ -664,12 +665,12 @@
 <span class="sd">            min_value: Minimum value constrain. If `None`, no minimum value constrain.</span>
 <span class="sd">            max_value: Maximum value constrain. If `None`, no maximum value constrain.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># If both minimum and maximum values are defined, ensure min_value &lt;= max_value</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">min_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">max_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">min_value</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span><span class="s2">&quot;minimum value is greater than maximum value&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ArgumentError</span><span class="p">(</span><span class="s2">"minimum value is greater than maximum value"</span><span class="p">)</span>
         <span class="c1"># Add lambda function to check numeric constrains when parsing argument</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_number</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_number</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -677,9 +678,9 @@
 <div class="viewcode-block" id="ArgumentParser.add_server_arguments">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser.add_server_arguments">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_server_arguments</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">include_database</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">include_database</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds the usual set of arguments needed to connect to a server, i.e. `--host`, `--port`, `--user`</span>
+<span class="w">        </span><span class="sd">"""Adds the usual set of arguments needed to connect to a server, i.e. `--host`, `--port`, `--user`</span>
 <span class="sd">        and `--password` (optional).</span>
 
 <span class="sd">        Note that the parser will assume this is a MySQL server.</span>
@@ -695,37 +696,37 @@
 <span class="sd">            include_database: Include `--database` argument.</span>
 <span class="sd">            help: Description message to include for this set of arguments.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">server connection arguments&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">help</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">server connection arguments"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">help</span><span class="p">)</span>
         <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">host&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;HOST&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;host name&quot;</span>
+            <span class="sa">f</span><span class="s2">"--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">host"</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">"HOST"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"host name"</span>
         <span class="p">)</span>
         <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">port&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">port"</span><span class="p">,</span>
             <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
-            <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span>
+            <span class="n">metavar</span><span class="o">=</span><span class="s2">"PORT"</span><span class="p">,</span>
             <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;port number&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"port number"</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">user&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;USER&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;user name&quot;</span>
+            <span class="sa">f</span><span class="s2">"--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">user"</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">"USER"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"user name"</span>
         <span class="p">)</span>
-        <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">password&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PWD&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;host password&quot;</span><span class="p">)</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="sa">f</span><span class="s2">"--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">password"</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">"PWD"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"host password"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">include_database</span><span class="p">:</span>
             <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">database&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"--</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">database"</span><span class="p">,</span>
                 <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;NAME&quot;</span><span class="p">,</span>
+                <span class="n">metavar</span><span class="o">=</span><span class="s2">"NAME"</span><span class="p">,</span>
                 <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span>
-                <span class="n">help</span><span class="o">=</span><span class="s2">&quot;database name&quot;</span><span class="p">,</span>
+                <span class="n">help</span><span class="o">=</span><span class="s2">"database name"</span><span class="p">,</span>
             <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ArgumentParser.add_log_arguments">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser.add_log_arguments">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_log_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_log_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds the usual set of arguments required to set and initialise a logging system.</span>
+<span class="w">        </span><span class="sd">"""Adds the usual set of arguments required to set and initialise a logging system.</span>
 
 <span class="sd">        The current set includes a mutually exclusive group for the default logging level: `--verbose`,</span>
 <span class="sd">        `--debug`, `--quiet` or `--log LEVEL`.</span>
@@ -734,95 +735,95 @@
 <span class="sd">            add_log_file: Add arguments to allow storing messages into a file, i.e. `--log_file` and</span>
 <span class="sd">                `--log_file_level`.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Define the list of log levels available</span>
-        <span class="n">log_levels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span> <span class="s2">&quot;WARNING&quot;</span><span class="p">,</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span> <span class="s2">&quot;CRITICAL&quot;</span><span class="p">]</span>
+        <span class="n">log_levels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="s2">"INFO"</span><span class="p">,</span> <span class="s2">"WARNING"</span><span class="p">,</span> <span class="s2">"ERROR"</span><span class="p">,</span> <span class="s2">"CRITICAL"</span><span class="p">]</span>
         <span class="c1"># NOTE: from 3.11 this list can be changed to: logging.getLevelNamesMapping().keys()</span>
         <span class="c1"># Create logging arguments group</span>
-        <span class="n">group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">&quot;logging arguments&quot;</span><span class="p">)</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">"logging arguments"</span><span class="p">)</span>
         <span class="c1"># Add 3 mutually exclusive options to set the logging level</span>
         <span class="n">subgroup</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">()</span>
         <span class="n">subgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
-            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_const&quot;</span><span class="p">,</span>
-            <span class="n">const</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-            <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;log_level&quot;</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;verbose mode, i.e. &#39;INFO&#39; log level&quot;</span><span class="p">,</span>
+            <span class="s2">"-v"</span><span class="p">,</span>
+            <span class="s2">"--verbose"</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">"store_const"</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">=</span><span class="s2">"INFO"</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s2">"log_level"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"verbose mode, i.e. 'INFO' log level"</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">subgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="s2">&quot;--debug&quot;</span><span class="p">,</span>
-            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_const&quot;</span><span class="p">,</span>
-            <span class="n">const</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
-            <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;log_level&quot;</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;debugging mode, i.e. &#39;DEBUG&#39; log level&quot;</span><span class="p">,</span>
+            <span class="s2">"--debug"</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">"store_const"</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s2">"log_level"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"debugging mode, i.e. 'DEBUG' log level"</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">subgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span>
-            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_const&quot;</span><span class="p">,</span>
-            <span class="n">const</span><span class="o">=</span><span class="s2">&quot;CRITICAL&quot;</span><span class="p">,</span>
-            <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;log_level&quot;</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;quiet mode, i.e. &#39;CRITICAL&#39; log level&quot;</span><span class="p">,</span>
+            <span class="s2">"--quiet"</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">"store_const"</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">=</span><span class="s2">"CRITICAL"</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s2">"log_level"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"quiet mode, i.e. 'CRITICAL' log level"</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">subgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="s2">&quot;--log&quot;</span><span class="p">,</span>
+            <span class="s2">"--log"</span><span class="p">,</span>
             <span class="n">choices</span><span class="o">=</span><span class="n">log_levels</span><span class="p">,</span>
             <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
-            <span class="n">default</span><span class="o">=</span><span class="s2">&quot;WARNING&quot;</span><span class="p">,</span>
-            <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;LEVEL&quot;</span><span class="p">,</span>
-            <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;log_level&quot;</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;level of the events to track: </span><span class="si">%(choices)s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">"WARNING"</span><span class="p">,</span>
+            <span class="n">metavar</span><span class="o">=</span><span class="s2">"LEVEL"</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s2">"log_level"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"level of the events to track: </span><span class="si">%(choices)s</span><span class="s2">"</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">subgroup</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;WARNING&quot;</span><span class="p">)</span>
+        <span class="n">subgroup</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s2">"WARNING"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">add_log_file</span><span class="p">:</span>
             <span class="c1"># Add log file-related arguments</span>
             <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-                <span class="s2">&quot;--log_file&quot;</span><span class="p">,</span>
+                <span class="s2">"--log_file"</span><span class="p">,</span>
                 <span class="nb">type</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_dst_path</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exists_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PATH&quot;</span><span class="p">,</span>
+                <span class="n">metavar</span><span class="o">=</span><span class="s2">"PATH"</span><span class="p">,</span>
                 <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">help</span><span class="o">=</span><span class="s2">&quot;log file path&quot;</span><span class="p">,</span>
+                <span class="n">help</span><span class="o">=</span><span class="s2">"log file path"</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-                <span class="s2">&quot;--log_file_level&quot;</span><span class="p">,</span>
+                <span class="s2">"--log_file_level"</span><span class="p">,</span>
                 <span class="n">choices</span><span class="o">=</span><span class="n">log_levels</span><span class="p">,</span>
                 <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
-                <span class="n">default</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
-                <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;LEVEL&quot;</span><span class="p">,</span>
-                <span class="n">help</span><span class="o">=</span><span class="s2">&quot;level of the events to track in the log file: </span><span class="si">%(choices)s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">default</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span>
+                <span class="n">metavar</span><span class="o">=</span><span class="s2">"LEVEL"</span><span class="p">,</span>
+                <span class="n">help</span><span class="o">=</span><span class="s2">"level of the events to track in the log file: </span><span class="si">%(choices)s</span><span class="s2">"</span><span class="p">,</span>
             <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ArgumentParser.parse_args">
 <a class="viewcode-back" href="../../../reference/ensembl.utils.html#ensembl.utils.argparse.ArgumentParser.parse_args">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extends the parent function by adding a new URL argument for every server group added.</span>
+<span class="w">        </span><span class="sd">"""Extends the parent function by adding a new URL argument for every server group added.</span>
 
 <span class="sd">        The type of this new argument will be `sqlalchemy.engine.URL`. It also logs all the parsed</span>
 <span class="sd">        arguments for debugging purposes when logging arguments have been added.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">arguments</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="c1"># Build and add an sqlalchemy.engine.URL object for every server group added</span>
-        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([\w-]*)host$&quot;</span><span class="p">)</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"([\w-]*)host$"</span><span class="p">)</span>
         <span class="n">server_prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">,</span> <span class="nb">vars</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">server_prefixes</span><span class="p">:</span>
             <span class="c1"># Raise an error rather than overwriting when the URL argument is already present</span>
-            <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">url&quot;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;argument &#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">url&#39; is already present&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">url"</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"argument '</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">url' is already present"</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">server_url</span> <span class="o">=</span> <span class="n">URL</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-                    <span class="s2">&quot;mysql&quot;</span><span class="p">,</span>
-                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">user&quot;</span><span class="p">),</span>
-                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">password&quot;</span><span class="p">),</span>
-                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">host&quot;</span><span class="p">),</span>
-                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">port&quot;</span><span class="p">),</span>
-                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">database&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="s2">"mysql"</span><span class="p">,</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">user"</span><span class="p">),</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">password"</span><span class="p">),</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">host"</span><span class="p">),</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">port"</span><span class="p">),</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">database"</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="c1"># Not a database server host argument</span>
                 <span class="k">continue</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">url&quot;</span><span class="p">,</span> <span class="n">server_url</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">url"</span><span class="p">,</span> <span class="n">server_url</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">arguments</span></div>
 </div>
 
@@ -855,8 +856,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -881,8 +882,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
-    <br/>
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
   </p>
 </div>
       
@@ -894,7 +894,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
 </p></div>
       
     </div>
