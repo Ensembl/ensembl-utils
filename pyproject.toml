@@ -51,7 +51,7 @@ dependencies = [
     "python-dotenv >= 1.2.3",
     "pyyaml ~= 6.0",
     "requests >= 2.34.0",
-    "sqlalchemy >= 2.0.46, < 2.1.0",
+    "sqlalchemy >= 2.0.46, < 2.2.0",
     "sqlalchemy_utils >= 0.42.1",
 ]
 
